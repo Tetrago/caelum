@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="All rights reserved"
+
+[[mods]]
+modId="caelum"
+version="${file.jarVersion}"
+displayName="Caelum"
+authors="tetrago"
+description='''
+A space exploration mod that combines some of the best elements from Galaticraft and Advanced Rocketry into modern minecraft.
+'''
