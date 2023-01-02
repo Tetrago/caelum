@@ -1,4 +1,4 @@
-package tetrago.caelum.common.block;
+package tetrago.caelum.common.capability;
 
 import net.minecraftforge.energy.EnergyStorage;
 

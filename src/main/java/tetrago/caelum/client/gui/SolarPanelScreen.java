@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.blockentity.SolarPanelContainer;
+import tetrago.caelum.common.container.SolarPanelContainer;
 
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContainer>
 {

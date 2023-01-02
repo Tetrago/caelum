@@ -23,7 +23,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
-import tetrago.caelum.common.blockentity.SolarPanelContainer;
+import tetrago.caelum.common.container.SolarPanelContainer;
 
 public class SolarPanelBlock extends Block implements EntityBlock
 {

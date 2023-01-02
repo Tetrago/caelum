@@ -22,7 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import tetrago.caelum.common.block.SolarPanelBlock;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
-import tetrago.caelum.common.blockentity.SolarPanelContainer;
+import tetrago.caelum.common.container.SolarPanelContainer;
 import tetrago.caelum.datagen.CaelumItemModelProvider;
 import tetrago.caelum.datagen.CaelumLanguageProvider;
 import tetrago.caelum.datagen.CaelumBlockStateProvider;

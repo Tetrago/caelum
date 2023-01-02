@@ -1,4 +1,4 @@
-package tetrago.caelum.client.gui;
+package tetrago.caelum.common.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;

@@ -1,4 +1,4 @@
-package tetrago.caelum.client;
+package tetrago.caelum.client.event;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

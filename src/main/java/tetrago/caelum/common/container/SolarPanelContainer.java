@@ -1,4 +1,4 @@
-package tetrago.caelum.common.blockentity;
+package tetrago.caelum.common.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -6,9 +6,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import tetrago.caelum.client.gui.InventoryContainer;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.block.GeneratorStorage;
+import tetrago.caelum.common.capability.GeneratorStorage;
 
 public class SolarPanelContainer extends InventoryContainer
 {

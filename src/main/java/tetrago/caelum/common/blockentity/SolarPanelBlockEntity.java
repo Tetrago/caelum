@@ -12,7 +12,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.block.GeneratorStorage;
+import tetrago.caelum.common.capability.GeneratorStorage;
 import tetrago.caelum.common.block.SolarPanelBlock;
 
 public class SolarPanelBlockEntity extends BlockEntity
@@ -90,6 +90,6 @@ public class SolarPanelBlockEntity extends BlockEntity
     public void invalidateCaps()
     {
         super.invalidateCaps();
-        energyStorage.cast();
+        energyStorage.invalidate();
     }
 }
