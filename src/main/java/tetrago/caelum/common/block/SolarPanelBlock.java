@@ -22,13 +22,12 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
 import tetrago.caelum.common.blockentity.SolarPanelContainer;
 
 public class SolarPanelBlock extends Block implements EntityBlock
 {
-    private static final String SCREEN_SOLAR_PANEL = "screen.caelum.solar_panel";
+    public static final String SCREEN_SOLAR_PANEL = "screen.caelum.solar_panel";
 
     private final int bufferCapacity;
     private final int generationRate;

@@ -1,4 +1,4 @@
-package tetrago.caelum.client;
+package tetrago.caelum.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -24,14 +24,15 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     {
         renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
+        font.draw(matrixStack, title, leftPos + 8, topPos + 5, 0x404040);
         renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY)
     {
-        drawString(matrixStack, Minecraft.getInstance().font, "Energy: " + menu.getEnergy() + " RF", 10, 10, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, "        " + menu.getGenerationRate() + " RF/t", 10, 20, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, "Energy: " + menu.getEnergy() + " RF", 10, 30, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, menu.getGenerationRate() + " RF/t", 20, 40, 0xffffff);
     }
 
     @Override
