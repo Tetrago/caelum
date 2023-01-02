@@ -1,3 +1,5 @@
 {
-  "block.caelum.basic_solar_panel": "Basic Solar Panel"
+  "block.caelum.advanced_solar_panel": "Advanced Solar Panel",
+  "block.caelum.basic_solar_panel": "Basic Solar Panel",
+  "itemGroup.caelum": "Caelum"
 }

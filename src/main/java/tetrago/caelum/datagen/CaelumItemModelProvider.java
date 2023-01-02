@@ -3,7 +3,7 @@ package tetrago.caelum.datagen;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import tetrago.caelum.Caelum;
+import tetrago.caelum.common.Caelum;
 
 public class CaelumItemModelProvider extends ItemModelProvider
 {
@@ -15,6 +15,6 @@ public class CaelumItemModelProvider extends ItemModelProvider
     @Override
     protected void registerModels()
     {
-        withExistingParent(Caelum.BASIC_SOLAR_PANEL.getId().getPath(), modLoc("block/basic_solar_panel"));
+        Caelum.BLOCKS.getEntries().stream().map(obj -> obj.getId().getPath()).forEach(path -> withExistingParent(path, modLoc("block/" + path)));
     }
 }

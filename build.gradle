@@ -104,6 +104,8 @@ dependencies {
 
     runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.2.281")
     runtimeOnly fg.deobf("curse.maven:jade-324717:4082408")
+    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
+    runtimeOnly fg.deobf("curse.maven:mekanism-generators-268566:3743837")
 }
 
 jar {
