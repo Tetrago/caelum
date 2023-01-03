@@ -3,6 +3,7 @@ package tetrago.caelum.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -37,23 +38,23 @@ public class SolarPanelBlockEntity extends BlockEntity
         energyStorage = LazyOptional.of(() -> generatorEnergyStorage);
     }
 
-    public void tick()
+    public static void tick(Level level, BlockPos pos, BlockState state, SolarPanelBlockEntity blockEntity)
     {
         if(level.isClientSide()) return;
 
-        generatorEnergyStorage.generate();
+        blockEntity.generatorEnergyStorage.generate();
 
         for(Direction direction : Direction.values())
         {
-            BlockEntity be = level.getBlockEntity(worldPosition.relative(direction));
+            BlockEntity be = level.getBlockEntity(blockEntity.worldPosition.relative(direction));
             if(be == null) continue;
 
             boolean extracted = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(cap -> {
                 if(!cap.canReceive()) return false;
 
-                int max = generatorEnergyStorage.extractEnergy(generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
+                int max = blockEntity.generatorEnergyStorage.extractEnergy(blockEntity.generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
                 int out = cap.receiveEnergy(max, false); // Send as much as possible
-                generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
+                blockEntity.generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
 
                 return true;
             }).orElse(false);

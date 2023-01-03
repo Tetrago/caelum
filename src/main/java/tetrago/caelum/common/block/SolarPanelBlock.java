@@ -11,8 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -22,10 +21,11 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
 import tetrago.caelum.common.container.SolarPanelContainer;
 
-public class SolarPanelBlock extends Block implements EntityBlock
+public class SolarPanelBlock extends BaseEntityBlock
 {
     public static final String SCREEN_SOLAR_PANEL = "screen.caelum.solar_panel";
 
@@ -47,12 +47,7 @@ public class SolarPanelBlock extends Block implements EntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return (l, p, s, t) -> {
-            if(t instanceof SolarPanelBlockEntity tile)
-            {
-                tile.tick();
-            }
-        };
+        return createTickerHelper(type, Caelum.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
     }
 
     @Nullable
