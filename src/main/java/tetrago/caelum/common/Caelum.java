@@ -93,5 +93,5 @@ public class Caelum
 
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
 
-    public static final RegistryObject<MenuType<SolarPanelContainer>> SOLAR_PANEL_CONTAINER = CONTAINERS.register("solar_panel", () -> IForgeMenuType.create((windowId, inv, data) -> new SolarPanelContainer(windowId, data.readBlockPos(), inv, inv.player)));
+    public static final RegistryObject<MenuType<SolarPanelContainer>> SOLAR_PANEL_CONTAINER = CONTAINERS.register("solar_panel", () -> IForgeMenuType.create((windowId, inv, data) -> new SolarPanelContainer(windowId, data.readBlockPos(), inv)));
 }

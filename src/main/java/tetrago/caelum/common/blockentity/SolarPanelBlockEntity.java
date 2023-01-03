@@ -12,12 +12,12 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.capability.GeneratorStorage;
 import tetrago.caelum.common.block.SolarPanelBlock;
+import tetrago.caelum.common.capability.GeneratorEnergyStorage;
 
 public class SolarPanelBlockEntity extends BlockEntity
 {
-    private final GeneratorStorage generatorStorage;
+    private final GeneratorEnergyStorage generatorEnergyStorage;
     private final LazyOptional<IEnergyStorage> energyStorage;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state)
@@ -25,16 +25,23 @@ public class SolarPanelBlockEntity extends BlockEntity
         super(Caelum.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);
 
         final SolarPanelBlock block = (SolarPanelBlock)getBlockState().getBlock();
-        generatorStorage = new GeneratorStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate());
-        energyStorage = LazyOptional.of(() -> generatorStorage);
+        generatorEnergyStorage = new GeneratorEnergyStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate())
+        {
+            @Override
+            public void onEnergyChanged()
+            {
+                setChanged();
+            }
+        };
+
+        energyStorage = LazyOptional.of(() -> generatorEnergyStorage);
     }
 
     public void tick()
     {
         if(level.isClientSide()) return;
 
-        generatorStorage.generateEnergy();
-        setChanged();
+        generatorEnergyStorage.generate();
 
         for(Direction direction : Direction.values())
         {
@@ -44,9 +51,9 @@ public class SolarPanelBlockEntity extends BlockEntity
             boolean extracted = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(cap -> {
                 if(!cap.canReceive()) return false;
 
-                int max = generatorStorage.extractEnergy(generatorStorage.getEnergyStored(), true); // Determine how much can be withdrawn
+                int max = generatorEnergyStorage.extractEnergy(generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
                 int out = cap.receiveEnergy(max, false); // Send as much as possible
-                generatorStorage.extractEnergy(out, false); // Remove what was extracted
+                generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
 
                 return true;
             }).orElse(false);
@@ -60,7 +67,7 @@ public class SolarPanelBlockEntity extends BlockEntity
     {
         if(tag.contains("energy"))
         {
-            generatorStorage.deserializeNBT(tag.get("energy"));
+            generatorEnergyStorage.deserializeNBT(tag.get("energy"));
         }
 
         super.load(tag);
@@ -69,7 +76,7 @@ public class SolarPanelBlockEntity extends BlockEntity
     @Override
     protected void saveAdditional(CompoundTag tag)
     {
-        tag.put("energy", generatorStorage.serializeNBT());
+        tag.put("energy", generatorEnergyStorage.serializeNBT());
 
         super.saveAdditional(tag);
     }

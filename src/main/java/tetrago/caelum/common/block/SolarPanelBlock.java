@@ -82,7 +82,7 @@ public class SolarPanelBlock extends Block implements EntityBlock
                     @Override
                     public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player)
                     {
-                        return new SolarPanelContainer(windowId, pos, inv, player);
+                        return new SolarPanelContainer(windowId, pos, inv);
                     }
                 };
 
