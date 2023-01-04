@@ -1,22 +1,27 @@
 package tetrago.caelum.common.container;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.SolarPanelBlock;
 import tetrago.caelum.common.capability.GeneratorEnergyStorage;
 
-public class SolarPanelContainer extends InventoryContainer
+public class SolarPanelContainer extends ModBaseContainer
 {
-    public SolarPanelContainer(int windowId, BlockPos pos, Inventory inv)
+    public SolarPanelContainer(int windowId, Inventory inv, FriendlyByteBuf data)
     {
-        super(Caelum.SOLAR_PANEL_CONTAINER.get(), windowId, pos, inv);
+        this(windowId, inv, inv.player.level.getBlockEntity(data.readBlockPos()));
+    }
 
-        addInventory(8, 84, 18, 18);
-        addHotbar(8, 142, 18);
+    public SolarPanelContainer(int windowId, Inventory inv, BlockEntity blockEntity)
+    {
+        super(ModContainers.SOLAR_PANEL_CONTAINER.get(), windowId, blockEntity.getBlockPos(), inv);
+
+        addPlayerInventory();
+        addPlayerHotbar();
 
         track();
     }

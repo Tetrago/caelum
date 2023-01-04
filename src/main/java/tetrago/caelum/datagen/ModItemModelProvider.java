@@ -4,10 +4,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tetrago.caelum.common.Caelum;
+import tetrago.caelum.common.block.ModBlocks;
 
-public class CaelumItemModelProvider extends ItemModelProvider
+public class ModItemModelProvider extends ItemModelProvider
 {
-    public CaelumItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper)
+    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper)
     {
         super(generator, Caelum.MODID, existingFileHelper);
     }
@@ -15,6 +16,6 @@ public class CaelumItemModelProvider extends ItemModelProvider
     @Override
     protected void registerModels()
     {
-        Caelum.BLOCKS.getEntries().stream().map(obj -> obj.getId().getPath()).forEach(path -> withExistingParent(path, modLoc("block/" + path)));
+        ModBlocks.BLOCKS.getEntries().stream().map(obj -> obj.getId().getPath()).forEach(path -> withExistingParent(path, modLoc("block/" + path)));
     }
 }

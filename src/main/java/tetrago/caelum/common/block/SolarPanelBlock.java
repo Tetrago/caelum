@@ -1,17 +1,10 @@
 package tetrago.caelum.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -19,16 +12,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import tetrago.caelum.common.Caelum;
+import tetrago.caelum.common.blockentity.ModBlockEntities;
+import tetrago.caelum.common.blockentity.ModEntityBlock;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
-import tetrago.caelum.common.container.SolarPanelContainer;
 
-public class SolarPanelBlock extends BaseEntityBlock
+public class SolarPanelBlock extends ModEntityBlock
 {
-    public static final String SCREEN_SOLAR_PANEL = "screen.caelum.solar_panel";
-
     private final int bufferCapacity;
     private final int generationRate;
 
@@ -47,7 +37,7 @@ public class SolarPanelBlock extends BaseEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return createTickerHelper(type, Caelum.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
     }
 
     @Nullable
@@ -62,30 +52,10 @@ public class SolarPanelBlock extends BaseEntityBlock
     {
         if(!level.isClientSide())
         {
-            BlockEntity be = level.getBlockEntity(pos);
-            if(be instanceof SolarPanelBlockEntity)
-            {
-                MenuProvider containerProvider = new MenuProvider()
-                {
-                    @Override
-                    public Component getDisplayName()
-                    {
-                        return new TranslatableComponent(SCREEN_SOLAR_PANEL);
-                    }
-
-                    @Nullable
-                    @Override
-                    public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player)
-                    {
-                        return new SolarPanelContainer(windowId, pos, inv);
-                    }
-                };
-
-                NetworkHooks.openGui((ServerPlayer) player, containerProvider, be.getBlockPos());
-            }
+            tryOpenGui(level, pos, player);
         }
 
-        return InteractionResult.SUCCESS;
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     public int getEnergyBufferCapacity()

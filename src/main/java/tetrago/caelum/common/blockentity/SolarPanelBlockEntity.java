@@ -3,6 +3,12 @@ package tetrago.caelum.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,24 +18,25 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tetrago.caelum.common.Caelum;
+import tetrago.caelum.client.screen.SolarPanelScreen;
 import tetrago.caelum.common.block.SolarPanelBlock;
 import tetrago.caelum.common.capability.GeneratorEnergyStorage;
+import tetrago.caelum.common.container.SolarPanelContainer;
 
-public class SolarPanelBlockEntity extends BlockEntity
+public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
 {
     private final GeneratorEnergyStorage generatorEnergyStorage;
     private final LazyOptional<IEnergyStorage> energyStorage;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state)
     {
-        super(Caelum.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);
+        super(ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);
 
         final SolarPanelBlock block = (SolarPanelBlock)getBlockState().getBlock();
         generatorEnergyStorage = new GeneratorEnergyStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate())
         {
             @Override
-            public void onEnergyChanged()
+            protected void onEnergyChanged()
             {
                 setChanged();
             }
@@ -42,7 +49,10 @@ public class SolarPanelBlockEntity extends BlockEntity
     {
         if(level.isClientSide()) return;
 
-        blockEntity.generatorEnergyStorage.generate();
+        if(level.isDay())
+        {
+            blockEntity.generatorEnergyStorage.generate();
+        }
 
         for(Direction direction : Direction.values())
         {
@@ -99,5 +109,18 @@ public class SolarPanelBlockEntity extends BlockEntity
     {
         super.invalidateCaps();
         energyStorage.invalidate();
+    }
+
+    @Override
+    public Component getDisplayName()
+    {
+        return new TranslatableComponent(SolarPanelScreen.UNLOCALIZED_NAME);
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player)
+    {
+        return new SolarPanelContainer(windowId, inv, this);
     }
 }

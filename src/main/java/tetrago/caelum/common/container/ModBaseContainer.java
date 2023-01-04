@@ -12,12 +12,12 @@ import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class InventoryContainer extends AbstractContainerMenu
+public class ModBaseContainer extends AbstractContainerMenu
 {
     protected final BlockEntity blockEntity;
     protected final IItemHandler inventory;
 
-    protected InventoryContainer(@Nullable MenuType<?> menu, int windowId, BlockPos pos, Inventory inv)
+    protected ModBaseContainer(@Nullable MenuType<?> menu, int windowId, BlockPos pos, Inventory inv)
     {
         super(menu, windowId);
 
@@ -38,7 +38,12 @@ public class InventoryContainer extends AbstractContainerMenu
         return index;
     }
 
-    protected void addInventory(int x, int y, int dx, int dy)
+    protected void addPlayerInventory()
+    {
+        addPlayerInventory(8, 84, 18, 18);
+    }
+
+    protected void addPlayerInventory(int x, int y, int dx, int dy)
     {
         int index = 9;
 
@@ -48,8 +53,12 @@ public class InventoryContainer extends AbstractContainerMenu
             y += dy;
         }
     }
+    protected void addPlayerHotbar()
+    {
+        addPlayerHotbar(8, 142, 18);
+    }
 
-    protected void addHotbar(int x, int y, int dx)
+    protected void addPlayerHotbar(int x, int y, int dx)
     {
         addSlotRange(inventory, 0, x, y, 9, dx);
     }

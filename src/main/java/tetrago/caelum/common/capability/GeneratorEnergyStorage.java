@@ -1,6 +1,6 @@
 package tetrago.caelum.common.capability;
 
-public abstract class GeneratorEnergyStorage extends CaelumEnergyStorage
+public abstract class GeneratorEnergyStorage extends ModEnergyStorage
 {
     private final int generationRate;
 
@@ -13,7 +13,12 @@ public abstract class GeneratorEnergyStorage extends CaelumEnergyStorage
 
     public void generate()
     {
-        this.energy += generationRate;
+        energy += generationRate;
+        if(energy > capacity)
+        {
+            energy = capacity;
+        }
+
         onEnergyChanged();
     }
 

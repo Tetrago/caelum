@@ -1,4 +1,4 @@
-package tetrago.caelum.client.gui;
+package tetrago.caelum.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +12,9 @@ import tetrago.caelum.common.container.SolarPanelContainer;
 
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContainer>
 {
-    private final ResourceLocation GUI = new ResourceLocation(Caelum.MODID, "textures/gui/solar_panel.png");
+    public static final String UNLOCALIZED_NAME = "screen.caelum.solar_panel";
+
+    private final ResourceLocation TEXTURE = new ResourceLocation(Caelum.MODID, "textures/gui/solar_panel.png");
 
     public SolarPanelScreen(SolarPanelContainer container, Inventory inv, Component name)
     {
@@ -24,7 +26,6 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     {
         renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        font.draw(matrixStack, title, leftPos + 8, topPos + 5, 0x404040);
         renderTooltip(matrixStack, mouseX, mouseY);
     }
 
@@ -38,9 +39,10 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     @Override
     protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY)
     {
-        RenderSystem.setShaderTexture(0, GUI);
-        int relX = (width - imageWidth) / 2;
-        int relY = (height - imageHeight) / 2;
-        blit(matrixStack, relX, relY, 0, 0, imageWidth, imageHeight);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+        blit(matrixStack, x, y, 0, 0, imageWidth, imageHeight);
     }
 }

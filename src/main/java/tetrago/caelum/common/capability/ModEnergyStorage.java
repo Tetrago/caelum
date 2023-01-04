@@ -2,9 +2,9 @@ package tetrago.caelum.common.capability;
 
 import net.minecraftforge.energy.EnergyStorage;
 
-public abstract class CaelumEnergyStorage extends EnergyStorage
+public abstract class ModEnergyStorage extends EnergyStorage
 {
-    public CaelumEnergyStorage(int capacity, int maxTransfer)
+    public ModEnergyStorage(int capacity, int maxTransfer)
     {
         super(capacity, maxTransfer);
     }
@@ -39,5 +39,5 @@ public abstract class CaelumEnergyStorage extends EnergyStorage
         onEnergyChanged();
     }
 
-    public abstract void onEnergyChanged();
+    protected abstract void onEnergyChanged();
 }
