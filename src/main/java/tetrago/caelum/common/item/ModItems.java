@@ -2,26 +2,30 @@ package tetrago.caelum.common.item;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Caelum.MODID)
 public class ModItems
 {
-    @SubscribeEvent
-    public static final void onRegisterItem(final RegistryEvent.Register<Item> itemRegistryEvent)
+    private static final Item.Properties PROPERTIES = new Item.Properties().tab(Caelum.ITEM_GROUP);
+
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Caelum.MODID);
+
+    public static final RegistryObject<Item> ALUMINUM_ORE = fromBlock(ModBlocks.ALUMINUM_ORE);
+    public static final RegistryObject<Item> DEEPSLATE_ALUMINUM_ORE = fromBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE);
+
+    public static final RegistryObject<Item> RAW_ALUMINUM = ITEMS.register("raw_aluminum", () -> new Item(PROPERTIES));
+    public static final RegistryObject<Item> ALUMINUM_INGOT = ITEMS.register("aluminum_ingot", () -> new Item(PROPERTIES));
+
+    public static final RegistryObject<Item> BASIC_SOLAR_PANEL = fromBlock(ModBlocks.BASIC_SOLAR_PANEL);
+    public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = fromBlock(ModBlocks.ADVANCED_SOLAR_PANEL);
+
+    private static RegistryObject<Item> fromBlock(final RegistryObject<Block> block)
     {
-        final Item.Properties properties = new Item.Properties().tab(Caelum.ITEM_GROUP);
-
-        ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-            final BlockItem item = new BlockItem(block, properties);
-            item.setRegistryName(block.getRegistryName());
-
-            itemRegistryEvent.getRegistry().register(item);
-        });
+        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), PROPERTIES));
     }
 }

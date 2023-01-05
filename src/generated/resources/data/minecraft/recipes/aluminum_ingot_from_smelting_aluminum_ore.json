@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "aluminum_ingot",
+  "ingredient": {
+    "item": "caelum:aluminum_ore"
+  },
+  "result": "caelum:aluminum_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}

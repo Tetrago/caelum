@@ -63,7 +63,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     {
         super.renderLabels(matrixStack, mouseX, mouseY);
 
-        drawString(matrixStack, Minecraft.getInstance().font, (menu.isGenerating() ? menu.getGenerationRate() : 0) + " FE/t", 85, 40, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, (menu.isGenerating() ? menu.getGenerationRate() : 0) + " FE/t", 95, 40, 0xffffff);
     }
 
     @Override

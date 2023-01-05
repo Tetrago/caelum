@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -28,10 +27,7 @@ public class SolarPanelBlock extends ModEntityBlock
 
     public SolarPanelBlock(int bufferCapacity, int generationRate)
     {
-        super(Properties.of(Material.METAL)
-                .sound(SoundType.METAL)
-                .strength(2)
-                .requiresCorrectToolForDrops());
+        super(Properties.of(Material.METAL).strength(2));
 
         this.bufferCapacity = bufferCapacity;
         this.generationRate = generationRate;
@@ -47,7 +43,7 @@ public class SolarPanelBlock extends ModEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return createTickerHelper(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
+        return tickerOf(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
     }
 
     @Nullable
@@ -62,7 +58,7 @@ public class SolarPanelBlock extends ModEntityBlock
     {
         if(!level.isClientSide())
         {
-            tryOpenGui(level, pos, player);
+            openGui(level, pos, player);
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide());
