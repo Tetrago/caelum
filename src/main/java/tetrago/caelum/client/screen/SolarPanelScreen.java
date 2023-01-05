@@ -5,12 +5,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
+import tetrago.caelum.client.screen.widget.EnergyWidget;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.container.SolarPanelContainer;
+
+import java.util.Optional;
 
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContainer>
 {
@@ -18,13 +19,35 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Caelum.MODID, "textures/gui/solar_panel.png");
 
-    private final Player player;
+    private EnergyWidget energyWidget;
 
     public SolarPanelScreen(SolarPanelContainer container, Inventory inv, Component name)
     {
         super(container, inv, name);
+    }
 
-        player = inv.player;
+    @Override
+    protected void init()
+    {
+        super.init();
+
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+
+        energyWidget = new EnergyWidget(x + 8, y + 21, 16, 44)
+        {
+            @Override
+            protected int getEnergyStored()
+            {
+                return menu.getEnergyStored();
+            }
+
+            @Override
+            protected int getEnergyCapacity()
+            {
+                return menu.getEnergyCapacity();
+            }
+        };
     }
 
     @Override
@@ -38,7 +61,9 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY)
     {
-        drawString(matrixStack, Minecraft.getInstance().font, (menu.isGenerating() ? menu.getGenerationRate() : 0) + " FE/t", 80, 35, 0xffffff);
+        super.renderLabels(matrixStack, mouseX, mouseY);
+
+        drawString(matrixStack, Minecraft.getInstance().font, (menu.isGenerating() ? menu.getGenerationRate() : 0) + " FE/t", 85, 40, 0xffffff);
     }
 
     @Override
@@ -46,12 +71,9 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
     {
         super.renderTooltip(matrixStack, mouseX, mouseY);
 
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-
-        if(mouseX >= x + 8 && mouseX < x + 8 + 15 && mouseY >= y + 8 && mouseY < y + 8 + 70)
+        if(energyWidget.contains(mouseX, mouseY))
         {
-            renderTooltip(matrixStack, new TextComponent(String.format("%.2f kFE/ %.2f kFE", menu.getEnergyStored() / 1000.0f, menu.getEnergyCapacity() / 1000.0f)), mouseX, mouseY);
+            renderTooltip(matrixStack, energyWidget.getTooltips(), Optional.empty(), mouseX, mouseY);
         }
     }
 
@@ -64,9 +86,8 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
         int y = (height - imageHeight) / 2;
         blit(matrixStack, x, y, 0, 0, imageWidth, imageHeight);
 
-        float progress = (float)menu.getEnergyStored() / menu.getEnergyCapacity();
-        fillGradient(matrixStack, x + 8, y + 8 + (int)((1 - progress) * 70), x + 8 + 15, y + 8 + 70, 0xff9cfd56, 0xff00dd20);
+        energyWidget.draw(matrixStack, partialTicks, mouseX, mouseY);
 
-        blit(matrixStack, x + 43, y + 25, 176, menu.isGenerating() ? 0 : 32, 32, 32);
+        blit(matrixStack, x + 42, y + 27, 176, menu.isGenerating() ? 0 : 32, 32, 32);
     }
 }
