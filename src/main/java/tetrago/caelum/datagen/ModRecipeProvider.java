@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.item.ModItems;
@@ -64,6 +65,26 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_aluminum_ingot", criterion(ModItems.ALUMINUM_INGOT.get()))
                 .unlockedBy("has_copper_ingot", criterion(Items.COPPER_INGOT))
                 .unlockedBy("has_redstone", criterion(Items.REDSTONE))
+                .save(builder);
+
+        ShapedRecipeBuilder.shaped(ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
+                .define('G', Blocks.GLASS)
+                .define('C', Items.COPPER_INGOT)
+                .define('R', Items.REDSTONE)
+                .pattern("GGG")
+                .pattern("RCR")
+                .unlockedBy("has_copper_ingot", criterion(Items.COPPER_INGOT))
+                .unlockedBy("has_redstone", criterion(Items.REDSTONE))
+                .save(builder);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BASIC_SOLAR_PANEL.get())
+                .define('P', ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
+                .define('C', ModItems.BASIC_CIRCUIT_BOARD.get())
+                .define('I', Items.IRON_INGOT)
+                .pattern("PPP")
+                .pattern("ICI")
+                .unlockedBy("has_basic_photovoltaic_cell", criterion(ModItems.BASIC_PHOTOVOLTAIC_CELL.get()))
+                .unlockedBy("has_basic_circuit_board", criterion(ModItems.BASIC_CIRCUIT_BOARD.get()))
                 .save(builder);
     }
 

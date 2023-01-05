@@ -32,6 +32,7 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleItem(ModItems.ALUMINUM_NUGGET);
 
         simpleItem(ModItems.BASIC_CIRCUIT_BOARD);
+        simpleItem(ModItems.BASIC_PHOTOVOLTAIC_CELL);
     }
 
     private void simpleBlockItem(final RegistryObject<Item> item)

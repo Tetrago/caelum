@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:basic_solar_panel"
+    ]
+  },
+  "criteria": {
+    "has_basic_photovoltaic_cell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:basic_photovoltaic_cell"
+            ]
+          }
+        ]
+      }
+    },
+    "has_basic_circuit_board": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:basic_circuit_board"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:basic_solar_panel"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_basic_photovoltaic_cell",
+      "has_basic_circuit_board",
+      "has_the_recipe"
+    ]
+  ]
+}

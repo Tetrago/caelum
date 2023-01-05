@@ -2,7 +2,6 @@ package tetrago.caelum.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.client.screen.SolarPanelScreen;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
@@ -34,5 +33,6 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModItems.ALUMINUM_NUGGET.get(), "Aluminum Nugget");
 
         add(ModItems.BASIC_CIRCUIT_BOARD.get(), "Basic Circuit Board");
+        add(ModItems.BASIC_PHOTOVOLTAIC_CELL.get(), "Basic Photovoltaic Cell");
     }
 }

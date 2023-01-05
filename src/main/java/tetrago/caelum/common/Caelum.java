@@ -34,7 +34,7 @@ public class Caelum
         @Override
         public ItemStack makeIcon()
         {
-            return new ItemStack(ModBlocks.BASIC_SOLAR_PANEL.get().asItem());
+            return new ItemStack(ModItems.BASIC_CIRCUIT_BOARD.get());
         }
     };
 }

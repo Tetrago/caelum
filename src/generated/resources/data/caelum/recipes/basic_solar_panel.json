@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "ICI"
+  ],
+  "key": {
+    "P": {
+      "item": "caelum:basic_photovoltaic_cell"
+    },
+    "C": {
+      "item": "caelum:basic_circuit_board"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "caelum:basic_solar_panel"
+  }
+}

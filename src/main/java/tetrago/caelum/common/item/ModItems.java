@@ -27,6 +27,7 @@ public class ModItems
     public static final RegistryObject<Item> ALUMINUM_NUGGET = simple("aluminum_nugget");
 
     public static final RegistryObject<Item> BASIC_CIRCUIT_BOARD = simple("basic_circuit_board");
+    public static final RegistryObject<Item> BASIC_PHOTOVOLTAIC_CELL = simple("basic_photovoltaic_cell");
 
     private static RegistryObject<Item> fromBlock(final RegistryObject<Block> block)
     {
