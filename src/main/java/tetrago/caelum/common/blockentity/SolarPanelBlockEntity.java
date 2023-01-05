@@ -59,23 +59,16 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
             blockEntity.generatorEnergyStorage.generate();
         }
 
-        for(Direction direction : Direction.values())
-        {
-            BlockEntity be = level.getBlockEntity(blockEntity.worldPosition.relative(direction));
-            if(be == null) continue;
+        BlockEntity be = level.getBlockEntity(blockEntity.worldPosition.below());
+        if(be == null) return;
 
-            boolean extracted = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(cap -> {
-                if(!cap.canReceive()) return false;
+        be.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(cap -> {
+            if(!cap.canReceive()) return;
 
-                int max = blockEntity.generatorEnergyStorage.extractEnergy(blockEntity.generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
-                int out = cap.receiveEnergy(max, false); // Send as much as possible
-                blockEntity.generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
-
-                return true;
-            }).orElse(false);
-
-            if(extracted) break;
-        }
+            int max = blockEntity.generatorEnergyStorage.extractEnergy(blockEntity.generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
+            int out = cap.receiveEnergy(max, false); // Send as much as possible
+            blockEntity.generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
+        });
     }
 
     @Override
@@ -101,7 +94,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side)
     {
-        if(side != Direction.UP && cap == CapabilityEnergy.ENERGY)
+        if(side == Direction.DOWN && cap == CapabilityEnergy.ENERGY)
         {
             return energyStorage.cast();
         }

@@ -1,8 +1,10 @@
 package tetrago.caelum.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
 
@@ -16,7 +18,7 @@ public class ModBlockStateProvider extends BlockStateProvider
     @Override
     protected void registerStatesAndModels()
     {
-        simpleBlock(ModBlocks.BASIC_SOLAR_PANEL.get(), models().cubeBottomTop(ModBlocks.BASIC_SOLAR_PANEL.getId().getPath(), modLoc("block/solar_panel_side"), modLoc("block/solar_panel_bottom"), modLoc("block/basic_solar_panel_top")));
-        simpleBlock(ModBlocks.ADVANCED_SOLAR_PANEL.get(), models().cubeBottomTop(ModBlocks.ADVANCED_SOLAR_PANEL.getId().getPath(), modLoc("block/solar_panel_side"), modLoc("block/solar_panel_bottom"), modLoc("block/advanced_solar_panel_top")));
+        simpleBlock(ModBlocks.BASIC_SOLAR_PANEL.get(), models().withExistingParent("block/basic_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/basic_solar_panel")));
+        simpleBlock(ModBlocks.ADVANCED_SOLAR_PANEL.get(), models().withExistingParent("block/advanced_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/advanced_solar_panel")));
     }
 }
