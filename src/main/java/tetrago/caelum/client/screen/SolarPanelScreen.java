@@ -51,7 +51,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
 
         if(mouseX >= x + 8 && mouseX < x + 8 + 15 && mouseY >= y + 8 && mouseY < y + 8 + 70)
         {
-            renderTooltip(matrixStack, new TextComponent(menu.getEnergyStored() + "/" + menu.getEnergyCapacity() + " FE"), mouseX, mouseY);
+            renderTooltip(matrixStack, new TextComponent(String.format("%.2f kFE/ %.2f kFE", menu.getEnergyStored() / 1000.0f, menu.getEnergyCapacity() / 1000.0f)), mouseX, mouseY);
         }
     }
 
@@ -65,8 +65,8 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContaine
         blit(matrixStack, x, y, 0, 0, imageWidth, imageHeight);
 
         float progress = (float)menu.getEnergyStored() / menu.getEnergyCapacity();
-        blit(matrixStack, x + 8, y + 8 + (int)((1 - progress) * 70), 176, 0, 15, (int)(progress * 70));
+        fillGradient(matrixStack, x + 8, y + 8 + (int)((1 - progress) * 70), x + 8 + 15, y + 8 + 70, 0xff9cfd56, 0xff00dd20);
 
-        blit(matrixStack, x + 43, y + 25, 191, menu.isGenerating() ? 0 : 32, 32, 32);
+        blit(matrixStack, x + 43, y + 25, 176, menu.isGenerating() ? 0 : 32, 32, 32);
     }
 }

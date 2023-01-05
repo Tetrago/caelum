@@ -92,6 +92,18 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
 
     @NotNull
     @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap)
+    {
+        if(cap == CapabilityEnergy.ENERGY)
+        {
+            return energyStorage.cast();
+        }
+
+        return super.getCapability(cap);
+    }
+
+    @NotNull
+    @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side)
     {
         if(side == Direction.DOWN && cap == CapabilityEnergy.ENERGY)
