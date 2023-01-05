@@ -24,11 +24,15 @@ public class ModLanguageProvider extends LanguageProvider
 
         add(ModBlocks.ALUMINUM_ORE.get(), "Aluminum Ore");
         add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get(), "Deepslate Aluminum Ore");
+        add(ModBlocks.ALUMINUM_BLOCK.get(), "Block of Aluminum");
 
         add(ModBlocks.BASIC_SOLAR_PANEL.get(), "Basic Solar Panel");
         add(ModBlocks.ADVANCED_SOLAR_PANEL.get(), "Advanced Solar Panel");
 
         add(ModItems.RAW_ALUMINUM.get(), "Raw Aluminum");
         add(ModItems.ALUMINUM_INGOT.get(), "Aluminum Ingot");
+        add(ModItems.ALUMINUM_NUGGET.get(), "Aluminum Nugget");
+
+        add(ModItems.BASIC_CIRCUIT_BOARD.get(), "Basic Circuit Board");
     }
 }

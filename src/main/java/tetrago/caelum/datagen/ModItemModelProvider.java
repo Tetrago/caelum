@@ -22,12 +22,16 @@ public class ModItemModelProvider extends ItemModelProvider
     {
         simpleBlockItem(ModItems.ALUMINUM_ORE);
         simpleBlockItem(ModItems.DEEPSLATE_ALUMINUM_ORE);
-
-        simpleItem(ModItems.RAW_ALUMINUM);
-        simpleItem(ModItems.ALUMINUM_INGOT);
+        simpleBlockItem(ModItems.ALUMINUM_BLOCK);
 
         withExistingParent(ModItems.BASIC_SOLAR_PANEL.get().getRegistryName().getPath(), modLoc("block/basic_solar_panel"));
         withExistingParent(ModItems.ADVANCED_SOLAR_PANEL.get().getRegistryName().getPath(), modLoc("block/advanced_solar_panel"));
+
+        simpleItem(ModItems.RAW_ALUMINUM);
+        simpleItem(ModItems.ALUMINUM_INGOT);
+        simpleItem(ModItems.ALUMINUM_NUGGET);
+
+        simpleItem(ModItems.BASIC_CIRCUIT_BOARD);
     }
 
     private void simpleBlockItem(final RegistryObject<Item> item)

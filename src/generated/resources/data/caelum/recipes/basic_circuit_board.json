@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "R",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "caelum:aluminum_ingot"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "caelum:basic_circuit_board",
+    "count": 4
+  }
+}

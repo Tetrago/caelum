@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:deepslate_aluminum_ore_from_blasting"
+    ]
+  },
+  "criteria": {
+    "has_deepslate_aluminum_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:deepslate_aluminum_ore"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:deepslate_aluminum_ore_from_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_deepslate_aluminum_ore",
+      "has_the_recipe"
+    ]
+  ]
+}

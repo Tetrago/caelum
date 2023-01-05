@@ -14,6 +14,7 @@ import tetrago.caelum.common.block.ModBlocks;
 public class ModBlockTagsProvider extends BlockTagsProvider
 {
     public static final TagKey<Block> ALUMINUM_OPE = BlockTags.create(new ResourceLocation("forge", "ores/aluminum"));
+    public static final TagKey<Block> ALUMINUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminum"));
 
     public ModBlockTagsProvider(DataGenerator pGenerator, ExistingFileHelper helper)
     {
@@ -39,5 +40,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider
                 .add(ModBlocks.ALUMINUM_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE)
                 .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+
+        tag(Tags.Blocks.STORAGE_BLOCKS)
+                .add(ModBlocks.ALUMINUM_BLOCK.get());
+        tag(ALUMINUM_BLOCK).add(ModBlocks.ALUMINUM_BLOCK.get());
     }
 }

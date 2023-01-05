@@ -1,9 +1,12 @@
 {
   "block.caelum.advanced_solar_panel": "Advanced Solar Panel",
+  "block.caelum.aluminum_block": "Block of Aluminum",
   "block.caelum.aluminum_ore": "Aluminum Ore",
   "block.caelum.basic_solar_panel": "Basic Solar Panel",
   "block.caelum.deepslate_aluminum_ore": "Deepslate Aluminum Ore",
   "item.caelum.aluminum_ingot": "Aluminum Ingot",
+  "item.caelum.aluminum_nugget": "Aluminum Nugget",
+  "item.caelum.basic_circuit_board": "Basic Circuit Board",
   "item.caelum.raw_aluminum": "Raw Aluminum",
   "itemGroup.caelum": "Caelum",
   "screen.caelum.solar_panel": "Solar Panel"

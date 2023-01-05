@@ -20,6 +20,7 @@ public class ModBlockStateProvider extends BlockStateProvider
     {
         simpleBlock(ModBlocks.ALUMINUM_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+        simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
 
         simpleBlock(ModBlocks.BASIC_SOLAR_PANEL.get(), models().withExistingParent("block/basic_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/basic_solar_panel")));
         simpleBlock(ModBlocks.ADVANCED_SOLAR_PANEL.get(), models().withExistingParent("block/advanced_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/advanced_solar_panel")));

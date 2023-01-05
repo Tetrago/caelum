@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:aluminum_ingot_from_smelting_aluminum_ore"
+      "caelum:raw_aluminum_from_blasting"
     ]
   },
   "criteria": {
-    "has_aluminum_ore": {
+    "has_raw_aluminum": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "caelum:aluminum_ore"
+              "caelum:raw_aluminum"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:aluminum_ingot_from_smelting_aluminum_ore"
+        "recipe": "caelum:raw_aluminum_from_blasting"
       }
     }
   },
   "requirements": [
     [
-      "has_aluminum_ore",
+      "has_raw_aluminum",
       "has_the_recipe"
     ]
   ]
