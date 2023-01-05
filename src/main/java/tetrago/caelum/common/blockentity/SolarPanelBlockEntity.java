@@ -45,11 +45,16 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
         energyStorage = LazyOptional.of(() -> generatorEnergyStorage);
     }
 
+    public boolean isGenerating()
+    {
+        return level.canSeeSky(getBlockPos().above()) && level.isDay();
+    }
+
     public static void tick(Level level, BlockPos pos, BlockState state, SolarPanelBlockEntity blockEntity)
     {
         if(level.isClientSide()) return;
 
-        if(level.isDay())
+        if(blockEntity.isGenerating())
         {
             blockEntity.generatorEnergyStorage.generate();
         }

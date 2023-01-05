@@ -7,10 +7,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import tetrago.caelum.common.block.SolarPanelBlock;
+import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
 import tetrago.caelum.common.capability.GeneratorEnergyStorage;
 
 public class SolarPanelContainer extends ModBaseContainer
 {
+    private boolean isGenerating = false;
+
     public SolarPanelContainer(int windowId, Inventory inv, FriendlyByteBuf data)
     {
         this(windowId, inv, inv.player.level.getBlockEntity(data.readBlockPos()));
@@ -23,17 +26,17 @@ public class SolarPanelContainer extends ModBaseContainer
         addPlayerInventory();
         addPlayerHotbar();
 
-        track();
+        addEnergyData();
     }
 
-    private void track()
+    private void addEnergyData()
     {
         addDataSlot(new DataSlot()
         {
             @Override
             public int get()
             {
-                return getEnergy() & 0x0000ffff;
+                return getEnergyStored() & 0x0000ffff;
             }
 
             @Override
@@ -48,7 +51,7 @@ public class SolarPanelContainer extends ModBaseContainer
             @Override
             public int get()
             {
-                return (getEnergy() >> 16) & 0x0000ffff;
+                return (getEnergyStored() >> 16) & 0x0000ffff;
             }
 
             @Override
@@ -57,15 +60,40 @@ public class SolarPanelContainer extends ModBaseContainer
                 blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(cap -> ((GeneratorEnergyStorage)cap).setEnergyStored((cap.getEnergyStored() & 0x0000ffff) | (v << 16)));
             }
         });
+
+        addDataSlot(new DataSlot()
+        {
+            @Override
+            public int get()
+            {
+                return ((SolarPanelBlockEntity)blockEntity).isGenerating() ? 1 : 0;
+            }
+
+            @Override
+            public void set(int v)
+            {
+                isGenerating = v == 1;
+            }
+        });
     }
 
-    public int getEnergy()
+    public int getEnergyStored()
     {
         return blockEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+    }
+
+    public int getEnergyCapacity()
+    {
+        return ((SolarPanelBlock)blockEntity.getBlockState().getBlock()).getEnergyBufferCapacity();
     }
 
     public int getGenerationRate()
     {
         return ((SolarPanelBlock)blockEntity.getBlockState().getBlock()).getEnergyGenerationRate();
+    }
+
+    public boolean isGenerating()
+    {
+        return isGenerating;
     }
 }
