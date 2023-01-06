@@ -19,6 +19,11 @@ public class ModItems
     public static final RegistryObject<Item> DEEPSLATE_ALUMINUM_ORE = fromBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE);
     public static final RegistryObject<Item> ALUMINUM_BLOCK = fromBlock(ModBlocks.ALUMINUM_BLOCK);
 
+    public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
+
+    public static final RegistryObject<Item> MATERIAL_HOPPER = fromBlock(ModBlocks.MATERIAL_HOPPER);
+    public static final RegistryObject<Item> MATERIAL_CHUTE = fromBlock(ModBlocks.MATERIAL_CHUTE);
+
     public static final RegistryObject<Item> BASIC_SOLAR_PANEL = fromBlock(ModBlocks.BASIC_SOLAR_PANEL);
     public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = fromBlock(ModBlocks.ADVANCED_SOLAR_PANEL);
 

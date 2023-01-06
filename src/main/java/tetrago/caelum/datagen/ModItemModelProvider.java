@@ -24,8 +24,13 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleBlockItem(ModItems.DEEPSLATE_ALUMINUM_ORE);
         simpleBlockItem(ModItems.ALUMINUM_BLOCK);
 
-        withExistingParent(ModItems.BASIC_SOLAR_PANEL.get().getRegistryName().getPath(), modLoc("block/basic_solar_panel"));
-        withExistingParent(ModItems.ADVANCED_SOLAR_PANEL.get().getRegistryName().getPath(), modLoc("block/advanced_solar_panel"));
+        simpleBlockItem(ModItems.REFIRED_BRICKS);
+
+        simpleBlockItem(ModItems.MATERIAL_HOPPER);
+        simpleBlockItem(ModItems.MATERIAL_CHUTE);
+
+        simpleBlockItem(ModItems.BASIC_SOLAR_PANEL);
+        simpleBlockItem(ModItems.ADVANCED_SOLAR_PANEL);
 
         simpleItem(ModItems.RAW_ALUMINUM);
         simpleItem(ModItems.ALUMINUM_INGOT);

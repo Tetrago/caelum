@@ -15,6 +15,11 @@ public class ModBlockLoot extends BlockLoot
         add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get(), block -> createOreDrop(block, ModItems.RAW_ALUMINUM.get()));
         dropSelf(ModBlocks.ALUMINUM_BLOCK.get());
 
+        dropSelf(ModBlocks.REFIRED_BRICKS.get());
+
+        dropSelf(ModBlocks.MATERIAL_HOPPER.get());
+        dropSelf(ModBlocks.MATERIAL_CHUTE.get());
+
         dropSelf(ModBlocks.BASIC_SOLAR_PANEL.get());
         dropSelf(ModBlocks.ADVANCED_SOLAR_PANEL.get());
     }

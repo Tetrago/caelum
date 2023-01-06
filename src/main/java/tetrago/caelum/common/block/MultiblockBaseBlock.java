@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public abstract class MultiBlock extends Block
+public abstract class MultiblockBaseBlock extends Block
 {
     private static class Description
     {
@@ -140,7 +140,7 @@ public abstract class MultiBlock extends Block
 
     private final Description matcher;
 
-    public MultiBlock(Properties pProperties, Description matcher)
+    public MultiblockBaseBlock(Properties pProperties, Description matcher)
     {
         super(pProperties);
 

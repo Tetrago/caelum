@@ -25,6 +25,11 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get(), "Deepslate Aluminum Ore");
         add(ModBlocks.ALUMINUM_BLOCK.get(), "Block of Aluminum");
 
+        add(ModBlocks.REFIRED_BRICKS.get(), "Refired Bricks");
+
+        add(ModBlocks.MATERIAL_HOPPER.get(), "Material Hopper");
+        add(ModBlocks.MATERIAL_CHUTE.get(), "Material Chute");
+
         add(ModBlocks.BASIC_SOLAR_PANEL.get(), "Basic Solar Panel");
         add(ModBlocks.ADVANCED_SOLAR_PANEL.get(), "Advanced Solar Panel");
 

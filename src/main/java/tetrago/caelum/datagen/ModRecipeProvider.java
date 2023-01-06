@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.item.ModItems;
@@ -67,6 +68,25 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_redstone", criterion(Items.REDSTONE))
                 .save(builder);
 
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BRICKS), ModBlocks.REFIRED_BRICKS.get(), 0, 200);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
+                .define('I', Items.IRON_INGOT)
+                .define('H', Blocks.HOPPER)
+                .pattern("I I")
+                .pattern("IHI")
+                .pattern("I I")
+                .unlockedBy("has_refired_bricks", criterion(ModBlocks.REFIRED_BRICKS.get()))
+                .save(builder);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_CHUTE.get())
+                .define('I', Items.IRON_INGOT)
+                .pattern("I I")
+                .pattern("I I")
+                .pattern("I I")
+                .unlockedBy("has_refired_bricks", criterion(ModBlocks.REFIRED_BRICKS.get()))
+                .save(builder);
+
         ShapedRecipeBuilder.shaped(ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
                 .define('G', Blocks.GLASS)
                 .define('C', Items.COPPER_INGOT)
@@ -108,7 +128,7 @@ public class ModRecipeProvider extends RecipeProvider
         });
     }
 
-    private static CriterionTriggerInstance criterion(Item item)
+    private static CriterionTriggerInstance criterion(ItemLike item)
     {
         return inventoryTrigger(ItemPredicate.Builder.item().of(item).build());
     }

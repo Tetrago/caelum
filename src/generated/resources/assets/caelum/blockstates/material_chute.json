@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "direction=down": {
+      "model": "caelum:block/material_chute",
+      "x": 180,
+      "y": 90
+    },
+    "direction=up": {
+      "model": "caelum:block/material_chute",
+      "y": 90
+    },
+    "direction=north": {
+      "model": "caelum:block/material_chute",
+      "x": 90
+    },
+    "direction=south": {
+      "model": "caelum:block/material_chute",
+      "x": 90,
+      "y": 180
+    },
+    "direction=west": {
+      "model": "caelum:block/material_chute",
+      "x": 90,
+      "y": 270
+    },
+    "direction=east": {
+      "model": "caelum:block/material_chute",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

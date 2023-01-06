@@ -13,7 +13,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.block.MultiBlock;
+import tetrago.caelum.common.block.MultiblockBaseBlock;
 import tetrago.caelum.common.capability.IMultiblocksRecord;
 import tetrago.caelum.common.capability.ModCapabilities;
 import tetrago.caelum.common.capability.MultiblocksRecordProvider;
@@ -39,12 +39,12 @@ public class CommonEventBusSubscriber
         final Level level = (Level)event.getWorld();
 
         level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).ifPresent(cap -> cap.getMultiblocks().forEach(pos -> {
-            if(level.getBlockState(pos).getBlock() instanceof MultiBlock multiBlock)
+            if(level.getBlockState(pos).getBlock() instanceof MultiblockBaseBlock multiblockBaseBlock)
             {
-                if(!multiBlock.getBoundingBox(pos).intersects(new BoundingBox(event.getPos()))) return;
+                if(!multiblockBaseBlock.getBoundingBox(pos).intersects(new BoundingBox(event.getPos()))) return;
 
                 cap.remove(pos);
-                multiBlock.deconstruct(level.getBlockState(event.getPos()), level, event.getPos());
+                multiblockBaseBlock.deconstruct(level.getBlockState(event.getPos()), level, event.getPos());
             }
         }));
     }
