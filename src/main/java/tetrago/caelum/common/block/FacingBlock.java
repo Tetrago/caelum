@@ -24,7 +24,7 @@ public class FacingBlock extends Block
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext)
     {
-        return defaultBlockState().setValue(DIRECTION, pContext.getClickedFace().getOpposite());
+        return defaultBlockState().setValue(DIRECTION, pContext.getClickedFace());
     }
 
     @Override

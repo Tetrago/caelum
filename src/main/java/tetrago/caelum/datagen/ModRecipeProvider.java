@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
@@ -58,8 +59,8 @@ public class ModRecipeProvider extends RecipeProvider
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_CIRCUIT_BOARD.get(), 4)
                 .define('A', ModItems.ALUMINUM_INGOT.get())
-                .define('C', Items.COPPER_INGOT)
-                .define('R', Items.REDSTONE)
+                .define('C', Tags.Items.INGOTS_IRON)
+                .define('R', Tags.Items.DUSTS_REDSTONE)
                 .pattern("C")
                 .pattern("R")
                 .pattern("A")
@@ -71,7 +72,7 @@ public class ModRecipeProvider extends RecipeProvider
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BRICKS), ModBlocks.REFIRED_BRICKS.get(), 0, 200);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
-                .define('I', Items.IRON_INGOT)
+                .define('I', Tags.Items.INGOTS_IRON)
                 .define('H', Blocks.HOPPER)
                 .pattern("I I")
                 .pattern("IHI")
@@ -80,7 +81,7 @@ public class ModRecipeProvider extends RecipeProvider
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_CHUTE.get())
-                .define('I', Items.IRON_INGOT)
+                .define('I', Tags.Items.INGOTS_IRON)
                 .pattern("I I")
                 .pattern("I I")
                 .pattern("I I")
@@ -88,9 +89,9 @@ public class ModRecipeProvider extends RecipeProvider
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
-                .define('G', Blocks.GLASS)
-                .define('C', Items.COPPER_INGOT)
-                .define('R', Items.REDSTONE)
+                .define('G', Tags.Items.GLASS)
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .define('R', Tags.Items.DUSTS_REDSTONE)
                 .pattern("GGG")
                 .pattern("RCR")
                 .unlockedBy("has_copper_ingot", criterion(Items.COPPER_INGOT))
@@ -100,7 +101,7 @@ public class ModRecipeProvider extends RecipeProvider
         ShapedRecipeBuilder.shaped(ModBlocks.BASIC_SOLAR_PANEL.get())
                 .define('P', ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
                 .define('C', ModItems.BASIC_CIRCUIT_BOARD.get())
-                .define('I', Items.IRON_INGOT)
+                .define('I', Tags.Items.INGOTS_IRON)
                 .pattern("PPP")
                 .pattern("ICI")
                 .unlockedBy("has_basic_photovoltaic_cell", criterion(ModItems.BASIC_PHOTOVOLTAIC_CELL.get()))
