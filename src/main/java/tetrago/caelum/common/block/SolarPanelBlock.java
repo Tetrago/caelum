@@ -56,12 +56,10 @@ public class SolarPanelBlock extends ModEntityBlock
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        if(!level.isClientSide())
-        {
-            openGui(level, pos, player);
-        }
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        openGui(level, pos, player);
+        return InteractionResult.CONSUME;
     }
 
     public int getEnergyBufferCapacity()
