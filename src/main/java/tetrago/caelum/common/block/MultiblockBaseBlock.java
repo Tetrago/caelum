@@ -1,13 +1,12 @@
 package tetrago.caelum.common.block;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -15,13 +14,14 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
+import tetrago.caelum.common.capability.ModCapabilities;
 
 import java.util.*;
 import java.util.function.Predicate;
 
 public abstract class MultiblockBaseBlock extends Block
 {
-    public static class Description
+    public static class Matcher
     {
         private final int width;
         private final int height;
@@ -29,7 +29,7 @@ public abstract class MultiblockBaseBlock extends Block
         private final Predicate<BlockState>[][] blocks;
         private final BlockPos anchorPos;
 
-        private Description(int width, int height, int depth, Predicate<BlockState>[][] blocks, BlockPos anchorPos)
+        private Matcher(int width, int height, int depth, Predicate<BlockState>[][] blocks, BlockPos anchorPos)
         {
             this.width = width;
             this.height = height;
@@ -38,11 +38,11 @@ public abstract class MultiblockBaseBlock extends Block
             this.anchorPos = anchorPos;
         }
 
-        private boolean isValid(Level level, BlockPos pos)
+        private Optional<BoundingBox> isValid(Level level, BlockPos pos)
         {
-            DIRECTIONS: for(Direction direction : ImmutableList.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST))
+            ROTATIONS: for(Rotation rotation : Rotation.values())
             {
-                final BlockPos absolutePos = pos.offset(anchorPos.relative(direction).multiply(-1));
+                final BlockPos absolutePos = pos.offset(anchorPos.rotate(rotation).multiply(-1));
 
                 for(int y = 0; y < height; ++y)
                 {
@@ -50,22 +50,17 @@ public abstract class MultiblockBaseBlock extends Block
                     {
                         for(int x = 0; x < width; ++x)
                         {
-                            final BlockPos p = absolutePos.offset(new BlockPos(x, y, z).relative(direction));
-                            if(!blocks[y][z * width + x].test(level.getBlockState(p))) continue DIRECTIONS;
+                            final BlockPos p = absolutePos.offset(new BlockPos(x, y, z).rotate(rotation));
+                            if(!blocks[y][z * width + x].test(level.getBlockState(p))) continue ROTATIONS;
                         }
                     }
                 }
 
-                return true;
+                final BlockPos corner = absolutePos.offset(new BlockPos(width, height, depth).rotate(rotation));
+                return Optional.of(new BoundingBox(absolutePos.getX(), absolutePos.getY(), absolutePos.getZ(), corner.getX(), corner.getY(), corner.getZ()));
             }
 
-            return false;
-        }
-
-        private BoundingBox getBoundingBox(BlockPos pos)
-        {
-            final BlockPos absolutePos = pos.offset(anchorPos.multiply(-1));
-            return new BoundingBox(absolutePos.getX(), absolutePos.getY(), absolutePos.getZ(), absolutePos.getX() + width, absolutePos.getY() + height, absolutePos.getZ() + depth);
+            return Optional.empty();
         }
     }
 
@@ -119,7 +114,7 @@ public abstract class MultiblockBaseBlock extends Block
             return this;
         }
 
-        public Description build()
+        public Matcher build()
         {
             final int depth = layers.get(0).length() / width;
             final int height = layers.size();
@@ -142,15 +137,15 @@ public abstract class MultiblockBaseBlock extends Block
                 }
             }
 
-            return new Description(width, height, depth, blocks, anchor);
+            return new Matcher(width, height, depth, blocks, anchor);
         }
     }
 
     public static final Property<Boolean> CONSTRUCTED = BooleanProperty.create("constructed");
 
-    private final Description matcher;
+    private final Matcher matcher;
 
-    public MultiblockBaseBlock(Properties pProperties, Description matcher)
+    public MultiblockBaseBlock(Properties pProperties, Matcher matcher)
     {
         super(pProperties);
 
@@ -173,39 +168,26 @@ public abstract class MultiblockBaseBlock extends Block
     {
         if(state.getValue(CONSTRUCTED)) return useMultiblock(state, level, pos, player, hand, hit);
 
-        if(isValid(level, pos))
-        {
+        return matcher.isValid(level, pos).map(box -> {
             if(level.isClientSide()) return InteractionResult.SUCCESS;
 
-            construct(state, level, pos);
+            constructAndRecord(state, level, pos, box);
             return InteractionResult.CONSUME;
-        }
-
-        return super.use(state, level, pos, player, hand, hit);
+        }).orElse(super.use(state, level, pos, player, hand, hit));
     }
 
-    public boolean construct(BlockState state, Level level, BlockPos pos)
+    private static boolean constructAndRecord(BlockState state, Level level, BlockPos pos, BoundingBox box)
     {
-        if(!isValid(level, pos) || state.getValue(CONSTRUCTED)) return false;
+        level.setBlockAndUpdate(pos, state.setValue(CONSTRUCTED, true));
+        level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).ifPresent(cap -> cap.add(pos, box));
 
-        level.setBlock(pos, state.setValue(CONSTRUCTED, true), 2);
         return true;
     }
 
-    public void deconstruct(BlockState state, Level level, BlockPos pos)
+    public static void deconstruct(BlockState state, Level level, BlockPos pos)
     {
         if(!state.getValue(CONSTRUCTED)) return;
-        level.setBlock(pos, state.setValue(CONSTRUCTED, false), 2);
-    }
-
-    protected boolean isValid(Level level, BlockPos pos)
-    {
-        return matcher.isValid(level, pos);
-    }
-
-    public BoundingBox getBoundingBox(BlockPos pos)
-    {
-        return matcher.getBoundingBox(pos);
+        level.setBlockAndUpdate(pos, state.setValue(CONSTRUCTED, false));
     }
 
     protected InteractionResult useMultiblock(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)

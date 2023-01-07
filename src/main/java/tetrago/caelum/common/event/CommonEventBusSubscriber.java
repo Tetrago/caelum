@@ -3,6 +3,8 @@ package tetrago.caelum.common.event;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -38,14 +40,11 @@ public class CommonEventBusSubscriber
         if(event.getWorld().isClientSide()) return;
         final Level level = (Level)event.getWorld();
 
-        level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).ifPresent(cap -> cap.getMultiblocks().forEach(pos -> {
-            if(level.getBlockState(pos).getBlock() instanceof MultiblockBaseBlock multiblockBaseBlock)
-            {
-                if(!multiblockBaseBlock.getBoundingBox(pos).intersects(new BoundingBox(event.getPos()))) return;
+        level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).ifPresent(cap -> cap.getMultiblocks().forEach(pair -> {
+            if(!pair.getSecond().intersects(new BoundingBox(event.getPos()))) return;
 
-                cap.remove(pos);
-                multiblockBaseBlock.deconstruct(level.getBlockState(event.getPos()), level, event.getPos());
-            }
+            cap.remove(pair.getFirst());
+            MultiblockBaseBlock.deconstruct(level.getBlockState(pair.getFirst()), level, pair.getFirst());
         }));
     }
 
