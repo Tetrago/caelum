@@ -10,6 +10,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.FacingBlock;
 import tetrago.caelum.common.block.ModBlocks;
+import tetrago.caelum.common.block.MultiblockBaseBlock;
 
 public class ModBlockStateProvider extends BlockStateProvider
 {
@@ -25,7 +26,10 @@ public class ModBlockStateProvider extends BlockStateProvider
         simpleBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
         simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
 
-        simpleBlock(ModBlocks.REFIRED_BRICKS.get());
+        Caelum.LOGGER.debug(ModBlocks.REFIRED_BRICKS.getId().getPath());
+        getVariantBuilder(ModBlocks.REFIRED_BRICKS.get())
+                .partialState().with(MultiblockBaseBlock.CONSTRUCTED, true).modelForState().modelFile(models().cubeAll("refired_bricks_multiblock", modLoc("block/refired_bricks_multiblock"))).addModel()
+                .partialState().with(MultiblockBaseBlock.CONSTRUCTED, false).modelForState().modelFile(models().cubeAll("refired_bricks", modLoc("block/refired_bricks"))).addModel();
 
         facingBlock(ModBlocks.MATERIAL_HOPPER.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_bottom"), modLoc("block/material_hopper_top"));
         facingBlock(ModBlocks.MATERIAL_CHUTE.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_top"), modLoc("block/material_hopper_top"));

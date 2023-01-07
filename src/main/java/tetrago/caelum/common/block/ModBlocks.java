@@ -16,7 +16,7 @@ public class ModBlocks
     public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = BLOCKS.register("deepslate_aluminum_ore", OreBlock::new);
     public static final RegistryObject<Block> ALUMINUM_BLOCK = BLOCKS.register("aluminum_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
-    public static final RegistryObject<Block> REFIRED_BRICKS = BLOCKS.register("refired_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> REFIRED_BRICKS = BLOCKS.register("refired_bricks", RefiredBricksMultiblockBlock::new);
 
     public static final RegistryObject<Block> MATERIAL_HOPPER = BLOCKS.register("material_hopper", () -> new FacingBlock(BlockBehaviour.Properties.copy(Blocks.HOPPER)));
     public static final RegistryObject<Block> MATERIAL_CHUTE = BLOCKS.register("material_chute", () -> new FacingBlock(BlockBehaviour.Properties.copy(Blocks.HOPPER)));
