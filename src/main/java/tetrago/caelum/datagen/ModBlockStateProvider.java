@@ -10,7 +10,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.FacingBlock;
 import tetrago.caelum.common.block.ModBlocks;
-import tetrago.caelum.common.block.MultiblockBaseBlock;
 
 public class ModBlockStateProvider extends BlockStateProvider
 {
