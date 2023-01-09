@@ -169,11 +169,11 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         this.definition = definition;
     }
 
-    public Optional<Instance> canConstructAt(Level level, BlockPos anchor)
+    public Optional<Instance> match(Level level, BlockPos anchor)
     {
         ROTATIONS: for(Rotation rotation : Rotation.values())
         {
-            final BlockPos absolute = anchor.offset(anchor.rotate(rotation).multiply(-1));
+            final BlockPos absolute = anchor.offset(definition.anchor.rotate(rotation).multiply(-1));
 
             for(int x = 0; x < definition.getWidth(); ++x)
             {
@@ -194,10 +194,11 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
                 final BlockPos begin = new BlockPos(minX, minY, minZ).rotate(rotation);
                 final BlockPos end = new BlockPos(maxX, maxY, maxZ).rotate(rotation);
 
-                rotated[0] = Shapes.or(rotated[0], Shapes.box(begin.getX(), begin.getY(), begin.getZ(), end.getX(), end.getY(), end.getZ()));
+                rotated[0] = Shapes.or(rotated[0], Shapes.create(begin.getX(), begin.getY(), begin.getZ(), end.getX(), end.getY(), end.getZ()));
             });
 
-            return Optional.of(new Instance(anchor, rotated[0].optimize()));
+            rotated[0] = rotated[0].move(absolute.getX(), absolute.getY(), absolute.getZ()).optimize();
+            return Optional.of(new Instance(anchor, rotated[0]));
         }
 
         return Optional.empty();
