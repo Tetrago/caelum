@@ -1,6 +1,9 @@
 package tetrago.caelum.common.multiblock;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -8,6 +11,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +41,38 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         public VoxelShape getShape()
         {
             return shape;
+        }
+
+        public CompoundTag serializeNBT()
+        {
+            CompoundTag tag = new CompoundTag();
+            tag.put("anchor", NbtUtils.writeBlockPos(anchor));
+
+            ListTag list = new ListTag();
+            shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
+                CompoundTag box = new CompoundTag();
+                box.put("min", NbtUtils.writeBlockPos(new BlockPos(minX, minY, minZ)));
+                box.put("max", NbtUtils.writeBlockPos(new BlockPos(maxX, maxY, maxZ)));
+                list.add(box);
+            });
+
+            tag.put("boxes", list);
+            return tag;
+        }
+
+        public static Instance deserializeNBT(CompoundTag nbt)
+        {
+            final BlockPos anchor = NbtUtils.readBlockPos(nbt.getCompound("anchor"));
+            VoxelShape[] shape = new VoxelShape[]{Shapes.empty()};
+
+            nbt.getList("boxes", CompoundTag.TAG_COMPOUND).stream().map(tag -> (CompoundTag)tag).forEach(tag -> {
+                final BlockPos min = NbtUtils.readBlockPos(tag.getCompound("min"));
+                final BlockPos max = NbtUtils.readBlockPos(tag.getCompound("max"));
+
+                shape[0] = Shapes.or(shape[0], Shapes.box(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ()));
+            });
+
+            return new Instance(anchor, shape[0].optimize());
         }
     }
 
@@ -104,12 +140,6 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
             return this;
         }
 
-        public Builder define(char c, RegistryObject<Block> block)
-        {
-            definitions.put(c, state -> state.is(block.get()));
-            return this;
-        }
-
         public Definition build(int ax, int ay, int az)
         {
             final int height = layers.size();
@@ -139,7 +169,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         this.definition = definition;
     }
 
-    public Optional<Instance> formAt(Level level, BlockPos anchor)
+    public Optional<Instance> canConstructAt(Level level, BlockPos anchor)
     {
         ROTATIONS: for(Rotation rotation : Rotation.values())
         {

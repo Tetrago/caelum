@@ -10,7 +10,7 @@ public class BlastFurnaceMultiblock extends Multiblock
     public BlastFurnaceMultiblock()
     {
         super(new Builder()
-                .define('R', ModBlocks.REFIRED_BRICKS)
+                .define('R', ModBlocks.REFIRED_BRICKS.get())
                 .layer(
                         "RRR",
                         "RRR",

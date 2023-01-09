@@ -4,7 +4,7 @@
       "model": "caelum:block/refired_bricks"
     },
     "constructed=true": {
-      "model": "caelum:block/refired_bricks_multiblock"
+      "model": "caelum:block/refired_bricks_constructed"
     }
   }
 }

@@ -9,10 +9,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MultiblocksRecordProvider implements ICapabilityProvider, ICapabilitySerializable<ListTag>
+public class MultiblockInstanceRecordProvider implements ICapabilityProvider, ICapabilitySerializable<ListTag>
 {
-    private MultiblocksRecord multiblocksRecord = new MultiblocksRecord();
-    private final LazyOptional<IMultiblocksRecord> record = LazyOptional.of(() -> multiblocksRecord);
+    private MultiblockInstanceRecord instanceRecord = new MultiblockInstanceRecord();
+    private final LazyOptional<IMultiblocksRecord> record = LazyOptional.of(() -> instanceRecord);
 
     @NotNull
     @Override
@@ -24,12 +24,12 @@ public class MultiblocksRecordProvider implements ICapabilityProvider, ICapabili
     @Override
     public ListTag serializeNBT()
     {
-        return multiblocksRecord.serializeNBT();
+        return instanceRecord.serializeNBT();
     }
 
     @Override
     public void deserializeNBT(ListTag nbt)
     {
-        multiblocksRecord.deserializeNBT(nbt);
+        instanceRecord.deserializeNBT(nbt);
     }
 }
