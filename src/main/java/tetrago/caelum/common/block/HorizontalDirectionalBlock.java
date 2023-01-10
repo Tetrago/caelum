@@ -3,19 +3,17 @@ package tetrago.caelum.common.block;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.Nullable;
 
-public class FacingBlock extends Block
+public class HorizontalDirectionalBlock extends Block
 {
-    public static final Property<Direction> DIRECTION = DirectionProperty.create("direction");
+    public static final Property<Direction> FACING = DirectionProperty.create("facing");
 
-    public FacingBlock(Properties pProperties)
+    public HorizontalDirectionalBlock(Properties pProperties)
     {
         super(pProperties);
     }
@@ -24,19 +22,7 @@ public class FacingBlock extends Block
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext)
     {
-        return defaultBlockState().setValue(DIRECTION, pContext.getClickedFace());
-    }
-
-    @Override
-    public BlockState rotate(BlockState pState, Rotation pRotation)
-    {
-        return pState.setValue(DIRECTION, pRotation.rotate(pState.getValue(DIRECTION)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState pState, Mirror pMirror)
-    {
-        return pState.setValue(DIRECTION, pMirror.mirror(pState.getValue(DIRECTION)));
+        return super.getStateForPlacement(pContext).setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -44,6 +30,6 @@ public class FacingBlock extends Block
     {
         super.createBlockStateDefinition(pBuilder);
 
-        pBuilder.add(DIRECTION);
+        pBuilder.add(FACING);
     }
 }

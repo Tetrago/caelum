@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "caelum:block/arc_furnace_controller_side",
+    "front": "caelum:block/arc_furnace_controller_front",
+    "top": "caelum:block/arc_furnace_controller_top"
+  }
+}

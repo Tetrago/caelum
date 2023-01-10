@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import tetrago.caelum.client.screen.BlastFurnaceMultiblockScreen;
+import tetrago.caelum.client.screen.ArcFurnaceControllerScreen;
 import tetrago.caelum.client.screen.SolarPanelScreen;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.container.ModContainers;
@@ -16,8 +16,8 @@ public class ClientEventBusSubscriber
     public static void onClientSetup(final FMLClientSetupEvent event)
     {
         event.enqueueWork(() -> {
-            MenuScreens.register(ModContainers.BLAST_FURNACE_MULTIBLOCK_CONTAINER.get(), BlastFurnaceMultiblockScreen::new);
-            MenuScreens.register(ModContainers.SOLAR_PANEL_CONTAINER.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModContainers.ARC_FURNACE_CONTROLLER.get(), ArcFurnaceControllerScreen::new);
+            MenuScreens.register(ModContainers.SOLAR_PANEL.get(), SolarPanelScreen::new);
         });
     }
 }

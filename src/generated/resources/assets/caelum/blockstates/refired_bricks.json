@@ -1,10 +1,7 @@
 {
   "variants": {
-    "constructed=false": {
+    "": {
       "model": "caelum:block/refired_bricks"
-    },
-    "constructed=true": {
-      "model": "caelum:block/refired_bricks_constructed"
     }
   }
 }

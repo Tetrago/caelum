@@ -2,6 +2,7 @@
   "block.caelum.advanced_solar_panel": "Advanced Solar Panel",
   "block.caelum.aluminum_block": "Block of Aluminum",
   "block.caelum.aluminum_ore": "Aluminum Ore",
+  "block.caelum.arc_furnace_controller": "Arc Furnace Controller",
   "block.caelum.basic_solar_panel": "Basic Solar Panel",
   "block.caelum.deepslate_aluminum_ore": "Deepslate Aluminum Ore",
   "block.caelum.material_chute": "Material Chute",
@@ -13,6 +14,6 @@
   "item.caelum.basic_photovoltaic_cell": "Basic Photovoltaic Cell",
   "item.caelum.raw_aluminum": "Raw Aluminum",
   "itemGroup.caelum": "Caelum",
-  "screen.caelum.blast_furnace_multiblock": "Blast Furnace",
+  "screen.caelum.arc_furnace_controller": "Arc Furnace",
   "screen.caelum.solar_panel": "Solar Panel"
 }

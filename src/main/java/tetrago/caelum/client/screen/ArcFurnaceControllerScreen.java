@@ -7,17 +7,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.container.BlastFurnaceMultiblockContainer;
+import tetrago.caelum.common.container.ArcFurnaceControllerContainer;
 
-public class BlastFurnaceMultiblockScreen extends AbstractContainerScreen<BlastFurnaceMultiblockContainer>
+public class ArcFurnaceControllerScreen extends AbstractContainerScreen<ArcFurnaceControllerContainer>
 {
-    public static final String UNLOCALIZED_NAME = Caelum.modid("screen.{}.blast_furnace_multiblock");
+    public static final String UNLOCALIZED_NAME = Caelum.modid("screen.{}.arc_furnace_controller");
 
-    private static final ResourceLocation TEXTURE = Caelum.loc("textures/gui/blast_furnace_multiblock.png");
+    private static final ResourceLocation TEXTURE = Caelum.loc("textures/gui/arc_furnace_controller.png");
 
-    public BlastFurnaceMultiblockScreen(BlastFurnaceMultiblockContainer pMenu, Inventory pPlayerInventory, Component pTitle)
+    public ArcFurnaceControllerScreen(ArcFurnaceControllerContainer container, Inventory inv, Component name)
     {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(container, inv, name);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class BlastFurnaceMultiblockScreen extends AbstractContainerScreen<BlastF
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY)
+    protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY)
     {
         RenderSystem.setShaderTexture(0, TEXTURE);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+        blit(matrixStack, x, y, 0, 0, imageWidth, imageHeight);
     }
 }

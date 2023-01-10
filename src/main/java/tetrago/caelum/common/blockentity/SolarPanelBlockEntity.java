@@ -30,7 +30,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state)
     {
-        super(ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);
+        super(ModBlockEntities.SOLAR_PANEL.get(), pos, state);
 
         final SolarPanelBlock block = (SolarPanelBlock)getBlockState().getBlock();
         generatorEnergyStorage = new GeneratorEnergyStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate())

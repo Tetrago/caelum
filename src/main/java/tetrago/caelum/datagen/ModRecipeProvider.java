@@ -71,7 +71,7 @@ public class ModRecipeProvider extends RecipeProvider
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BRICKS), ModBlocks.REFIRED_BRICKS.get(), 0, 200);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
-                .define('I', Tags.Items.INGOTS_IRON)
+                .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
                 .define('H', Blocks.HOPPER)
                 .pattern("I I")
                 .pattern("IHI")
@@ -80,7 +80,7 @@ public class ModRecipeProvider extends RecipeProvider
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_CHUTE.get())
-                .define('I', Tags.Items.INGOTS_IRON)
+                .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
                 .pattern("I I")
                 .pattern("I I")
                 .pattern("I I")

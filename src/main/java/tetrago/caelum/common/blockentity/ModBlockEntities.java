@@ -11,7 +11,6 @@ public class ModBlockEntities
 {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Caelum.MODID);
 
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_BLOCK_ENTITY = BLOCK_ENTITIES.register("solar_panel", () -> BlockEntityType.Builder.of(SolarPanelBlockEntity::new, ModBlocks.BASIC_SOLAR_PANEL.get(), ModBlocks.ADVANCED_SOLAR_PANEL.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<BlastFurnaceMultiblockBlockEntity>> BLAST_FURNACE_MULTIBLOCK_BLOCK_ENTITY = BLOCK_ENTITIES.register("blast_furance_multiblock", () -> BlockEntityType.Builder.of(BlastFurnaceMultiblockBlockEntity::new, ModBlocks.REFIRED_BRICKS.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcFurnaceControllerBlockEntity>> ARC_FURNACE_CONTROLLER = BLOCK_ENTITIES.register("arc_furnace_controller", () -> BlockEntityType.Builder.of(ArcFurnaceControllerBlockEntity::new, ModBlocks.ARC_FURNACE_CONTROLLER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL = BLOCK_ENTITIES.register("solar_panel", () -> BlockEntityType.Builder.of(SolarPanelBlockEntity::new, ModBlocks.BASIC_SOLAR_PANEL.get(), ModBlocks.ADVANCED_SOLAR_PANEL.get()).build(null));
 }

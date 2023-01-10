@@ -2,7 +2,7 @@ package tetrago.caelum.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
-import tetrago.caelum.client.screen.BlastFurnaceMultiblockScreen;
+import tetrago.caelum.client.screen.ArcFurnaceControllerScreen;
 import tetrago.caelum.client.screen.SolarPanelScreen;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
@@ -20,7 +20,7 @@ public class ModLanguageProvider extends LanguageProvider
     {
         add(Caelum.modid("itemGroup.{}"), "Caelum");
 
-        add(BlastFurnaceMultiblockScreen.UNLOCALIZED_NAME, "Blast Furnace");
+        add(ArcFurnaceControllerScreen.UNLOCALIZED_NAME, "Arc Furnace");
         add(SolarPanelScreen.UNLOCALIZED_NAME, "Solar Panel");
 
         add(ModBlocks.ALUMINUM_ORE.get(), "Aluminum Ore");
@@ -29,6 +29,7 @@ public class ModLanguageProvider extends LanguageProvider
 
         add(ModBlocks.REFIRED_BRICKS.get(), "Refired Bricks");
 
+        add(ModBlocks.ARC_FURNACE_CONTROLLER.get(), "Arc Furnace Controller");
         add(ModBlocks.MATERIAL_HOPPER.get(), "Material Hopper");
         add(ModBlocks.MATERIAL_CHUTE.get(), "Material Chute");
 

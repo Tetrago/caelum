@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "constructed=false,facing=down": {
+      "model": "caelum:block/arc_furnace_controller",
+      "y": 90
+    },
+    "constructed=true,facing=down": {
+      "model": "caelum:block/arc_furnace_controller_constructed",
+      "y": 90
+    },
+    "constructed=false,facing=up": {
+      "model": "caelum:block/arc_furnace_controller",
+      "y": 90
+    },
+    "constructed=true,facing=up": {
+      "model": "caelum:block/arc_furnace_controller_constructed",
+      "y": 90
+    },
+    "constructed=false,facing=north": {
+      "model": "caelum:block/arc_furnace_controller"
+    },
+    "constructed=true,facing=north": {
+      "model": "caelum:block/arc_furnace_controller_constructed"
+    },
+    "constructed=false,facing=south": {
+      "model": "caelum:block/arc_furnace_controller",
+      "y": 180
+    },
+    "constructed=true,facing=south": {
+      "model": "caelum:block/arc_furnace_controller_constructed",
+      "y": 180
+    },
+    "constructed=false,facing=west": {
+      "model": "caelum:block/arc_furnace_controller",
+      "y": 270
+    },
+    "constructed=true,facing=west": {
+      "model": "caelum:block/arc_furnace_controller_constructed",
+      "y": 270
+    },
+    "constructed=false,facing=east": {
+      "model": "caelum:block/arc_furnace_controller",
+      "y": 90
+    },
+    "constructed=true,facing=east": {
+      "model": "caelum:block/arc_furnace_controller_constructed",
+      "y": 90
+    }
+  }
+}

@@ -26,6 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
 
+        simpleBlockItem(ModItems.ARC_FURNACE_CONTROLLER);
         simpleBlockItem(ModItems.MATERIAL_HOPPER);
         simpleBlockItem(ModItems.MATERIAL_CHUTE);
 

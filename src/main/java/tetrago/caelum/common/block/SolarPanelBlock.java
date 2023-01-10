@@ -45,7 +45,7 @@ public class SolarPanelBlock extends Block implements EntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return BlockEntityUtil.tickerOf(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
+        return BlockEntityUtil.tickerOf(type, ModBlockEntities.SOLAR_PANEL.get(), SolarPanelBlockEntity::tick);
     }
 
     @Nullable

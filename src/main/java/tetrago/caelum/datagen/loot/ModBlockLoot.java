@@ -17,6 +17,7 @@ public class ModBlockLoot extends BlockLoot
 
         dropSelf(ModBlocks.REFIRED_BRICKS.get());
 
+        dropSelf(ModBlocks.ARC_FURNACE_CONTROLLER.get());
         dropSelf(ModBlocks.MATERIAL_HOPPER.get());
         dropSelf(ModBlocks.MATERIAL_CHUTE.get());
 

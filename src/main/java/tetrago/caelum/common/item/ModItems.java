@@ -21,6 +21,7 @@ public class ModItems
 
     public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
 
+    public static final RegistryObject<Item> ARC_FURNACE_CONTROLLER = fromBlock(ModBlocks.ARC_FURNACE_CONTROLLER);
     public static final RegistryObject<Item> MATERIAL_HOPPER = fromBlock(ModBlocks.MATERIAL_HOPPER);
     public static final RegistryObject<Item> MATERIAL_CHUTE = fromBlock(ModBlocks.MATERIAL_CHUTE);
 

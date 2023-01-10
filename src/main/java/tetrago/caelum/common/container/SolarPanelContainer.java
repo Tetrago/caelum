@@ -21,7 +21,7 @@ public class SolarPanelContainer extends ModBaseContainer
 
     public SolarPanelContainer(int windowId, Inventory inv, BlockEntity blockEntity)
     {
-        super(ModContainers.SOLAR_PANEL_CONTAINER.get(), windowId, blockEntity.getBlockPos(), inv);
+        super(ModContainers.SOLAR_PANEL.get(), windowId, blockEntity.getBlockPos(), inv);
 
         addPlayerInventory();
         addPlayerHotbar();

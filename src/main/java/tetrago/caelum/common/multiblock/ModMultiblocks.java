@@ -9,5 +9,5 @@ public class ModMultiblocks
 {
     public static final DeferredRegister<Multiblock> MULTIBLOCKS = DeferredRegister.create(new ResourceLocation("multiblocks"), Caelum.MODID);
 
-    public static final RegistryObject<Multiblock> BLAST_FURNACE = MULTIBLOCKS.register("blast_furnace", BlastFurnaceMultiblock::new);
+    public static final RegistryObject<Multiblock> ARC_FURNACE = MULTIBLOCKS.register("arc_furnace", ArcFurnaceMultiblock::new);
 }

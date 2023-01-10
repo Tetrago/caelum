@@ -193,15 +193,24 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
     {
         IMultiblocksRecord record = level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).orElseThrow(() -> new IllegalStateException("No multiblock record holder!"));
 
-        for(Rotation rotation : Rotation.values())
+        ROTATIONS: for(Rotation rotation : Rotation.values())
         {
-            if(getBlockPositions(anchor, rotation).stream().anyMatch(pos ->
-                    definition.predicates[pos.getX()][pos.getY()][pos.getZ()].map(predicate ->
-                            !predicate.test(level.getBlockState(pos))).orElse(false)
-                            || record.isWithinMultiblock(pos).isPresent()))
-                continue;
-
             final BlockPos absolute = anchor.offset(definition.anchor.rotate(rotation).multiply(-1));
+
+            for(int x = 0; x < definition.getWidth(); ++x)
+            {
+                for(int y = 0; y < definition.getHeight(); ++y)
+                {
+                    for(int z = 0; z < definition.getDepth(); ++z)
+                    {
+                        final BlockPos pos = absolute.offset(new BlockPos(x, y, z).rotate(rotation));
+                        if(!definition.predicates[x][y][z].map(predicate -> predicate.test(level.getBlockState(pos))).orElse(true) || record.isWithinMultiblock(pos).isPresent()) continue ROTATIONS;
+                    }
+                }
+            }
+
+            if(!isValid(level, anchor, rotation)) continue;
+
             List<BoundingBox> boxes = getBoundingBoxes().stream().map(box -> {
                 final BlockPos min = new BlockPos(box.minX(), box.minY(), box.minZ()).rotate(rotation).offset(absolute);
                 final BlockPos max = new BlockPos(box.maxX(), box.maxY(), box.maxZ()).rotate(rotation).offset(absolute);
@@ -220,6 +229,11 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         }
 
         return Optional.empty();
+    }
+
+    protected boolean isValid(Level level, BlockPos anchor, Rotation rotation)
+    {
+        return true;
     }
 
     public void onConstruct(Level level, BlockPos pos) {}
