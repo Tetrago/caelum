@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -58,13 +59,13 @@ public abstract class MultiblockBlock extends Block
     protected void onConstruct(BlockState state, Level level, BlockPos pos)
     {
         if(level.isClientSide()) return;
-        level.setBlockAndUpdate(pos, state.setValue(CONSTRUCTED, true));
+        level.setBlock(pos, state.setValue(CONSTRUCTED, true), 2);
     }
 
     public void onDeconstruct(BlockState state, Level level, BlockPos pos)
     {
         if(level.isClientSide()) return;
-        level.setBlockAndUpdate(pos, state.setValue(CONSTRUCTED, false));
+        level.setBlock(pos, state.setValue(CONSTRUCTED, false), 2);
     }
 
     protected InteractionResult useConstructed(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)

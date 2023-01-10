@@ -1,8 +1,5 @@
 package tetrago.caelum.common.multiblock;
 
-import com.mojang.datafixers.types.Type;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.block.ModBlocks;
 
 public class BlastFurnaceMultiblock extends Multiblock

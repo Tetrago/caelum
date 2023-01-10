@@ -41,7 +41,7 @@ public class ModRecipeProvider extends RecipeProvider
                 .pattern("XXX")
                 .pattern("XXX")
                 .unlockedBy("has_aluminum_ingot", criterion(ModItems.ALUMINUM_INGOT.get()))
-                .save(builder, modLoc("aluminum_ingot_from_block"));
+                .save(builder, Caelum.loc("aluminum_ingot_from_block"));
 
         ShapelessRecipeBuilder.shapeless(ModItems.ALUMINUM_NUGGET.get(), 9)
                 .requires(ModItems.ALUMINUM_INGOT.get())
@@ -54,7 +54,7 @@ public class ModRecipeProvider extends RecipeProvider
                 .pattern("XXX")
                 .pattern("XXX")
                 .unlockedBy("has_aluminum_nugget", criterion(ModItems.ALUMINUM_NUGGET.get()))
-                .save(builder, modLoc("aluminum_ingot_from_nuggets"));
+                .save(builder, Caelum.loc("aluminum_ingot_from_nuggets"));
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_CIRCUIT_BOARD.get(), 4)
                 .define('A', ModItems.ALUMINUM_INGOT.get())
@@ -108,11 +108,6 @@ public class ModRecipeProvider extends RecipeProvider
                 .save(builder);
     }
 
-    private static ResourceLocation modLoc(String name)
-    {
-        return new ResourceLocation(Caelum.MODID, name);
-    }
-
     private static void oreRecipes(Consumer<FinishedRecipe> builder, ImmutableList<ItemLike> smeltables, Item item)
     {
         smeltables.forEach(i -> {
@@ -120,11 +115,11 @@ public class ModRecipeProvider extends RecipeProvider
 
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(i), item, 0.7f, 200)
                     .unlockedBy("has_" + name, criterion(i.asItem()))
-                    .save(builder, modLoc(name + "_from_smelting"));
+                    .save(builder, Caelum.loc(name + "_from_smelting"));
 
             SimpleCookingRecipeBuilder.blasting(Ingredient.of(i), item, 0.7f, 100)
                     .unlockedBy("has_" + name, criterion(i.asItem()))
-                    .save(builder, modLoc(name + "_from_blasting"));
+                    .save(builder, Caelum.loc(name + "_from_blasting"));
         });
     }
 

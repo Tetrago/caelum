@@ -1,12 +1,15 @@
 package tetrago.caelum.common.capability;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.util.INBTSerializable;
 import tetrago.caelum.common.multiblock.Multiblock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSerializable<ListTag>
 {
@@ -23,7 +26,11 @@ public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSeriali
     @Override
     public void deserializeNBT(ListTag nbt)
     {
-        list = nbt.getList(0).stream().map(tag -> Multiblock.Instance.deserializeNBT((CompoundTag)tag)).toList();
+        list = nbt.getList(0).stream().map(tag -> {
+            Multiblock.Instance inst = new Multiblock.Instance();
+            inst.deserializeNBT((CompoundTag)tag);
+            return inst;
+        }).toList();
     }
 
     @Override
@@ -42,5 +49,11 @@ public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSeriali
     public void remove(Multiblock.Instance instance)
     {
         list.removeIf(i -> i == instance);
+    }
+
+    @Override
+    public Optional<Multiblock.Instance> isWithinMultiblock(BlockPos pos)
+    {
+        return list.stream().filter(inst -> inst.getBoundingBoxes().stream().anyMatch(box -> box.intersects(new BoundingBox(pos)))).findAny();
     }
 }

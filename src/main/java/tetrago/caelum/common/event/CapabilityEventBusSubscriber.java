@@ -1,6 +1,5 @@
 package tetrago.caelum.common.event;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -22,6 +21,6 @@ public class CapabilityEventBusSubscriber
     @SubscribeEvent
     public static void onAttachCapabilities(final AttachCapabilitiesEvent<Level> event)
     {
-        event.addCapability(new ResourceLocation(Caelum.MODID, "multiblocks_record"), new MultiblockInstanceRecordProvider());
+        event.addCapability(Caelum.loc("multiblocks_record"), new MultiblockInstanceRecordProvider());
     }
 }

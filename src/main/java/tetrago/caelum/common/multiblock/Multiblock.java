@@ -1,6 +1,7 @@
 package tetrago.caelum.common.multiblock;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -9,11 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -22,15 +23,17 @@ import java.util.function.Predicate;
 
 public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 {
-    public static class Instance
+    public static class Instance implements INBTSerializable<CompoundTag>
     {
-        private final BlockPos anchor;
-        private final VoxelShape shape;
+        private BlockPos anchor;
+        private List<BoundingBox> boundingBoxes;
 
-        public Instance(BlockPos anchor, VoxelShape shape)
+        public Instance() {}
+
+        public Instance(BlockPos anchor, List<BoundingBox> boundingBoxes)
         {
             this.anchor = anchor;
-            this.shape = shape;
+            this.boundingBoxes = boundingBoxes;
         }
 
         public BlockPos getAnchorPosition()
@@ -38,41 +41,39 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
             return anchor;
         }
 
-        public VoxelShape getShape()
+        public List<BoundingBox> getBoundingBoxes()
         {
-            return shape;
+            return boundingBoxes;
         }
 
+        @Override
         public CompoundTag serializeNBT()
         {
             CompoundTag tag = new CompoundTag();
             tag.put("anchor", NbtUtils.writeBlockPos(anchor));
 
             ListTag list = new ListTag();
-            shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
-                CompoundTag box = new CompoundTag();
-                box.put("min", NbtUtils.writeBlockPos(new BlockPos(minX, minY, minZ)));
-                box.put("max", NbtUtils.writeBlockPos(new BlockPos(maxX, maxY, maxZ)));
-                list.add(box);
+            boundingBoxes.forEach(box -> {
+                CompoundTag nbt = new CompoundTag();
+                nbt.put("min", NbtUtils.writeBlockPos(new BlockPos(box.minX(), box.minY(), box.minZ())));
+                nbt.put("max", NbtUtils.writeBlockPos(new BlockPos(box.maxX(), box.maxY(), box.maxZ())));
+                list.add(nbt);
             });
 
             tag.put("boxes", list);
             return tag;
         }
 
-        public static Instance deserializeNBT(CompoundTag nbt)
+        @Override
+        public void deserializeNBT(CompoundTag nbt)
         {
-            final BlockPos anchor = NbtUtils.readBlockPos(nbt.getCompound("anchor"));
-            VoxelShape[] shape = new VoxelShape[]{Shapes.empty()};
-
-            nbt.getList("boxes", CompoundTag.TAG_COMPOUND).stream().map(tag -> (CompoundTag)tag).forEach(tag -> {
+            anchor = NbtUtils.readBlockPos(nbt.getCompound("anchor"));
+            boundingBoxes = nbt.getList("boxes", CompoundTag.TAG_COMPOUND).stream().map(tag -> (CompoundTag)tag).map(tag -> {
                 final BlockPos min = NbtUtils.readBlockPos(tag.getCompound("min"));
                 final BlockPos max = NbtUtils.readBlockPos(tag.getCompound("max"));
 
-                shape[0] = Shapes.or(shape[0], Shapes.box(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ()));
-            });
-
-            return new Instance(anchor, shape[0].optimize());
+                return new BoundingBox(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
+            }).toList();
         }
     }
 
@@ -100,11 +101,6 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         public int getDepth()
         {
             return predicates[0][0].length;
-        }
-
-        public BlockPos getRelativeAnchorPosition()
-        {
-            return anchor;
         }
     }
 
@@ -187,26 +183,29 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
                 }
             }
 
-            VoxelShape shape = getShape();
-            VoxelShape[] rotated = new VoxelShape[]{ Shapes.empty() };
+            List<BoundingBox> boxes = getBoundingBoxes().stream().map(box -> {
+                final BlockPos min = new BlockPos(box.minX(), box.minY(), box.minZ()).rotate(rotation).offset(absolute);
+                final BlockPos max = new BlockPos(box.maxX(), box.maxY(), box.maxZ()).rotate(rotation).offset(absolute);
 
-            shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
-                final BlockPos begin = new BlockPos(minX, minY, minZ).rotate(rotation);
-                final BlockPos end = new BlockPos(maxX, maxY, maxZ).rotate(rotation);
+                int minX = Math.min(min.getX(), max.getX());
+                int minY = Math.min(min.getY(), max.getY());
+                int minZ = Math.min(min.getZ(), max.getZ());
+                int maxX = Math.max(min.getX(), max.getX());
+                int maxY = Math.max(min.getY(), max.getY());
+                int maxZ = Math.max(min.getZ(), max.getZ());
 
-                rotated[0] = Shapes.or(rotated[0], Shapes.create(begin.getX(), begin.getY(), begin.getZ(), end.getX(), end.getY(), end.getZ()));
-            });
+                return new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+            }).toList();
 
-            rotated[0] = rotated[0].move(absolute.getX(), absolute.getY(), absolute.getZ()).optimize();
-            return Optional.of(new Instance(anchor, rotated[0]));
+            return Optional.of(new Instance(anchor, boxes));
         }
 
         return Optional.empty();
     }
 
-    public VoxelShape getShape()
+    public List<BoundingBox> getBoundingBoxes()
     {
-        return Shapes.box(0, 0, 0, definition.getWidth(), definition.getHeight(), definition.getDepth());
+        return List.of(new BoundingBox(0, 0, 0, definition.getWidth(), definition.getHeight(), definition.getDepth()));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package tetrago.caelum.common.blockentity;
+package tetrago.caelum.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

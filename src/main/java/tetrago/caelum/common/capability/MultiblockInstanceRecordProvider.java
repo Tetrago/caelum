@@ -11,14 +11,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class MultiblockInstanceRecordProvider implements ICapabilityProvider, ICapabilitySerializable<ListTag>
 {
-    private MultiblockInstanceRecord instanceRecord = new MultiblockInstanceRecord();
+    private final MultiblockInstanceRecord instanceRecord = new MultiblockInstanceRecord();
     private final LazyOptional<IMultiblocksRecord> record = LazyOptional.of(() -> instanceRecord);
 
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side)
     {
-        return record.cast();
+        if(cap == ModCapabilities.MULTIBLOCKS_RECORD)
+        {
+            return record.cast();
+        }
+
+        return LazyOptional.empty();
     }
 
     @Override

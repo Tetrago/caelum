@@ -1,6 +1,7 @@
 package tetrago.caelum.common;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,4 +44,9 @@ public class Caelum
             return new ItemStack(ModItems.BASIC_CIRCUIT_BOARD.get());
         }
     };
+
+    public static ResourceLocation loc(String path)
+    {
+        return new ResourceLocation(MODID, path);
+    }
 }
