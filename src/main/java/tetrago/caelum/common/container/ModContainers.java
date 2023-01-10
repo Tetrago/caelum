@@ -13,4 +13,6 @@ public class ModContainers
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Caelum.MODID);
 
     public static final RegistryObject<MenuType<SolarPanelContainer>> SOLAR_PANEL_CONTAINER = CONTAINERS.register("solar_panel", () -> IForgeMenuType.create(SolarPanelContainer::new));
+
+    public static final RegistryObject<MenuType<BlastFurnaceMultiblockContainer>> BLAST_FURNACE_MULTIBLOCK_CONTAINER = CONTAINERS.register("blast_furnace_multiblock", () -> IForgeMenuType.create(BlastFurnaceMultiblockContainer::new));
 }

@@ -6,6 +6,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -18,8 +20,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.blockentity.ModBlockEntities;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
+import tetrago.caelum.common.util.BlockEntityUtil;
 
-public class SolarPanelBlock extends ModEntityBlock
+public class SolarPanelBlock extends Block implements EntityBlock
 {
     private final int bufferCapacity;
     private final int generationRate;
@@ -42,7 +45,7 @@ public class SolarPanelBlock extends ModEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type)
     {
-        return tickerOf(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
+        return BlockEntityUtil.tickerOf(type, ModBlockEntities.SOLAR_PANEL_BLOCK_ENTITY.get(), SolarPanelBlockEntity::tick);
     }
 
     @Nullable
@@ -55,10 +58,12 @@ public class SolarPanelBlock extends ModEntityBlock
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        if(level.isClientSide()) return InteractionResult.SUCCESS;
+        if(!level.isClientSide())
+        {
+            BlockEntityUtil.openGui(level, pos, player);
+        }
 
-        openGui(level, pos, player);
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     public int getEnergyBufferCapacity()

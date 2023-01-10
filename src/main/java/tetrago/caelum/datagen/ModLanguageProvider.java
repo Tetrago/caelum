@@ -2,6 +2,7 @@ package tetrago.caelum.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
+import tetrago.caelum.client.screen.BlastFurnaceMultiblockScreen;
 import tetrago.caelum.client.screen.SolarPanelScreen;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
@@ -17,8 +18,9 @@ public class ModLanguageProvider extends LanguageProvider
     @Override
     protected void addTranslations()
     {
-        add("itemGroup.caelum", "Caelum");
+        add(Caelum.modid("itemGroup.{}"), "Caelum");
 
+        add(BlastFurnaceMultiblockScreen.UNLOCALIZED_NAME, "Blast Furnace");
         add(SolarPanelScreen.UNLOCALIZED_NAME, "Solar Panel");
 
         add(ModBlocks.ALUMINUM_ORE.get(), "Aluminum Ore");

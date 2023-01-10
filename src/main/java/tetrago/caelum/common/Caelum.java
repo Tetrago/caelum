@@ -49,4 +49,9 @@ public class Caelum
     {
         return new ResourceLocation(MODID, path);
     }
+
+    public static String modid(String format)
+    {
+        return format.replaceAll("\\{\\}", MODID);
+    }
 }

@@ -58,12 +58,16 @@ public abstract class MultiblockBlock extends Block
 
     protected void onConstruct(BlockState state, Level level, BlockPos pos)
     {
+        multiblock.get().onConstruct(level, pos);
+
         if(level.isClientSide()) return;
         level.setBlock(pos, state.setValue(CONSTRUCTED, true), 2);
     }
 
     public void onDeconstruct(BlockState state, Level level, BlockPos pos)
     {
+        multiblock.get().onDeconstruct(level, pos);
+
         if(level.isClientSide()) return;
         level.setBlock(pos, state.setValue(CONSTRUCTED, false), 2);
     }

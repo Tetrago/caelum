@@ -15,9 +15,9 @@ import java.util.Optional;
 
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelContainer>
 {
-    public static final String UNLOCALIZED_NAME = "screen.caelum.solar_panel";
+    public static final String UNLOCALIZED_NAME = Caelum.modid("screen.{}.solar_panel");
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Caelum.MODID, "textures/gui/solar_panel.png");
+    private static final ResourceLocation TEXTURE = Caelum.loc("textures/gui/solar_panel.png");
 
     private EnergyWidget energyWidget;
 

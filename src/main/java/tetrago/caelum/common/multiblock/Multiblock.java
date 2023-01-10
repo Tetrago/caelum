@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.capability.IMultiblocksRecord;
 import tetrago.caelum.common.capability.ModCapabilities;
 
+import java.awt.dnd.DropTarget;
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
@@ -81,10 +82,10 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 
     private static class Definition
     {
-        private final Predicate<BlockState>[][][] predicates;
+        private final Optional<Predicate<BlockState>>[][][] predicates;
         private final BlockPos anchor;
 
-        public Definition(Predicate<BlockState>[][][] predicates, BlockPos anchor)
+        public Definition(Optional<Predicate<BlockState>>[][][] predicates, BlockPos anchor)
         {
             this.predicates = predicates;
             this.anchor = anchor;
@@ -142,7 +143,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         {
             final int height = layers.size();
             final int depth = layers.get(0).length() / width;
-            Predicate<BlockState>[][][] predicates = new Predicate[width][height][depth];
+            Optional<Predicate<BlockState>>[][][] predicates = new Optional[width][height][depth];
 
             for(int x = 0; x < width; ++x)
             {
@@ -150,7 +151,8 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
                 {
                     for(int z = 0; z < depth; ++z)
                     {
-                        predicates[x][y][z] = definitions.getOrDefault(layers.get(y).charAt(z * width + x), state -> true);
+                        char c = layers.get(y).charAt(z * width + x);
+                        predicates[x][y][z] = c == ' ' ? Optional.empty() : Optional.of(definitions.get(c));
                     }
                 }
             }
@@ -167,26 +169,39 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         this.definition = definition;
     }
 
+    public List<BlockPos> getBlockPositions(BlockPos anchor, Rotation rotation)
+    {
+        final BlockPos absolute = anchor.offset(definition.anchor.rotate(rotation).multiply(-1));
+
+        List<BlockPos> positions = new ArrayList<>();
+        for(int x = 0; x < definition.getWidth(); ++x)
+        {
+            for(int y = 0; y < definition.getHeight(); ++y)
+            {
+                for(int z = 0; z < definition.getDepth(); ++z)
+                {
+                    if(definition.predicates[x][y][z].isEmpty()) continue;
+                    positions.add(absolute.offset(new BlockPos(x, y, z).rotate(rotation)));
+                }
+            }
+        }
+
+        return positions;
+    }
+
     public Optional<Instance> match(Level level, BlockPos anchor)
     {
         IMultiblocksRecord record = level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).orElseThrow(() -> new IllegalStateException("No multiblock record holder!"));
 
-        ROTATIONS: for(Rotation rotation : Rotation.values())
+        for(Rotation rotation : Rotation.values())
         {
+            if(getBlockPositions(anchor, rotation).stream().anyMatch(pos ->
+                    definition.predicates[pos.getX()][pos.getY()][pos.getZ()].map(predicate ->
+                            !predicate.test(level.getBlockState(pos))).orElse(false)
+                            || record.isWithinMultiblock(pos).isPresent()))
+                continue;
+
             final BlockPos absolute = anchor.offset(definition.anchor.rotate(rotation).multiply(-1));
-
-            for(int x = 0; x < definition.getWidth(); ++x)
-            {
-                for(int y = 0; y < definition.getHeight(); ++y)
-                {
-                    for(int z = 0; z < definition.getDepth(); ++z)
-                    {
-                        final BlockPos pos = absolute.offset(new BlockPos(x, y, z).rotate(rotation));
-                        if(!definition.predicates[x][y][z].test(level.getBlockState(pos)) || record.isWithinMultiblock(pos).isPresent()) continue ROTATIONS;
-                    }
-                }
-            }
-
             List<BoundingBox> boxes = getBoundingBoxes().stream().map(box -> {
                 final BlockPos min = new BlockPos(box.minX(), box.minY(), box.minZ()).rotate(rotation).offset(absolute);
                 final BlockPos max = new BlockPos(box.maxX(), box.maxY(), box.maxZ()).rotate(rotation).offset(absolute);
@@ -206,6 +221,9 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 
         return Optional.empty();
     }
+
+    public void onConstruct(Level level, BlockPos pos) {}
+    public void onDeconstruct(Level level, BlockPos pos) {}
 
     public List<BoundingBox> getBoundingBoxes()
     {
