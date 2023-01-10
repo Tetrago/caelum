@@ -16,6 +16,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
+import tetrago.caelum.common.capability.IMultiblocksRecord;
+import tetrago.caelum.common.capability.ModCapabilities;
 
 import java.util.*;
 import java.util.List;
@@ -167,6 +169,8 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 
     public Optional<Instance> match(Level level, BlockPos anchor)
     {
+        IMultiblocksRecord record = level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).orElseThrow(() -> new IllegalStateException("No multiblock record holder!"));
+
         ROTATIONS: for(Rotation rotation : Rotation.values())
         {
             final BlockPos absolute = anchor.offset(definition.anchor.rotate(rotation).multiply(-1));
@@ -178,7 +182,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
                     for(int z = 0; z < definition.getDepth(); ++z)
                     {
                         final BlockPos pos = absolute.offset(new BlockPos(x, y, z).rotate(rotation));
-                        if(!definition.predicates[x][y][z].test(level.getBlockState(pos))) continue ROTATIONS;
+                        if(!definition.predicates[x][y][z].test(level.getBlockState(pos)) || record.isWithinMultiblock(pos).isPresent()) continue ROTATIONS;
                     }
                 }
             }
