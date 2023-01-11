@@ -25,10 +25,12 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleBlockItem(ModItems.ALUMINUM_BLOCK);
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
+        simpleBlockItem(ModItems.COPPER_OIL);
 
         simpleBlockItem(ModItems.ARC_FURNACE_CONTROLLER);
         simpleBlockItem(ModItems.MATERIAL_HOPPER);
         simpleBlockItem(ModItems.MATERIAL_CHUTE);
+        simpleBlockItem(ModItems.ENERGY_PORT);
 
         simpleBlockItem(ModItems.BASIC_SOLAR_PANEL);
         simpleBlockItem(ModItems.ADVANCED_SOLAR_PANEL);

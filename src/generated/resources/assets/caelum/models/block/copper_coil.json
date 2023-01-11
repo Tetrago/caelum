@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_top",
+  "textures": {
+    "side": "caelum:block/copper_coil_side",
+    "top": "caelum:block/copper_coil_top"
+  }
+}

@@ -26,7 +26,7 @@ public class MultiblockEventBusSubscriber
                 }
 
                 final BlockState state = level.getBlockState(inst.getAnchorPosition());
-                ((MultiblockBlock)state.getBlock()).onDeconstruct(state, level, inst.getAnchorPosition());
+                ((MultiblockBlock)state.getBlock()).onDeconstruct(state, level, inst.getAnchorPosition(), inst.getRotation());
 
                 cap.remove(inst);
             });

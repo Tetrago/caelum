@@ -4,7 +4,9 @@
   "block.caelum.aluminum_ore": "Aluminum Ore",
   "block.caelum.arc_furnace_controller": "Arc Furnace Controller",
   "block.caelum.basic_solar_panel": "Basic Solar Panel",
+  "block.caelum.copper_coil": "Copper Coil",
   "block.caelum.deepslate_aluminum_ore": "Deepslate Aluminum Ore",
+  "block.caelum.energy_port": "Energy Port",
   "block.caelum.material_chute": "Material Chute",
   "block.caelum.material_hopper": "Material Hopper",
   "block.caelum.refired_bricks": "Refired Bricks",
@@ -15,5 +17,6 @@
   "item.caelum.raw_aluminum": "Raw Aluminum",
   "itemGroup.caelum": "Caelum",
   "screen.caelum.arc_furnace_controller": "Arc Furnace",
-  "screen.caelum.solar_panel": "Solar Panel"
+  "screen.caelum.solar_panel": "Solar Panel",
+  "tooltip.caelum.block.coil": "Coil Strength"
 }

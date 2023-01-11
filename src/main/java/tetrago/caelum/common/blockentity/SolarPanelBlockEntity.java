@@ -74,20 +74,20 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     @Override
     public void load(CompoundTag tag)
     {
+        super.load(tag);
+
         if(tag.contains("energy"))
         {
             generatorEnergyStorage.deserializeNBT(tag.get("energy"));
         }
-
-        super.load(tag);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag)
     {
-        tag.put("energy", generatorEnergyStorage.serializeNBT());
-
         super.saveAdditional(tag);
+
+        tag.put("energy", generatorEnergyStorage.serializeNBT());
     }
 
     @NotNull

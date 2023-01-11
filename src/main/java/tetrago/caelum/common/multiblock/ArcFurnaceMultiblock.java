@@ -1,9 +1,17 @@
 package tetrago.caelum.common.multiblock;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import tetrago.caelum.common.block.CoilBlock;
 import tetrago.caelum.common.block.ModBlocks;
+import tetrago.caelum.common.blockentity.MultiblockSlaveBlockEntity;
+import tetrago.caelum.datagen.ModBlockTagsProvider;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ArcFurnaceMultiblock extends Multiblock
 {
@@ -12,7 +20,10 @@ public class ArcFurnaceMultiblock extends Multiblock
         super(new Builder()
                 .define('B', ModBlocks.REFIRED_BRICKS.get())
                 .define('C', ModBlocks.ARC_FURNACE_CONTROLLER.get())
-                .define('X', ModBlocks.REFIRED_BRICKS.get())
+                .define('X', state -> state.is(ModBlocks.REFIRED_BRICKS.get()) || state.is(Blocks.AIR) || state.is(ModBlockTagsProvider.COIL))
+                .define('X', ModBlocks.REFIRED_BRICKS.get(), ModBlocks.COPPER_COIL.get(), Blocks.AIR)
+                .define('A', Blocks.AIR)
+                .define('P', ModBlocks.REFIRED_BRICKS.get(), ModBlocks.ENERGY_PORT.get(), ModBlocks.MATERIAL_HOPPER.get(), ModBlocks.MATERIAL_CHUTE.get())
                 .layer(
                         "  BBB  ",
                         " BBBBB ",
@@ -23,20 +34,20 @@ public class ArcFurnaceMultiblock extends Multiblock
                         "  BBB  ")
                 .layer(
                         "  BBB  ",
-                        " BBBBB ",
-                        "BB   BB",
-                        "BB   BB",
-                        "BB   BB",
+                        " BBPBB ",
+                        "BBAAABB",
+                        "PBAAABP",
+                        "BBAAABB",
                         " BBBBB ",
                         "  BCB  ")
                 .layer(
-                        "       ",
+                        "   B   ",
                         "  BBB  ",
-                        " BX XB ",
-                        " B   B ",
-                        " BX XB ",
+                        " BXAXB ",
+                        "BBAAABB",
+                        " BXAXB ",
                         "  BBB  ",
-                        "       ")
+                        "   B   ")
                 .layer(
                         "       ",
                         "       ",
@@ -49,11 +60,43 @@ public class ArcFurnaceMultiblock extends Multiblock
     }
 
     @Override
+    public void onConstruct(Level level, BlockPos pos, Rotation rotation)
+    {
+        super.onConstruct(level, pos, rotation);
+
+        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
+            if(be instanceof MultiblockSlaveBlockEntity slave)
+            {
+                slave.slave(pos);
+            }
+        });
+    }
+
+    @Override
+    public void onDeconstruct(Level level, BlockPos pos, Rotation rotation)
+    {
+        super.onDeconstruct(level, pos, rotation);
+
+        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
+            if(be instanceof MultiblockSlaveBlockEntity slave)
+            {
+                slave.free();
+            }
+        });
+    }
+
+    @Override
+    protected boolean isValid(Level level, BlockPos anchor, Rotation rotation)
+    {
+        return getBlockPositions(anchor, rotation).stream().map(level::getBlockState).filter(state -> state.getBlock() instanceof CoilBlock).count() >= 4;
+    }
+
+    @Override
     public List<BoundingBox> getBoundingBoxes()
     {
-        return List.of(new BoundingBox(1, 0, 1, 6, 3, 6),
+        return List.of(new BoundingBox(1, 0, 1, 5, 2, 5),
                 new BoundingBox(2, 3, 2, 5, 4, 5),
-                new BoundingBox(2, 0, 0, 5, 1, 7),
-                new BoundingBox(0, 0, 2, 7, 1, 5));
+                new BoundingBox(2, 0, 0, 4, 1, 6),
+                new BoundingBox(0, 0, 2, 6, 1, 4));
     }
 }

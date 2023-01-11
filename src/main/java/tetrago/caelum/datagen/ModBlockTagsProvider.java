@@ -15,6 +15,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider
 {
     public static final TagKey<Block> ORES_ALUMINUM = BlockTags.create(new ResourceLocation("forge", "ores/aluminum"));
     public static final TagKey<Block> STORAGE_BLOCKS_ALUMINUM = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminum"));
+    public static final TagKey<Block> COIL = BlockTags.create(Caelum.loc("coil"));
 
     public ModBlockTagsProvider(DataGenerator pGenerator, ExistingFileHelper helper)
     {
@@ -44,5 +45,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider
         tag(Tags.Blocks.STORAGE_BLOCKS)
                 .add(ModBlocks.ALUMINUM_BLOCK.get());
         tag(STORAGE_BLOCKS_ALUMINUM).add(ModBlocks.ALUMINUM_BLOCK.get());
+
+        tag(COIL)
+                .add(ModBlocks.COPPER_COIL.get());
     }
 }

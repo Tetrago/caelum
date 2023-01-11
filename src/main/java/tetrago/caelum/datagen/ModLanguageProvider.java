@@ -20,6 +20,8 @@ public class ModLanguageProvider extends LanguageProvider
     {
         add(Caelum.modid("itemGroup.{}"), "Caelum");
 
+        add(Caelum.modid("tooltip.{}.block.coil"), "Coil Strength");
+
         add(ArcFurnaceControllerScreen.UNLOCALIZED_NAME, "Arc Furnace");
         add(SolarPanelScreen.UNLOCALIZED_NAME, "Solar Panel");
 
@@ -28,10 +30,12 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.ALUMINUM_BLOCK.get(), "Block of Aluminum");
 
         add(ModBlocks.REFIRED_BRICKS.get(), "Refired Bricks");
+        add(ModBlocks.COPPER_COIL.get(), "Copper Coil");
 
         add(ModBlocks.ARC_FURNACE_CONTROLLER.get(), "Arc Furnace Controller");
         add(ModBlocks.MATERIAL_HOPPER.get(), "Material Hopper");
         add(ModBlocks.MATERIAL_CHUTE.get(), "Material Chute");
+        add(ModBlocks.ENERGY_PORT.get(), "Energy Port");
 
         add(ModBlocks.BASIC_SOLAR_PANEL.get(), "Basic Solar Panel");
         add(ModBlocks.ADVANCED_SOLAR_PANEL.get(), "Advanced Solar Panel");

@@ -5,10 +5,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import tetrago.caelum.common.block.SolarPanelBlock;
 import tetrago.caelum.common.blockentity.SolarPanelBlockEntity;
 import tetrago.caelum.common.capability.GeneratorEnergyStorage;
+import tetrago.caelum.common.capability.ModEnergyStorage;
+import tetrago.caelum.common.container.data.EnergyData;
 
 public class SolarPanelContainer extends ModBaseContainer
 {
@@ -31,33 +34,18 @@ public class SolarPanelContainer extends ModBaseContainer
 
     private void addEnergyData()
     {
-        addDataSlot(new DataSlot()
+        addDataSlots(new EnergyData()
         {
             @Override
-            public int get()
+            protected int getEnergyStored()
             {
-                return getEnergyStored() & 0x0000ffff;
+                return SolarPanelContainer.this.getEnergyStored();
             }
 
             @Override
-            public void set(int v)
+            protected void setEnergyStored(int energy)
             {
-                blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(cap -> ((GeneratorEnergyStorage)cap).setEnergyStored((cap.getEnergyStored() & 0xffff0000) | v));
-            }
-        });
-
-        addDataSlot(new DataSlot()
-        {
-            @Override
-            public int get()
-            {
-                return (getEnergyStored() >> 16) & 0x0000ffff;
-            }
-
-            @Override
-            public void set(int v)
-            {
-                blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(cap -> ((GeneratorEnergyStorage)cap).setEnergyStored((cap.getEnergyStored() & 0x0000ffff) | (v << 16)));
+                blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(cap -> ((ModEnergyStorage)cap).setEnergyStored(energy));
             }
         });
 

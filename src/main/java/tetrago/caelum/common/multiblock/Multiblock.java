@@ -27,13 +27,15 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
     {
         private BlockPos anchor;
         private List<BoundingBox> boundingBoxes;
+        private Rotation rotation;
 
         public Instance() {}
 
-        public Instance(BlockPos anchor, List<BoundingBox> boundingBoxes)
+        public Instance(BlockPos anchor, List<BoundingBox> boundingBoxes, Rotation rotation)
         {
             this.anchor = anchor;
             this.boundingBoxes = boundingBoxes;
+            this.rotation = rotation;
         }
 
         public BlockPos getAnchorPosition()
@@ -44,6 +46,11 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         public List<BoundingBox> getBoundingBoxes()
         {
             return boundingBoxes;
+        }
+
+        public Rotation getRotation()
+        {
+            return rotation;
         }
 
         @Override
@@ -61,6 +68,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
             });
 
             tag.put("boxes", list);
+            tag.putInt("rotation", rotation.ordinal());
             return tag;
         }
 
@@ -74,6 +82,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 
                 return new BoundingBox(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
             }).toList();
+            rotation = Rotation.values()[nbt.getInt("rotation")];
         }
     }
 
@@ -133,6 +142,12 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         public Builder define(char c, Block block)
         {
             definitions.put(c, state -> state.is(block));
+            return this;
+        }
+
+        public Builder define(char c, Block... blocks)
+        {
+            definitions.put(c, state -> Arrays.stream(blocks).anyMatch(state::is));
             return this;
         }
 
@@ -222,7 +237,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
                 return new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
             }).toList();
 
-            return Optional.of(new Instance(anchor, boxes));
+            return Optional.of(new Instance(anchor, boxes, rotation));
         }
 
         return Optional.empty();
@@ -233,8 +248,8 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         return true;
     }
 
-    public void onConstruct(Level level, BlockPos pos) {}
-    public void onDeconstruct(Level level, BlockPos pos) {}
+    public void onConstruct(Level level, BlockPos pos, Rotation rotation) {}
+    public void onDeconstruct(Level level, BlockPos pos, Rotation rotation) {}
 
     public List<BoundingBox> getBoundingBoxes()
     {

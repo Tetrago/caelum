@@ -32,6 +32,7 @@ public class ModBlockStateProvider extends BlockStateProvider
         simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
 
         simpleBlock(ModBlocks.REFIRED_BRICKS.get());
+        simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));
 
         horizontalDirectionalBlock(ModBlocks.ARC_FURNACE_CONTROLLER.get(), state ->
                 models().orientable(state.getBlock().getRegistryName().getPath() + (state.getValue(MultiblockBlock.CONSTRUCTED) ? "_constructed" : ""),
@@ -41,6 +42,7 @@ public class ModBlockStateProvider extends BlockStateProvider
 
         omnidirectionalBlock(ModBlocks.MATERIAL_HOPPER.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_bottom"), modLoc("block/material_hopper_top"));
         omnidirectionalBlock(ModBlocks.MATERIAL_CHUTE.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_top"), modLoc("block/material_hopper_top"));
+        simpleBlock(ModBlocks.ENERGY_PORT.get());
 
         simpleBlock(ModBlocks.BASIC_SOLAR_PANEL.get(), models().withExistingParent("block/basic_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/basic_solar_panel")));
         simpleBlock(ModBlocks.ADVANCED_SOLAR_PANEL.get(), models().withExistingParent("block/advanced_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/advanced_solar_panel")));

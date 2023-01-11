@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -45,7 +46,7 @@ public abstract class MultiblockBlock extends Block
         if(pState.getValue(CONSTRUCTED)) return useConstructed(pState, pLevel, pPos, pPlayer, pHand, pHit);
 
         return multiblock.get().match(pLevel, pPos).map(inst -> {
-            onConstruct(pState, pLevel, pPos);
+            onConstruct(pState, pLevel, pPos, inst.getRotation());
 
             if(!pLevel.isClientSide())
             {
@@ -56,17 +57,17 @@ public abstract class MultiblockBlock extends Block
         }).orElse(super.use(pState, pLevel, pPos, pPlayer, pHand, pHit));
     }
 
-    protected void onConstruct(BlockState state, Level level, BlockPos pos)
+    protected void onConstruct(BlockState state, Level level, BlockPos pos, Rotation rotation)
     {
-        multiblock.get().onConstruct(level, pos);
+        multiblock.get().onConstruct(level, pos, rotation);
 
         if(level.isClientSide()) return;
         level.setBlock(pos, state.setValue(CONSTRUCTED, true), 2);
     }
 
-    public void onDeconstruct(BlockState state, Level level, BlockPos pos)
+    public void onDeconstruct(BlockState state, Level level, BlockPos pos, Rotation rotation)
     {
-        multiblock.get().onDeconstruct(level, pos);
+        multiblock.get().onDeconstruct(level, pos, rotation);
 
         if(level.isClientSide()) return;
         level.setBlock(pos, state.setValue(CONSTRUCTED, false), 2);

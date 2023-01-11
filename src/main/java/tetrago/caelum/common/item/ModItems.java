@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tetrago.caelum.common.Caelum;
+import tetrago.caelum.common.block.CoilBlock;
 import tetrago.caelum.common.block.ModBlocks;
 
 public class ModItems
@@ -20,10 +21,12 @@ public class ModItems
     public static final RegistryObject<Item> ALUMINUM_BLOCK = fromBlock(ModBlocks.ALUMINUM_BLOCK);
 
     public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
+    public static final RegistryObject<Item> COPPER_OIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get(), PROPERTIES));
 
     public static final RegistryObject<Item> ARC_FURNACE_CONTROLLER = fromBlock(ModBlocks.ARC_FURNACE_CONTROLLER);
     public static final RegistryObject<Item> MATERIAL_HOPPER = fromBlock(ModBlocks.MATERIAL_HOPPER);
     public static final RegistryObject<Item> MATERIAL_CHUTE = fromBlock(ModBlocks.MATERIAL_CHUTE);
+    public static final RegistryObject<Item> ENERGY_PORT = fromBlock(ModBlocks.ENERGY_PORT);
 
     public static final RegistryObject<Item> BASIC_SOLAR_PANEL = fromBlock(ModBlocks.BASIC_SOLAR_PANEL);
     public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = fromBlock(ModBlocks.ADVANCED_SOLAR_PANEL);
