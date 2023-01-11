@@ -10,6 +10,7 @@ import tetrago.caelum.common.multiblock.Multiblock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSerializable<ListTag>
 {
@@ -19,18 +20,18 @@ public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSeriali
     public ListTag serializeNBT()
     {
         ListTag list = new ListTag();
-        list.addAll(0, this.list.stream().map(Multiblock.Instance::serializeNBT).toList());
+        list.addAll(this.list.stream().map(Multiblock.Instance::serializeNBT).toList());
         return list;
     }
 
     @Override
     public void deserializeNBT(ListTag nbt)
     {
-        list = nbt.getList(0).stream().map(tag -> {
+        list = nbt.stream().map(tag -> {
             Multiblock.Instance inst = new Multiblock.Instance();
             inst.deserializeNBT((CompoundTag)tag);
             return inst;
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
     @Override

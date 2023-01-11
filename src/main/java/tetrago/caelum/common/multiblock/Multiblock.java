@@ -1,25 +1,22 @@
 package tetrago.caelum.common.multiblock;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.capability.IMultiblocksRecord;
 import tetrago.caelum.common.capability.ModCapabilities;
 
-import java.awt.dnd.DropTarget;
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
@@ -71,7 +68,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         public void deserializeNBT(CompoundTag nbt)
         {
             anchor = NbtUtils.readBlockPos(nbt.getCompound("anchor"));
-            boundingBoxes = nbt.getList("boxes", CompoundTag.TAG_COMPOUND).stream().map(tag -> (CompoundTag)tag).map(tag -> {
+            boundingBoxes = nbt.getList("boxes", Tag.TAG_COMPOUND).stream().map(tag -> (CompoundTag)tag).map(tag -> {
                 final BlockPos min = NbtUtils.readBlockPos(tag.getCompound("min"));
                 final BlockPos max = NbtUtils.readBlockPos(tag.getCompound("max"));
 
