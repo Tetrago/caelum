@@ -17,7 +17,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '0.1.0'
+version = mod_version
 group = 'tetrago.caelum'
 archivesBaseName = 'caelum'
 
@@ -25,7 +25,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'parchment', version: '2022.11.06-1.18.2'
+    mappings channel: 'parchment', version: parchment_version
     runs {
         client {
             workingDirectory project.file('run')
@@ -93,7 +93,10 @@ repositories {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven"
     }
-
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
     maven {
         url = "https://www.cursemaven.com"
         content {
@@ -103,9 +106,11 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.2.281")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     runtimeOnly fg.deobf("curse.maven:jade-324717:4082408")
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
     runtimeOnly fg.deobf("curse.maven:mekanism-generators-268566:3743837")
