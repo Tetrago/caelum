@@ -5,7 +5,6 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,33 +27,10 @@ public class ModRecipeProvider extends RecipeProvider
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> builder)
     {
-        oreRecipes(builder, ImmutableList.of(ModBlocks.ALUMINUM_ORE.get(), ModBlocks.DEEPSLATE_ALUMINUM_ORE.get(), ModItems.RAW_ALUMINUM.get()), ModItems.ALUMINUM_INGOT.get());
+        oreRecipes(builder, ImmutableList.of(ModBlocks.BAUXITE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModItems.RAW_BAUXITE.get()), ModItems.ALUMINUM_INGOT.get());
 
-        ShapelessRecipeBuilder.shapeless(ModItems.ALUMINUM_INGOT.get(), 9)
-                .requires(ModBlocks.ALUMINUM_BLOCK.get())
-                .unlockedBy("has_aluminum_block", criterion(ModItems.ALUMINUM_BLOCK.get()))
-                .save(builder);
-
-        ShapedRecipeBuilder.shaped(ModBlocks.ALUMINUM_BLOCK.get())
-                .define('X', ModItems.ALUMINUM_INGOT.get())
-                .pattern("XXX")
-                .pattern("XXX")
-                .pattern("XXX")
-                .unlockedBy("has_aluminum_ingot", criterion(ModItems.ALUMINUM_INGOT.get()))
-                .save(builder, Caelum.loc("aluminum_ingot_from_block"));
-
-        ShapelessRecipeBuilder.shapeless(ModItems.ALUMINUM_NUGGET.get(), 9)
-                .requires(ModItems.ALUMINUM_INGOT.get())
-                .unlockedBy("has_aluminum_block", criterion(ModItems.ALUMINUM_BLOCK.get()))
-                .save(builder);
-
-        ShapedRecipeBuilder.shaped(ModItems.ALUMINUM_INGOT.get())
-                .define('X', ModItems.ALUMINUM_NUGGET.get())
-                .pattern("XXX")
-                .pattern("XXX")
-                .pattern("XXX")
-                .unlockedBy("has_aluminum_nugget", criterion(ModItems.ALUMINUM_NUGGET.get()))
-                .save(builder, Caelum.loc("aluminum_ingot_from_nuggets"));
+        ingotRecipes(builder, ModItems.ALUMINUM_INGOT.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.ALUMINUM_BLOCK.get());
+        ingotRecipes(builder, ModItems.STEEL_INGOT.get(), ModItems.STEEL_NUGGET.get(), ModItems.STEEL_BLOCK.get());
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_CIRCUIT_BOARD.get(), 4)
                 .define('A', ModItems.ALUMINUM_INGOT.get())
@@ -115,12 +91,41 @@ public class ModRecipeProvider extends RecipeProvider
 
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(i), item, 0.7f, 200)
                     .unlockedBy("has_" + name, criterion(i.asItem()))
-                    .save(builder, Caelum.loc(name + "_from_smelting"));
+                    .save(builder, Caelum.loc(name + "_smelting"));
 
             SimpleCookingRecipeBuilder.blasting(Ingredient.of(i), item, 0.7f, 100)
                     .unlockedBy("has_" + name, criterion(i.asItem()))
-                    .save(builder, Caelum.loc(name + "_from_blasting"));
+                    .save(builder, Caelum.loc(name + "_blasting"));
         });
+    }
+
+    private static void ingotRecipes(Consumer<FinishedRecipe> builder, Item ingot, Item nugget, Item block)
+    {
+        ShapelessRecipeBuilder.shapeless(ingot, 9)
+                .requires(block)
+                .unlockedBy("has_" + block.getRegistryName().getPath(), criterion(block))
+                .save(builder, Caelum.loc(ingot.getRegistryName().getPath() + "_from_block"));
+
+        ShapedRecipeBuilder.shaped(block)
+                .define('X', ingot)
+                .pattern("XXX")
+                .pattern("XXX")
+                .pattern("XXX")
+                .unlockedBy("has_" + ingot.getRegistryName().getPath(), criterion(ingot))
+                .save(builder);
+
+        ShapelessRecipeBuilder.shapeless(nugget, 9)
+                .requires(ingot)
+                .unlockedBy("has_" + nugget.getRegistryName().getPath(), criterion(nugget))
+                .save(builder);
+
+        ShapedRecipeBuilder.shaped(ingot)
+                .define('X', nugget)
+                .pattern("XXX")
+                .pattern("XXX")
+                .pattern("XXX")
+                .unlockedBy("has_" + nugget.getRegistryName().getPath(), criterion(nugget))
+                .save(builder, Caelum.loc(ingot.getRegistryName().getPath() + "_from_nugget"));
     }
 
     private static CriterionTriggerInstance criterion(ItemLike item)

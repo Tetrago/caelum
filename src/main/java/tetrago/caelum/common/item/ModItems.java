@@ -12,13 +12,14 @@ import tetrago.caelum.common.block.ModBlocks;
 
 public class ModItems
 {
-    private static final Item.Properties PROPERTIES = new Item.Properties().tab(Caelum.ITEM_GROUP);
+    public static final Item.Properties PROPERTIES = new Item.Properties().tab(Caelum.ITEM_GROUP);
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Caelum.MODID);
 
-    public static final RegistryObject<Item> ALUMINUM_ORE = fromBlock(ModBlocks.ALUMINUM_ORE);
-    public static final RegistryObject<Item> DEEPSLATE_ALUMINUM_ORE = fromBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE);
+    public static final RegistryObject<Item> BAUXITE_ORE = fromBlock(ModBlocks.BAUXITE_ORE);
+    public static final RegistryObject<Item> DEEPSLATE_BAUXITE_ORE = fromBlock(ModBlocks.DEEPSLATE_BAUXITE_ORE);
     public static final RegistryObject<Item> ALUMINUM_BLOCK = fromBlock(ModBlocks.ALUMINUM_BLOCK);
+    public static final RegistryObject<Item> STEEL_BLOCK = fromBlock(ModBlocks.STEEL_BLOCK);
 
     public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
     public static final RegistryObject<Item> COPPER_OIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get(), PROPERTIES));
@@ -31,9 +32,11 @@ public class ModItems
     public static final RegistryObject<Item> BASIC_SOLAR_PANEL = fromBlock(ModBlocks.BASIC_SOLAR_PANEL);
     public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = fromBlock(ModBlocks.ADVANCED_SOLAR_PANEL);
 
-    public static final RegistryObject<Item> RAW_ALUMINUM = simple("raw_aluminum");
+    public static final RegistryObject<Item> RAW_BAUXITE = simple("raw_bauxite");
     public static final RegistryObject<Item> ALUMINUM_INGOT = simple("aluminum_ingot");
     public static final RegistryObject<Item> ALUMINUM_NUGGET = simple("aluminum_nugget");
+    public static final RegistryObject<Item> STEEL_INGOT = simple("steel_ingot");
+    public static final RegistryObject<Item> STEEL_NUGGET = simple("steel_nugget");
 
     public static final RegistryObject<Item> BASIC_CIRCUIT_BOARD = simple("basic_circuit_board");
     public static final RegistryObject<Item> BASIC_PHOTOVOLTAIC_CELL = simple("basic_photovoltaic_cell");

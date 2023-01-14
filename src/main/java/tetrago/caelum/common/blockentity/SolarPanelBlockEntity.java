@@ -25,15 +25,15 @@ import tetrago.caelum.common.container.SolarPanelContainer;
 
 public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
 {
-    private final GeneratorEnergyStorage generatorEnergyStorage;
-    private final LazyOptional<IEnergyStorage> energyStorage;
+    private final GeneratorEnergyStorage energyStorage;
+    private final LazyOptional<IEnergyStorage> energyStorageCapability;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state)
     {
         super(ModBlockEntities.SOLAR_PANEL.get(), pos, state);
 
         final SolarPanelBlock block = (SolarPanelBlock)getBlockState().getBlock();
-        generatorEnergyStorage = new GeneratorEnergyStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate())
+        energyStorage = new GeneratorEnergyStorage(block.getEnergyBufferCapacity(), block.getEnergyGenerationRate())
         {
             @Override
             protected void onEnergyChanged()
@@ -42,7 +42,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
             }
         };
 
-        energyStorage = LazyOptional.of(() -> generatorEnergyStorage);
+        energyStorageCapability = LazyOptional.of(() -> energyStorage);
     }
 
     public boolean isGenerating()
@@ -56,7 +56,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
 
         if(blockEntity.isGenerating())
         {
-            blockEntity.generatorEnergyStorage.generate();
+            blockEntity.energyStorage.generate();
         }
 
         BlockEntity be = level.getBlockEntity(blockEntity.worldPosition.below());
@@ -65,9 +65,9 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
         be.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(cap -> {
             if(!cap.canReceive()) return;
 
-            int max = blockEntity.generatorEnergyStorage.extractEnergy(blockEntity.generatorEnergyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
+            int max = blockEntity.energyStorage.extractEnergy(blockEntity.energyStorage.getEnergyStored(), true); // Determine how much can be withdrawn
             int out = cap.receiveEnergy(max, false); // Send as much as possible
-            blockEntity.generatorEnergyStorage.extractEnergy(out, false); // Remove what was extracted
+            blockEntity.energyStorage.extractEnergy(out, false); // Remove what was extracted
         });
     }
 
@@ -76,10 +76,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     {
         super.load(tag);
 
-        if(tag.contains("energy"))
-        {
-            generatorEnergyStorage.deserializeNBT(tag.get("energy"));
-        }
+        energyStorage.deserializeNBT(tag.get("energy"));
     }
 
     @Override
@@ -87,7 +84,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     {
         super.saveAdditional(tag);
 
-        tag.put("energy", generatorEnergyStorage.serializeNBT());
+        tag.put("energy", energyStorage.serializeNBT());
     }
 
     @NotNull
@@ -96,7 +93,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     {
         if(cap == CapabilityEnergy.ENERGY && (side == Direction.DOWN || side == null))
         {
-            return energyStorage.cast();
+            return energyStorageCapability.cast();
         }
 
         return super.getCapability(cap, side);
@@ -106,7 +103,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider
     public void invalidateCaps()
     {
         super.invalidateCaps();
-        energyStorage.invalidate();
+        energyStorageCapability.invalidate();
     }
 
     @Override

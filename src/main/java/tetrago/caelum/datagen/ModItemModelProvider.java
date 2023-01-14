@@ -1,13 +1,11 @@
 package tetrago.caelum.datagen;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.item.ModItems;
 
 public class ModItemModelProvider extends ItemModelProvider
@@ -20,9 +18,10 @@ public class ModItemModelProvider extends ItemModelProvider
     @Override
     protected void registerModels()
     {
-        simpleBlockItem(ModItems.ALUMINUM_ORE);
-        simpleBlockItem(ModItems.DEEPSLATE_ALUMINUM_ORE);
+        simpleBlockItem(ModItems.BAUXITE_ORE);
+        simpleBlockItem(ModItems.DEEPSLATE_BAUXITE_ORE);
         simpleBlockItem(ModItems.ALUMINUM_BLOCK);
+        simpleBlockItem(ModItems.STEEL_BLOCK);
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
         simpleBlockItem(ModItems.COPPER_OIL);
@@ -35,9 +34,11 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleBlockItem(ModItems.BASIC_SOLAR_PANEL);
         simpleBlockItem(ModItems.ADVANCED_SOLAR_PANEL);
 
-        simpleItem(ModItems.RAW_ALUMINUM);
+        simpleItem(ModItems.RAW_BAUXITE);
         simpleItem(ModItems.ALUMINUM_INGOT);
         simpleItem(ModItems.ALUMINUM_NUGGET);
+        simpleItem(ModItems.STEEL_INGOT);
+        simpleItem(ModItems.STEEL_NUGGET);
 
         simpleItem(ModItems.BASIC_CIRCUIT_BOARD);
         simpleItem(ModItems.BASIC_PHOTOVOLTAIC_CELL);

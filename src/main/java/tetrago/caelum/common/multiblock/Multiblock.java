@@ -5,23 +5,23 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import org.jetbrains.annotations.Nullable;
-import tetrago.caelum.common.capability.IMultiblocksRecord;
+import tetrago.caelum.common.blockentity.ProxyBlockEntity;
+import tetrago.caelum.common.capability.IMultiblockInstanceRecord;
 import tetrago.caelum.common.capability.ModCapabilities;
 
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
+public abstract class Multiblock extends ForgeRegistryEntry<Multiblock> implements IForgeRegistryEntry<Multiblock>
 {
     public static class Instance implements INBTSerializable<CompoundTag>
     {
@@ -173,7 +173,6 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         }
     }
 
-    private ResourceLocation name;
     protected final Definition definition;
 
     public Multiblock(Definition definition)
@@ -203,7 +202,7 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
 
     public Optional<Instance> match(Level level, BlockPos anchor)
     {
-        IMultiblocksRecord record = level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).orElseThrow(() -> new IllegalStateException("No multiblock record holder!"));
+        IMultiblockInstanceRecord record = level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).orElseThrow(() -> new IllegalStateException("No multiblock record holder!"));
 
         ROTATIONS: for(Rotation rotation : Rotation.values())
         {
@@ -248,31 +247,32 @@ public abstract class Multiblock implements IForgeRegistryEntry<Multiblock>
         return true;
     }
 
-    public void onConstruct(Level level, BlockPos pos, Rotation rotation) {}
-    public void onDeconstruct(Level level, BlockPos pos, Rotation rotation) {}
+    public void onConstruct(Level level, BlockPos pos, Rotation rotation)
+    {
+        if(level.isClientSide()) return;
+
+        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
+            if(be instanceof ProxyBlockEntity proxy)
+            {
+                proxy.proxy(pos);
+            }
+        });
+    }
+
+    public void onDeconstruct(Level level, BlockPos pos, Rotation rotation)
+    {
+        if(level.isClientSide()) return;
+
+        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
+            if(be instanceof ProxyBlockEntity proxy)
+            {
+                proxy.free();
+            }
+        });
+    }
 
     public List<BoundingBox> getBoundingBoxes()
     {
         return List.of(new BoundingBox(0, 0, 0, definition.getWidth(), definition.getHeight(), definition.getDepth()));
-    }
-
-    @Override
-    public Multiblock setRegistryName(ResourceLocation name)
-    {
-        this.name = name;
-        return this;
-    }
-
-    @Nullable
-    @Override
-    public ResourceLocation getRegistryName()
-    {
-        return name;
-    }
-
-    @Override
-    public Class<Multiblock> getRegistryType()
-    {
-        return Multiblock.class;
     }
 }

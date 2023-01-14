@@ -12,11 +12,12 @@ public class ModBlocks
 {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Caelum.MODID);
 
-    public static final RegistryObject<Block> ALUMINUM_ORE = BLOCKS.register("aluminum_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
-    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = BLOCKS.register("deepslate_aluminum_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE)));
-    public static final RegistryObject<Block> ALUMINUM_BLOCK = BLOCKS.register("aluminum_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> BAUXITE_ORE = simple("bauxite_ore", Blocks.IRON_ORE);
+    public static final RegistryObject<Block> DEEPSLATE_BAUXITE_ORE = simple("deepslate_bauxite_ore", Blocks.DEEPSLATE_IRON_ORE);
+    public static final RegistryObject<Block> ALUMINUM_BLOCK = simple("aluminum_block", Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> STEEL_BLOCK = simple("steel_block", Blocks.IRON_BLOCK);
 
-    public static final RegistryObject<Block> REFIRED_BRICKS = BLOCKS.register("refired_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> REFIRED_BRICKS = simple("refired_bricks", Blocks.BRICKS);
     public static final RegistryObject<Block> COPPER_COIL = BLOCKS.register("copper_coil", () -> new CoilBlock(200));
 
     public static final RegistryObject<Block> ARC_FURNACE_CONTROLLER = BLOCKS.register("arc_furnace_controller", ArcFurnaceControllerBlock::new);
@@ -26,4 +27,9 @@ public class ModBlocks
 
     public static final RegistryObject<Block> BASIC_SOLAR_PANEL = BLOCKS.register("basic_solar_panel", () -> new SolarPanelBlock(10000, 200));
     public static final RegistryObject<Block> ADVANCED_SOLAR_PANEL = BLOCKS.register("advanced_solar_panel", () -> new SolarPanelBlock(25000, 400));
+
+    private static RegistryObject<Block> simple(String name, Block parent)
+    {
+        return BLOCKS.register(name, () -> new Block(BlockBehaviour.Properties.copy(parent)));
+    }
 }

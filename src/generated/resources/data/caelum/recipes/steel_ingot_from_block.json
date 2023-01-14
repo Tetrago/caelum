@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "caelum:steel_block"
+    }
+  ],
+  "result": {
+    "item": "caelum:steel_ingot",
+    "count": 9
+  }
+}

@@ -6,6 +6,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -23,6 +25,44 @@ public class ModBaseContainer extends AbstractContainerMenu
 
         blockEntity = inv.player.getCommandSenderWorld().getBlockEntity(pos);
         inventory = new InvWrapper(inv);
+    }
+
+    public final ItemStack quickMoveStack(Player player, int index, int count)
+    {
+        Slot slot = slots.get(index);
+        if(!slot.hasItem()) return ItemStack.EMPTY;
+        ItemStack stack = slot.getItem();
+
+        if(index < 36)
+        {
+            if(!moveItemStackTo(stack, 36, 36 + count, false))
+            {
+                return ItemStack.EMPTY;
+            }
+        }
+        else if(index < 36 + count)
+        {
+            if(!moveItemStackTo(stack, 0, 36, false))
+            {
+                return ItemStack.EMPTY;
+            }
+        }
+        else
+        {
+            return ItemStack.EMPTY;
+        }
+
+        if(stack.getCount() == 0)
+        {
+            slot.set(ItemStack.EMPTY);
+        }
+        else
+        {
+            slot.setChanged();
+        }
+
+        slot.onTake(player, stack);
+        return stack.copy();
     }
 
     protected int addSlotRange(IItemHandler handler, int index, int x, int y, int count, int dx)

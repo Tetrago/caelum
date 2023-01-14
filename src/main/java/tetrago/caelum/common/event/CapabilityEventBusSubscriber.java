@@ -6,7 +6,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.capability.IMultiblocksRecord;
+import tetrago.caelum.common.capability.IMultiblockInstanceRecord;
 import tetrago.caelum.common.capability.MultiblockInstanceRecordProvider;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Caelum.MODID)
@@ -15,7 +15,7 @@ public class CapabilityEventBusSubscriber
     @SubscribeEvent
     public static void onRegisterCapabilities(final RegisterCapabilitiesEvent event)
     {
-        event.register(IMultiblocksRecord.class);
+        event.register(IMultiblockInstanceRecord.class);
     }
 
     @SubscribeEvent

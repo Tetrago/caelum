@@ -27,9 +27,10 @@ public class ModBlockStateProvider extends BlockStateProvider
     @Override
     protected void registerStatesAndModels()
     {
-        simpleBlock(ModBlocks.ALUMINUM_ORE.get());
-        simpleBlock(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+        simpleBlock(ModBlocks.BAUXITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
         simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
+        simpleBlock(ModBlocks.STEEL_BLOCK.get());
 
         simpleBlock(ModBlocks.REFIRED_BRICKS.get());
         simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "caelum:bauxite_ore"
+  },
+  "result": "caelum:aluminum_ingot",
+  "experience": 0.7,
+  "cookingtime": 100
+}

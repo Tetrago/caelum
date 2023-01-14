@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:steel_nugget"
+    ]
+  },
+  "criteria": {
+    "has_steel_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:steel_nugget"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:steel_nugget"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_steel_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}

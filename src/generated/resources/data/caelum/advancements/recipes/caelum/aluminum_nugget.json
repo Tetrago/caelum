@@ -6,13 +6,13 @@
     ]
   },
   "criteria": {
-    "has_aluminum_block": {
+    "has_aluminum_nugget": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "caelum:aluminum_block"
+              "caelum:aluminum_nugget"
             ]
           }
         ]
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_aluminum_block",
+      "has_aluminum_nugget",
       "has_the_recipe"
     ]
   ]

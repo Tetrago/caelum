@@ -15,6 +15,7 @@ import tetrago.caelum.common.container.ModContainers;
 import tetrago.caelum.common.item.ModItems;
 import tetrago.caelum.common.multiblock.ModMultiblocks;
 import tetrago.caelum.common.multiblock.Multiblock;
+import tetrago.caelum.common.recipe.ModRecipes;
 
 @Mod(Caelum.MODID)
 public class Caelum
@@ -34,6 +35,7 @@ public class Caelum
         ModContainers.CONTAINERS.register(bus);
         ModItems.ITEMS.register(bus);
         ModMultiblocks.MULTIBLOCKS.register(bus);
+        ModRecipes.RECIPE_SERIALIZERS.register(bus);
     }
 
     public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab(MODID)

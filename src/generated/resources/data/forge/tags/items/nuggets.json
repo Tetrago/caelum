@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "caelum:aluminum_nugget"
+    "caelum:aluminum_nugget",
+    "caelum:steel_nugget"
   ]
 }

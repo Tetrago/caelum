@@ -1,16 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    "XXX",
-    "XXX"
-  ],
-  "key": {
-    "X": {
-      "item": "caelum:aluminum_ingot"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "caelum:aluminum_block"
     }
-  },
+  ],
   "result": {
-    "item": "caelum:aluminum_block"
+    "item": "caelum:aluminum_ingot",
+    "count": 9
   }
 }

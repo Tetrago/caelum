@@ -1,5 +1,7 @@
 package tetrago.caelum.common.capability;
 
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.Tag;
 import net.minecraftforge.energy.EnergyStorage;
 
 public abstract class ModEnergyStorage extends EnergyStorage
@@ -35,9 +37,22 @@ public abstract class ModEnergyStorage extends EnergyStorage
 
     public void setEnergyStored(int energy)
     {
-        this.energy = energy;
+        this.energy = Math.min(capacity, energy);
+
         onEnergyChanged();
     }
 
     protected abstract void onEnergyChanged();
+
+    @Override
+    public Tag serializeNBT()
+    {
+        return IntTag.valueOf(energy);
+    }
+
+    @Override
+    public void deserializeNBT(Tag nbt)
+    {
+        energy = ((IntTag)nbt).getAsInt();
+    }
 }

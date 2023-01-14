@@ -11,9 +11,10 @@ public class ModBlockLoot extends BlockLoot
     @Override
     protected void addTables()
     {
-        add(ModBlocks.ALUMINUM_ORE.get(), block -> createOreDrop(block, ModItems.RAW_ALUMINUM.get()));
-        add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get(), block -> createOreDrop(block, ModItems.RAW_ALUMINUM.get()));
+        add(ModBlocks.BAUXITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_BAUXITE.get()));
+        add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_BAUXITE.get()));
         dropSelf(ModBlocks.ALUMINUM_BLOCK.get());
+        dropSelf(ModBlocks.STEEL_BLOCK.get());
 
         dropSelf(ModBlocks.REFIRED_BRICKS.get());
         dropSelf(ModBlocks.COPPER_COIL.get());

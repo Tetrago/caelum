@@ -7,11 +7,10 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import tetrago.caelum.common.block.CoilBlock;
 import tetrago.caelum.common.block.ModBlocks;
-import tetrago.caelum.common.blockentity.MultiblockSlaveBlockEntity;
+import tetrago.caelum.common.blockentity.ArcFurnaceControllerBlockEntity;
 import tetrago.caelum.datagen.ModBlockTagsProvider;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ArcFurnaceMultiblock extends Multiblock
 {
@@ -33,8 +32,8 @@ public class ArcFurnaceMultiblock extends Multiblock
                         " BBBBB ",
                         "  BBB  ")
                 .layer(
-                        "  BBB  ",
-                        " BBPBB ",
+                        "  BPB  ",
+                        " BBBBB ",
                         "BBAAABB",
                         "PBAAABP",
                         "BBAAABB",
@@ -60,29 +59,12 @@ public class ArcFurnaceMultiblock extends Multiblock
     }
 
     @Override
-    public void onConstruct(Level level, BlockPos pos, Rotation rotation)
-    {
-        super.onConstruct(level, pos, rotation);
-
-        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
-            if(be instanceof MultiblockSlaveBlockEntity slave)
-            {
-                slave.slave(pos);
-            }
-        });
-    }
-
-    @Override
     public void onDeconstruct(Level level, BlockPos pos, Rotation rotation)
     {
         super.onDeconstruct(level, pos, rotation);
 
-        getBlockPositions(pos, rotation).stream().map(level::getBlockEntity).filter(Objects::nonNull).forEach(be -> {
-            if(be instanceof MultiblockSlaveBlockEntity slave)
-            {
-                slave.free();
-            }
-        });
+        if(level.isClientSide()) return;
+        ((ArcFurnaceControllerBlockEntity)level.getBlockEntity(pos)).drop();
     }
 
     @Override

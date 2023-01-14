@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:bauxite_ore_smelting"
+    ]
+  },
+  "criteria": {
+    "has_bauxite_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:bauxite_ore"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:bauxite_ore_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bauxite_ore",
+      "has_the_recipe"
+    ]
+  ]
+}

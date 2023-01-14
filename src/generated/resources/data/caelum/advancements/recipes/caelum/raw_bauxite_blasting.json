@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:raw_bauxite_blasting"
+    ]
+  },
+  "criteria": {
+    "has_raw_bauxite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:raw_bauxite"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:raw_bauxite_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_bauxite",
+      "has_the_recipe"
+    ]
+  ]
+}

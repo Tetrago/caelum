@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "caelum:aluminum_ore",
-    "caelum:deepslate_aluminum_ore"
+    "caelum:bauxite_ore",
+    "caelum:deepslate_bauxite_ore"
   ]
 }

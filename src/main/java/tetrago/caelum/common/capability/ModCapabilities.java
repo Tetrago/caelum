@@ -6,5 +6,5 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 
 public class ModCapabilities
 {
-    public static final Capability<IMultiblocksRecord> MULTIBLOCKS_RECORD = CapabilityManager.get(new CapabilityToken<>(){});
+    public static final Capability<IMultiblockInstanceRecord> MULTIBLOCKS_RECORD = CapabilityManager.get(new CapabilityToken<>(){});
 }

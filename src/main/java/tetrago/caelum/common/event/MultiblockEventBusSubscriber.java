@@ -20,10 +20,7 @@ public class MultiblockEventBusSubscriber
 
         level.getCapability(ModCapabilities.MULTIBLOCKS_RECORD).ifPresent(cap -> {
             cap.isWithinMultiblock(event.getPos()).ifPresent(inst -> {
-                if(event.getPos().equals(inst.getAnchorPosition()))
-                {
-                    event.setCanceled(true);
-                }
+                event.setCanceled(true);
 
                 final BlockState state = level.getBlockState(inst.getAnchorPosition());
                 ((MultiblockBlock)state.getBlock()).onDeconstruct(state, level, inst.getAnchorPosition(), inst.getRotation());

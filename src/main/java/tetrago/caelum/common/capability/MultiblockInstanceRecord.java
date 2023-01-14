@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class MultiblockInstanceRecord implements IMultiblocksRecord, INBTSerializable<ListTag>
+public class MultiblockInstanceRecord implements IMultiblockInstanceRecord, INBTSerializable<ListTag>
 {
     private List<Multiblock.Instance> list = new ArrayList<>();
 

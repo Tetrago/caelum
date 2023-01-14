@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 public class MultiblockInstanceRecordProvider implements ICapabilityProvider, ICapabilitySerializable<ListTag>
 {
     private final MultiblockInstanceRecord instanceRecord = new MultiblockInstanceRecord();
-    private final LazyOptional<IMultiblocksRecord> record = LazyOptional.of(() -> instanceRecord);
+    private final LazyOptional<IMultiblockInstanceRecord> record = LazyOptional.of(() -> instanceRecord);
 
     @NotNull
     @Override

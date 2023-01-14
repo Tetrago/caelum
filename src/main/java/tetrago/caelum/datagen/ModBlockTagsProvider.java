@@ -15,6 +15,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider
 {
     public static final TagKey<Block> ORES_ALUMINUM = BlockTags.create(new ResourceLocation("forge", "ores/aluminum"));
     public static final TagKey<Block> STORAGE_BLOCKS_ALUMINUM = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminum"));
+    public static final TagKey<Block> STORAGE_BLOCKS_STEEL = BlockTags.create(new ResourceLocation("forge", "storage_blocks/steel"));
     public static final TagKey<Block> COIL = BlockTags.create(Caelum.loc("coil"));
 
     public ModBlockTagsProvider(DataGenerator pGenerator, ExistingFileHelper helper)
@@ -26,25 +27,28 @@ public class ModBlockTagsProvider extends BlockTagsProvider
     protected void addTags()
     {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.ALUMINUM_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+                .add(ModBlocks.BAUXITE_ORE.get())
+                .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.ALUMINUM_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+                .add(ModBlocks.BAUXITE_ORE.get())
+                .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
         tag(Tags.Blocks.ORES)
-                .add(ModBlocks.ALUMINUM_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+                .add(ModBlocks.BAUXITE_ORE.get())
+                .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
         tag(ORES_ALUMINUM)
-                .add(ModBlocks.ALUMINUM_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+                .add(ModBlocks.BAUXITE_ORE.get())
+                .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_STONE)
-                .add(ModBlocks.ALUMINUM_ORE.get());
+                .add(ModBlocks.BAUXITE_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE)
-                .add(ModBlocks.DEEPSLATE_ALUMINUM_ORE.get());
+                .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
 
         tag(Tags.Blocks.STORAGE_BLOCKS)
-                .add(ModBlocks.ALUMINUM_BLOCK.get());
+                .add(ModBlocks.ALUMINUM_BLOCK.get())
+                .add(ModBlocks.STEEL_BLOCK.get());
+
         tag(STORAGE_BLOCKS_ALUMINUM).add(ModBlocks.ALUMINUM_BLOCK.get());
+        tag(STORAGE_BLOCKS_STEEL).add(ModBlocks.STEEL_BLOCK.get());
 
         tag(COIL)
                 .add(ModBlocks.COPPER_COIL.get());

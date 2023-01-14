@@ -5,16 +5,24 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.client.screen.ArcFurnaceControllerScreen;
@@ -22,9 +30,20 @@ import tetrago.caelum.common.block.HorizontalDirectionalBlock;
 import tetrago.caelum.common.block.MultiblockBlock;
 import tetrago.caelum.common.capability.ModEnergyStorage;
 import tetrago.caelum.common.container.ArcFurnaceControllerContainer;
+import tetrago.caelum.common.recipe.ArcFurnaceRecipe;
+
+import java.util.Optional;
 
 public class ArcFurnaceControllerBlockEntity extends BlockEntity implements MenuProvider
 {
+    private final ItemStackHandler itemStackHandler = new ItemStackHandler(3)
+    {
+        @Override
+        protected void onContentsChanged(int slot)
+        {
+            setChanged();
+        }
+    };
     private final ModEnergyStorage energyStorage = new ModEnergyStorage(250000, 1000)
     {
         @Override
@@ -35,19 +54,118 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     };
 
     private final LazyOptional<IEnergyStorage> energyStorageCapability = LazyOptional.of(() -> energyStorage);
+    private final LazyOptional<IItemHandler> itemHandlerCapability = LazyOptional.of(() -> itemStackHandler);
+
+    private final ContainerData data;
+    private int progress = 0;
+    private int maxProgress = 150;
 
     public ArcFurnaceControllerBlockEntity(BlockPos pPos, BlockState pBlockState)
     {
         super(ModBlockEntities.ARC_FURNACE_CONTROLLER.get(), pPos, pBlockState);
+
+        data = new ContainerData()
+        {
+            @Override
+            public int get(int pIndex)
+            {
+                return switch(pIndex) {
+                    default -> progress;
+                    case 1 -> maxProgress;
+                };
+            }
+
+            @Override
+            public void set(int pIndex, int pValue)
+            {
+                switch(pIndex)
+                {
+                default -> progress = pValue;
+                case 1 -> maxProgress = pValue;
+                }
+            }
+
+            @Override
+            public int getCount()
+            {
+                return 2;
+            }
+        };
+    }
+
+    public static void tick(Level level, BlockPos pos, BlockState state, ArcFurnaceControllerBlockEntity blockEntity)
+    {
+        if(level.isClientSide()) return;
+
+        if(hasRecipe(blockEntity))
+        {
+            ++blockEntity.progress;
+            setChanged(level, pos, state);
+
+            blockEntity.energyStorage.receiveEnergy(700 / blockEntity.maxProgress, false);
+
+            if(blockEntity.progress > blockEntity.maxProgress)
+            {
+                craft(blockEntity);
+            }
+        }
+        else if(blockEntity.progress > 0)
+        {
+            blockEntity.progress = 0;
+            setChanged(level, pos, state);
+        }
+    }
+
+    private static boolean hasRecipe(ArcFurnaceControllerBlockEntity blockEntity)
+    {
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getStackInSlot(0));
+        Optional<ArcFurnaceRecipe> recipe = blockEntity.level.getRecipeManager().getRecipeFor(ArcFurnaceRecipe.Type.INSTANCE, inventory, blockEntity.level);
+
+        return recipe.isPresent() && canInsertIntoOutput(inventory, recipe.get().getResultItem()) && hasMinimumEnergy(blockEntity);
+    }
+
+    private static boolean canInsertIntoOutput(SimpleContainer inventory, ItemStack result)
+    {
+        final ItemStack stack = inventory.getItem(1);
+        return stack.isEmpty()
+                || (stack.getItem() == result.getItem() && stack.getCount() + result.getCount() < stack.getMaxStackSize());
+    }
+
+    private static boolean hasMinimumEnergy(ArcFurnaceControllerBlockEntity blockEntity)
+    {
+        return blockEntity.energyStorage.getEnergyStored() > 700;
+    }
+
+    private static void craft(ArcFurnaceControllerBlockEntity blockEntity)
+    {
+        final Level level = blockEntity.level;
+
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getStackInSlot(0));
+        Optional<ArcFurnaceRecipe> recipe = level.getRecipeManager().getRecipeFor(ArcFurnaceRecipe.Type.INSTANCE, inventory, level);
+
+        if(recipe.isPresent())
+        {
+            blockEntity.itemStackHandler.extractItem(0, 1, false);
+            blockEntity.itemStackHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(), blockEntity.itemStackHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
+
+            blockEntity.progress = 0;
+        }
     }
 
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side)
     {
-        if(cap == CapabilityEnergy.ENERGY && getBlockState().getValue(MultiblockBlock.CONSTRUCTED) && side != getBlockState().getValue(HorizontalDirectionalBlock.FACING))
+        if(getBlockState().getValue(MultiblockBlock.CONSTRUCTED) && side != getBlockState().getValue(HorizontalDirectionalBlock.FACING))
         {
-            return energyStorageCapability.cast();
+            if(cap == CapabilityEnergy.ENERGY)
+            {
+                return energyStorageCapability.cast();
+            }
+            else if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            {
+                return itemHandlerCapability.cast();
+            }
         }
 
         return super.getCapability(cap, side);
@@ -58,10 +176,9 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     {
         super.load(pTag);
 
-        if(pTag.contains("energy"))
-        {
-            energyStorage.setEnergyStored(pTag.getInt("energy"));
-        }
+        energyStorage.deserializeNBT(pTag.get("energy"));
+        itemStackHandler.deserializeNBT(pTag.getCompound("inventory"));
+        pTag.putInt("progress", progress);
     }
 
     @Override
@@ -69,7 +186,9 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     {
         super.saveAdditional(pTag);
 
-        pTag.putInt("energy", energyStorage.getEnergyStored());
+        pTag.put("energy", energyStorage.serializeNBT());
+        pTag.put("inventory", itemStackHandler.serializeNBT());
+        progress = pTag.getInt("progress");
     }
 
     @Override
@@ -82,6 +201,26 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer)
     {
-        return new ArcFurnaceControllerContainer(pContainerId, pPlayerInventory, this);
+        return new ArcFurnaceControllerContainer(pContainerId, pPlayerInventory, this, data);
+    }
+
+    @Override
+    public void invalidateCaps()
+    {
+        super.invalidateCaps();
+
+        energyStorageCapability.invalidate();
+        itemHandlerCapability.invalidate();
+    }
+
+    public void drop()
+    {
+        SimpleContainer inventory = new SimpleContainer(itemStackHandler.getSlots());
+        for(int i = 0; i < itemStackHandler.getSlots(); ++i)
+        {
+            inventory.setItem(i, itemStackHandler.getStackInSlot(i));
+        }
+
+        Containers.dropContents(level, worldPosition, inventory);
     }
 }

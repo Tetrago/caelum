@@ -1,0 +1,9 @@
+{
+  "type": "caelum:arc_furnace",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "result": {
+    "item": "caelum:steel_ingot"
+  }
+}

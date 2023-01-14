@@ -7,26 +7,19 @@ public abstract class EnergyData implements ContainerData
     @Override
     public int get(int pIndex)
     {
-        if(pIndex == 0)
-        {
-            return getEnergyStored() & 0xffff;
-        }
-        else
-        {
-            return (getEnergyStored() >> 16) & 0xffff;
-        }
+        return switch(pIndex) {
+            default -> getEnergyStored() & 0xffff;
+            case 1 -> (getEnergyStored() >> 16) & 0xffff;
+        };
     }
 
     @Override
     public void set(int pIndex, int pValue)
     {
-        if(pIndex == 0)
+        switch(pIndex)
         {
-            setEnergyStored((getEnergyStored() & 0xffff0000) | pValue);
-        }
-        else
-        {
-            setEnergyStored((getEnergyStored() & 0xffff) | (pValue << 16));
+        default -> setEnergyStored((getEnergyStored() & 0xffff0000) | pValue);
+        case 1 -> setEnergyStored((getEnergyStored() & 0xffff) | ((pValue << 16)) & 0xffff0000);
         }
     }
 
