@@ -13,8 +13,12 @@ public class ModBlockLoot extends BlockLoot
     {
         add(ModBlocks.BAUXITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_BAUXITE.get()));
         add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_BAUXITE.get()));
+        add(ModBlocks.ILMENITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_ILMENITE.get()));
+        add(ModBlocks.DEEPSLATE_ILMENITE_ORE.get(), block -> createOreDrop(block, ModItems.RAW_ILMENITE.get()));
+
         dropSelf(ModBlocks.ALUMINUM_BLOCK.get());
         dropSelf(ModBlocks.STEEL_BLOCK.get());
+        dropSelf(ModBlocks.TITANIUM_BLOCK.get());
 
         dropSelf(ModBlocks.REFIRED_BRICKS.get());
         dropSelf(ModBlocks.COPPER_COIL.get());

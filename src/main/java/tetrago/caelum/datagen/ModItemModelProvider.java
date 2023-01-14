@@ -20,10 +20,15 @@ public class ModItemModelProvider extends ItemModelProvider
     {
         simpleBlockItem(ModItems.BAUXITE_ORE);
         simpleBlockItem(ModItems.DEEPSLATE_BAUXITE_ORE);
+        simpleBlockItem(ModItems.ILMENITE_ORE);
+        simpleBlockItem(ModItems.DEEPSLATE_ILMENITE_ORE);
+
         simpleBlockItem(ModItems.ALUMINUM_BLOCK);
         simpleBlockItem(ModItems.STEEL_BLOCK);
+        simpleBlockItem(ModItems.TITANIUM_BLOCK);
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
+
         simpleBlockItem(ModItems.COPPER_OIL);
 
         simpleBlockItem(ModItems.ARC_FURNACE_CONTROLLER);
@@ -35,10 +40,14 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleBlockItem(ModItems.ADVANCED_SOLAR_PANEL);
 
         simpleItem(ModItems.RAW_BAUXITE);
+        simpleItem(ModItems.RAW_ILMENITE);
+
         simpleItem(ModItems.ALUMINUM_INGOT);
         simpleItem(ModItems.ALUMINUM_NUGGET);
         simpleItem(ModItems.STEEL_INGOT);
         simpleItem(ModItems.STEEL_NUGGET);
+        simpleItem(ModItems.TITANIUM_INGOT);
+        simpleItem(ModItems.TITANIUM_NUGGET);
 
         simpleItem(ModItems.BASIC_CIRCUIT_BOARD);
         simpleItem(ModItems.BASIC_PHOTOVOLTAIC_CELL);

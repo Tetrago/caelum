@@ -18,8 +18,12 @@ public class ModItems
 
     public static final RegistryObject<Item> BAUXITE_ORE = fromBlock(ModBlocks.BAUXITE_ORE);
     public static final RegistryObject<Item> DEEPSLATE_BAUXITE_ORE = fromBlock(ModBlocks.DEEPSLATE_BAUXITE_ORE);
+    public static final RegistryObject<Item> ILMENITE_ORE = fromBlock(ModBlocks.ILMENITE_ORE);
+    public static final RegistryObject<Item> DEEPSLATE_ILMENITE_ORE = fromBlock(ModBlocks.DEEPSLATE_ILMENITE_ORE);
+
     public static final RegistryObject<Item> ALUMINUM_BLOCK = fromBlock(ModBlocks.ALUMINUM_BLOCK);
     public static final RegistryObject<Item> STEEL_BLOCK = fromBlock(ModBlocks.STEEL_BLOCK);
+    public static final RegistryObject<Item> TITANIUM_BLOCK = fromBlock(ModBlocks.TITANIUM_BLOCK);
 
     public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
     public static final RegistryObject<Item> COPPER_OIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get(), PROPERTIES));
@@ -33,10 +37,14 @@ public class ModItems
     public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = fromBlock(ModBlocks.ADVANCED_SOLAR_PANEL);
 
     public static final RegistryObject<Item> RAW_BAUXITE = simple("raw_bauxite");
+    public static final RegistryObject<Item> RAW_ILMENITE = simple("raw_ilmenite");
+
     public static final RegistryObject<Item> ALUMINUM_INGOT = simple("aluminum_ingot");
     public static final RegistryObject<Item> ALUMINUM_NUGGET = simple("aluminum_nugget");
     public static final RegistryObject<Item> STEEL_INGOT = simple("steel_ingot");
     public static final RegistryObject<Item> STEEL_NUGGET = simple("steel_nugget");
+    public static final RegistryObject<Item> TITANIUM_INGOT = simple("titanium_ingot");
+    public static final RegistryObject<Item> TITANIUM_NUGGET = simple("titanium_nugget");
 
     public static final RegistryObject<Item> BASIC_CIRCUIT_BOARD = simple("basic_circuit_board");
     public static final RegistryObject<Item> BASIC_PHOTOVOLTAIC_CELL = simple("basic_photovoltaic_cell");

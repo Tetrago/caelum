@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caelum:titanium_ingot_from_nugget"
+    ]
+  },
+  "criteria": {
+    "has_titanium_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caelum:titanium_nugget"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caelum:titanium_ingot_from_nugget"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_titanium_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}

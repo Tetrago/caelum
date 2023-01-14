@@ -20,5 +20,6 @@ public class CommonEventBusSubscriber
         List<Holder<PlacedFeature>> base = event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES);
 
         base.add(ModPlacedFeatures.BAUXITE_ORE_PLACED);
+        base.add(ModPlacedFeatures.ILMENITE_ORE_PLACED);
     }
 }

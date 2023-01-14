@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "caelum:aluminum_block",
-    "caelum:steel_block",
     "caelum:titanium_block"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "caelum:titanium_nugget"
+    }
+  },
+  "result": {
+    "item": "caelum:titanium_ingot"
+  }
+}

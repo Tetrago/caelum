@@ -31,6 +31,7 @@ public class ModRecipeProvider extends RecipeProvider
 
         ingotRecipes(builder, ModItems.ALUMINUM_INGOT.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.ALUMINUM_BLOCK.get());
         ingotRecipes(builder, ModItems.STEEL_INGOT.get(), ModItems.STEEL_NUGGET.get(), ModItems.STEEL_BLOCK.get());
+        ingotRecipes(builder, ModItems.TITANIUM_INGOT.get(), ModItems.TITANIUM_NUGGET.get(), ModItems.TITANIUM_BLOCK.get());
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_CIRCUIT_BOARD.get(), 4)
                 .define('A', ModItems.ALUMINUM_INGOT.get())

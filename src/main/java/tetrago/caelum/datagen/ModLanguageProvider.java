@@ -27,10 +27,15 @@ public class ModLanguageProvider extends LanguageProvider
 
         add(ModBlocks.BAUXITE_ORE.get(), "Bauxite Ore");
         add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), "Deepslate Bauxite Ore");
+        add(ModBlocks.ILMENITE_ORE.get(), "Ilmenite Ore");
+        add(ModBlocks.DEEPSLATE_ILMENITE_ORE.get(), "Deepslate Ilmenite Ore");
+
         add(ModBlocks.ALUMINUM_BLOCK.get(), "Block of Aluminum");
         add(ModBlocks.STEEL_BLOCK.get(), "Block of Steel");
+        add(ModBlocks.TITANIUM_BLOCK.get(), "Block of Titanium");
 
         add(ModBlocks.REFIRED_BRICKS.get(), "Refired Bricks");
+
         add(ModBlocks.COPPER_COIL.get(), "Copper Coil");
 
         add(ModBlocks.ARC_FURNACE_CONTROLLER.get(), "Arc Furnace Controller");
@@ -42,10 +47,14 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.ADVANCED_SOLAR_PANEL.get(), "Advanced Solar Panel");
 
         add(ModItems.RAW_BAUXITE.get(), "Raw Bauxite");
+        add(ModItems.RAW_ILMENITE.get(), "Raw Ilmenite");
+
         add(ModItems.ALUMINUM_INGOT.get(), "Aluminum Ingot");
         add(ModItems.ALUMINUM_NUGGET.get(), "Aluminum Nugget");
         add(ModItems.STEEL_INGOT.get(), "Steel Ingot");
         add(ModItems.STEEL_NUGGET.get(), "Steel Nugget");
+        add(ModItems.TITANIUM_INGOT.get(), "Titanium Ingot");
+        add(ModItems.TITANIUM_NUGGET.get(), "Titanium Nugget");
 
         add(ModItems.BASIC_CIRCUIT_BOARD.get(), "Basic Circuit Board");
         add(ModItems.BASIC_PHOTOVOLTAIC_CELL.get(), "Basic Photovoltaic Cell");

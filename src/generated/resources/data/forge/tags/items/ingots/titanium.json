@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "caelum:aluminum_ingot",
-    "caelum:steel_ingot",
     "caelum:titanium_ingot"
   ]
 }

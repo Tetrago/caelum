@@ -1,0 +1,9 @@
+{
+  "type": "caelum:arc_furnace",
+  "ingredient": {
+    "tag": "forge:ores/titanium"
+  },
+  "result": {
+    "item": "caelum:titanium_ingot"
+  }
+}

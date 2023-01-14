@@ -14,8 +14,12 @@ public class ModBlocks
 
     public static final RegistryObject<Block> BAUXITE_ORE = simple("bauxite_ore", Blocks.IRON_ORE);
     public static final RegistryObject<Block> DEEPSLATE_BAUXITE_ORE = simple("deepslate_bauxite_ore", Blocks.DEEPSLATE_IRON_ORE);
+    public static final RegistryObject<Block> ILMENITE_ORE = simple("ilmenite_ore", Blocks.DIAMOND_ORE);
+    public static final RegistryObject<Block> DEEPSLATE_ILMENITE_ORE = simple("deepslate_ilmenite_ore", Blocks.DEEPSLATE_DIAMOND_ORE);
+
     public static final RegistryObject<Block> ALUMINUM_BLOCK = simple("aluminum_block", Blocks.IRON_BLOCK);
     public static final RegistryObject<Block> STEEL_BLOCK = simple("steel_block", Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> TITANIUM_BLOCK = simple("titanium_block", Blocks.IRON_BLOCK);
 
     public static final RegistryObject<Block> REFIRED_BRICKS = simple("refired_bricks", Blocks.BRICKS);
     public static final RegistryObject<Block> COPPER_COIL = BLOCKS.register("copper_coil", () -> new CoilBlock(200));

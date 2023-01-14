@@ -29,8 +29,12 @@ public class ModBlockStateProvider extends BlockStateProvider
     {
         simpleBlock(ModBlocks.BAUXITE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
+        simpleBlock(ModBlocks.ILMENITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_ILMENITE_ORE.get());
+
         simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
         simpleBlock(ModBlocks.STEEL_BLOCK.get());
+        simpleBlock(ModBlocks.TITANIUM_BLOCK.get());
 
         simpleBlock(ModBlocks.REFIRED_BRICKS.get());
         simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));

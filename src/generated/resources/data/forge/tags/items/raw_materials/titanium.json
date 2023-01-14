@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "caelum:raw_bauxite",
     "caelum:raw_ilmenite"
   ]
 }
