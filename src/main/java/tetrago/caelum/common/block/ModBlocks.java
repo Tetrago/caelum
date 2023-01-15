@@ -23,6 +23,7 @@ public class ModBlocks
 
     public static final RegistryObject<Block> REFIRED_BRICKS = simple("refired_bricks", Blocks.BRICKS);
     public static final RegistryObject<Block> MACHINE_FRAME = simple("machine_frame", Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> ROLLER = BLOCKS.register("roller", RollerBlock::new);
 
     public static final RegistryObject<Block> COPPER_COIL = BLOCKS.register("copper_coil", () -> new CoilBlock(200));
 

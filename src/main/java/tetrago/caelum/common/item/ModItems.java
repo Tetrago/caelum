@@ -27,6 +27,7 @@ public class ModItems
 
     public static final RegistryObject<Item> REFIRED_BRICKS = fromBlock(ModBlocks.REFIRED_BRICKS);
     public static final RegistryObject<Item> MACHINE_FRAME = fromBlock(ModBlocks.MACHINE_FRAME);
+    public static final RegistryObject<Item> ROLLER = fromBlock(ModBlocks.ROLLER);
 
     public static final RegistryObject<Item> COPPER_COIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get(), PROPERTIES));
 

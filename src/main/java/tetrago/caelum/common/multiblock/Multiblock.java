@@ -31,7 +31,7 @@ public abstract class Multiblock extends ForgeRegistryEntry<Multiblock> implemen
 
         public Instance() {}
 
-        public Instance(BlockPos anchor, List<BoundingBox> boundingBoxes, Rotation rotation)
+        private Instance(BlockPos anchor, List<BoundingBox> boundingBoxes, Rotation rotation)
         {
             this.anchor = anchor;
             this.boundingBoxes = boundingBoxes;
@@ -86,12 +86,12 @@ public abstract class Multiblock extends ForgeRegistryEntry<Multiblock> implemen
         }
     }
 
-    private static class Definition
+    public static class Definition
     {
         private final Optional<Predicate<BlockState>>[][][] predicates;
         private final BlockPos anchor;
 
-        public Definition(Optional<Predicate<BlockState>>[][][] predicates, BlockPos anchor)
+        private Definition(Optional<Predicate<BlockState>>[][][] predicates, BlockPos anchor)
         {
             this.predicates = predicates;
             this.anchor = anchor;
@@ -111,6 +111,7 @@ public abstract class Multiblock extends ForgeRegistryEntry<Multiblock> implemen
         {
             return predicates[0][0].length;
         }
+        public BlockPos getAnchor() { return anchor; }
     }
 
     public static class Builder

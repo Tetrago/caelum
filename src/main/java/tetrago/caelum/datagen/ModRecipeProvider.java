@@ -59,6 +59,15 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
                 .save(builder);
 
+        ShapedRecipeBuilder.shaped(ModBlocks.ROLLER.get())
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', ModItemTagsProvider.INGOTS_STEEL)
+                .pattern("III")
+                .pattern("ISI")
+                .pattern("III")
+                .unlockedBy("has_ingots_steel", criterion(ModItemTagsProvider.INGOTS_STEEL))
+                .save(builder);
+
         ShapedRecipeBuilder.shaped(ModBlocks.COPPER_COIL.get())
                 .define('I', Tags.Items.INGOTS_IRON)
                 .define('C', Tags.Items.INGOTS_COPPER)

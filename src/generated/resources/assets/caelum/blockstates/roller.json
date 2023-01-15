@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "caelum:block/roller",
+      "x": 180,
+      "y": 90
+    },
+    "facing=up": {
+      "model": "caelum:block/roller",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "caelum:block/roller",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "caelum:block/roller",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "caelum:block/roller",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "caelum:block/roller",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

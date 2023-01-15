@@ -107,7 +107,7 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
             ++blockEntity.progress;
             setChanged(level, pos, state);
 
-            blockEntity.energyStorage.receiveEnergy(700 / blockEntity.maxProgress, false);
+            blockEntity.energyStorage.extractEnergy(700 / blockEntity.maxProgress, false);
 
             if(blockEntity.progress > blockEntity.maxProgress)
             {
@@ -152,7 +152,6 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
         {
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(), blockEntity.itemStackHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
-            blockEntity.energyStorage.extractEnergy(700, false);
 
             blockEntity.progress = 0;
         }

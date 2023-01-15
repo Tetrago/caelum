@@ -76,9 +76,6 @@ public class ArcFurnaceMultiblock extends Multiblock
     @Override
     public List<BoundingBox> getBoundingBoxes()
     {
-        return List.of(new BoundingBox(1, 0, 1, 5, 2, 5),
-                new BoundingBox(2, 3, 2, 5, 4, 5),
-                new BoundingBox(2, 0, 0, 4, 1, 6),
-                new BoundingBox(0, 0, 2, 6, 1, 4));
+        return getBlockPositions(definition.getAnchor(), Rotation.NONE).stream().map(BoundingBox::new).toList();
     }
 }

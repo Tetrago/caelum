@@ -29,6 +29,7 @@ public class ModItemModelProvider extends ItemModelProvider
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
         simpleBlockItem(ModItems.MACHINE_FRAME);
+        simpleBlockItem(ModItems.ROLLER);
 
         simpleBlockItem(ModItems.COPPER_COIL);
 

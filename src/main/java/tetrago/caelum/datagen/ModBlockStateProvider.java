@@ -13,6 +13,7 @@ import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.HorizontalDirectionalBlock;
 import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.block.MultiblockBlock;
+import tetrago.caelum.common.block.OmnidirectionalBlock;
 
 import java.util.function.Function;
 
@@ -37,6 +38,7 @@ public class ModBlockStateProvider extends BlockStateProvider
 
         simpleBlock(ModBlocks.REFIRED_BRICKS.get());
         simpleBlock(ModBlocks.MACHINE_FRAME.get());
+        omnidirectionalBlock(ModBlocks.ROLLER.get(), models().getExistingFile(modLoc("block/roller")));
 
         simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));
 
@@ -63,5 +65,21 @@ public class ModBlockStateProvider extends BlockStateProvider
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(func.apply(state))
                 .rotationY((int)(state.getValue(HorizontalDirectionalBlock.FACING).toYRot() + 180) % 360)
                 .build());
+    }
+
+    private void omnidirectionalBlock(Block block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top)
+    {
+        omnidirectionalBlock(block, models().cubeBottomTop(block.getRegistryName().getPath(), side, bottom, top));
+    }
+
+    private void omnidirectionalBlock(Block block, ModelFile model)
+    {
+        getVariantBuilder(block).forAllStates(state -> {
+            final Direction dir = state.getValue(OmnidirectionalBlock.FACING);
+            return ConfiguredModel.builder().modelFile(model)
+                    .rotationX((int)(dir.getRotation().toXYZDegrees().x() + 360) % 360)
+                    .rotationY((int)(dir.toYRot() + 180) % 360)
+                    .build();
+        });
     }
 }

@@ -11,11 +11,11 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.Nullable;
 
-public class HorizontalDirectionalBlock extends Block
+public class OmnidirectionalBlock extends Block
 {
     public static final Property<Direction> FACING = DirectionProperty.create("facing");
 
-    public HorizontalDirectionalBlock(Properties pProperties)
+    public OmnidirectionalBlock(Properties pProperties)
     {
         super(pProperties);
     }
@@ -24,7 +24,7 @@ public class HorizontalDirectionalBlock extends Block
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext)
     {
-        return super.getStateForPlacement(pContext).setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        return super.getStateForPlacement(pContext).setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
     }
 
     @Override
