@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "AMA",
+    "RRR"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "A": {
+      "tag": "forge:ingots/aluminum"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "M": {
+      "item": "caelum:machine_frame"
+    }
+  },
+  "result": {
+    "item": "caelum:arc_furnace_controller"
+  }
+}

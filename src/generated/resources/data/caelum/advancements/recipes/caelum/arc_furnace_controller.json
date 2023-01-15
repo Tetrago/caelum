@@ -2,26 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "caelum:machine_frame"
+      "caelum:arc_furnace_controller"
     ]
   },
   "criteria": {
-    "has_ingots_aluminum": {
+    "has_machine_frame": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/aluminum"
-          }
-        ]
-      }
-    },
-    "has_ingots_iron": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:ingots/iron"
+            "items": [
+              "caelum:machine_frame"
+            ]
           }
         ]
       }
@@ -29,14 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "caelum:machine_frame"
+        "recipe": "caelum:arc_furnace_controller"
       }
     }
   },
   "requirements": [
     [
-      "has_ingots_aluminum",
-      "has_ingots_iron",
+      "has_machine_frame",
       "has_the_recipe"
     ]
   ]

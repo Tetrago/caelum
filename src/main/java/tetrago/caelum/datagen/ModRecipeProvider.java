@@ -16,6 +16,7 @@ import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.item.ModItems;
 
+import java.awt.*;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider
@@ -50,12 +51,12 @@ public class ModRecipeProvider extends RecipeProvider
 
         ShapedRecipeBuilder.shaped(ModBlocks.MACHINE_FRAME.get())
                 .define('A', ModItemTagsProvider.INGOTS_ALUMINUM)
-                .define('S', ModItemTagsProvider.INGOTS_STEEL)
+                .define('I', Tags.Items.INGOTS_IRON)
                 .pattern("A A")
-                .pattern(" S ")
+                .pattern(" I ")
                 .pattern("A A")
                 .unlockedBy("has_ingots_aluminum", criterion(ModItemTagsProvider.INGOTS_ALUMINUM))
-                .unlockedBy("has_ingots_steel", criterion(ModItemTagsProvider.INGOTS_STEEL))
+                .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.COPPER_COIL.get())
@@ -65,6 +66,17 @@ public class ModRecipeProvider extends RecipeProvider
                 .pattern("CIC")
                 .pattern("CCC")
                 .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
+                .save(builder);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.ARC_FURNACE_CONTROLLER.get())
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('A', ModItemTagsProvider.INGOTS_ALUMINUM)
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('M', ModBlocks.MACHINE_FRAME.get())
+                .pattern(" I ")
+                .pattern("AMA")
+                .pattern("RRR")
+                .unlockedBy("has_machine_frame", criterion(ModBlocks.MACHINE_FRAME.get()))
                 .save(builder);
 
         ShapelessRecipeBuilder.shapeless(ModBlocks.MATERIAL_HOPPER.get())
