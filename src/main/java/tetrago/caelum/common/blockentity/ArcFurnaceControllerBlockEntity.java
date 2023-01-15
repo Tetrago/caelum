@@ -152,6 +152,7 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
         {
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(), blockEntity.itemStackHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
+            blockEntity.energyStorage.extractEnergy(700, false);
 
             blockEntity.progress = 0;
         }

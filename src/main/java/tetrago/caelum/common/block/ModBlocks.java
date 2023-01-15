@@ -25,8 +25,7 @@ public class ModBlocks
     public static final RegistryObject<Block> COPPER_COIL = BLOCKS.register("copper_coil", () -> new CoilBlock(200));
 
     public static final RegistryObject<Block> ARC_FURNACE_CONTROLLER = BLOCKS.register("arc_furnace_controller", ArcFurnaceControllerBlock::new);
-    public static final RegistryObject<Block> MATERIAL_HOPPER = BLOCKS.register("material_hopper", () -> new OmnidirectionalBlock(BlockBehaviour.Properties.copy(Blocks.HOPPER)));
-    public static final RegistryObject<Block> MATERIAL_CHUTE = BLOCKS.register("material_chute", () -> new OmnidirectionalBlock(BlockBehaviour.Properties.copy(Blocks.HOPPER)));
+    public static final RegistryObject<Block> MATERIAL_HOPPER = BLOCKS.register("material_hopper", MaterialHopperBlock::new);
     public static final RegistryObject<Block> ENERGY_PORT = BLOCKS.register("energy_port", EnergyPortBlock::new);
 
     public static final RegistryObject<Block> BASIC_SOLAR_PANEL = BLOCKS.register("basic_solar_panel", () -> new SolarPanelBlock(10000, 200));

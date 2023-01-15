@@ -33,7 +33,6 @@ public class ModItemModelProvider extends ItemModelProvider
 
         simpleBlockItem(ModItems.ARC_FURNACE_CONTROLLER);
         simpleBlockItem(ModItems.MATERIAL_HOPPER);
-        simpleBlockItem(ModItems.MATERIAL_CHUTE);
         simpleBlockItem(ModItems.ENERGY_PORT);
 
         simpleBlockItem(ModItems.BASIC_SOLAR_PANEL);

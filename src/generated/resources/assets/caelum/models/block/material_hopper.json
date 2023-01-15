@@ -1,8 +1,6 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "side": "caelum:block/material_hopper_side",
-    "bottom": "caelum:block/material_hopper_bottom",
-    "top": "caelum:block/material_hopper_top"
+    "all": "caelum:block/material_hopper"
   }
 }

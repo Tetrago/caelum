@@ -64,14 +64,6 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_refired_bricks", criterion(ModBlocks.REFIRED_BRICKS.get()))
                 .save(builder);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_CHUTE.get())
-                .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
-                .pattern("I I")
-                .pattern("I I")
-                .pattern("I I")
-                .unlockedBy("has_refired_bricks", criterion(ModBlocks.REFIRED_BRICKS.get()))
-                .save(builder);
-
         ShapedRecipeBuilder.shaped(ModItems.BASIC_PHOTOVOLTAIC_CELL.get())
                 .define('G', Tags.Items.GLASS)
                 .define('C', Tags.Items.INGOTS_COPPER)

@@ -22,12 +22,12 @@ public class ArcFurnaceMultiblock extends Multiblock
                 .define('X', state -> state.is(ModBlocks.REFIRED_BRICKS.get()) || state.is(Blocks.AIR) || state.is(ModBlockTagsProvider.COIL))
                 .define('X', ModBlocks.REFIRED_BRICKS.get(), ModBlocks.COPPER_COIL.get(), Blocks.AIR)
                 .define('A', Blocks.AIR)
-                .define('P', ModBlocks.REFIRED_BRICKS.get(), ModBlocks.ENERGY_PORT.get(), ModBlocks.MATERIAL_HOPPER.get(), ModBlocks.MATERIAL_CHUTE.get())
+                .define('P', ModBlocks.REFIRED_BRICKS.get(), ModBlocks.ENERGY_PORT.get(), ModBlocks.MATERIAL_HOPPER.get())
                 .layer(
-                        "  BBB  ",
+                        "  BPB  ",
                         " BBBBB ",
                         "BBBBBBB",
-                        "BBBBBBB",
+                        "PBBBBBP",
                         "BBBBBBB",
                         " BBBBB ",
                         "  BBB  ")

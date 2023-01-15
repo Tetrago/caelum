@@ -11,7 +11,6 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.HorizontalDirectionalBlock;
-import tetrago.caelum.common.block.OmnidirectionalBlock;
 import tetrago.caelum.common.block.ModBlocks;
 import tetrago.caelum.common.block.MultiblockBlock;
 
@@ -45,8 +44,7 @@ public class ModBlockStateProvider extends BlockStateProvider
                         modLoc("block/arc_furnace_controller_front" + (state.getValue(MultiblockBlock.CONSTRUCTED) ? "_constructed" : "")),
                         modLoc("block/arc_furnace_controller_top")));
 
-        omnidirectionalBlock(ModBlocks.MATERIAL_HOPPER.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_bottom"), modLoc("block/material_hopper_top"));
-        omnidirectionalBlock(ModBlocks.MATERIAL_CHUTE.get(), modLoc("block/material_hopper_side"), modLoc("block/material_hopper_top"), modLoc("block/material_hopper_top"));
+        simpleBlock(ModBlocks.MATERIAL_HOPPER.get());
         simpleBlock(ModBlocks.ENERGY_PORT.get());
 
         simpleBlock(ModBlocks.BASIC_SOLAR_PANEL.get(), models().withExistingParent("block/basic_solar_panel", modLoc("block/solar_panel")).texture("texture", modLoc("block/basic_solar_panel")));
@@ -63,16 +61,5 @@ public class ModBlockStateProvider extends BlockStateProvider
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(func.apply(state))
                 .rotationY((int)(state.getValue(HorizontalDirectionalBlock.FACING).toYRot() + 180) % 360)
                 .build());
-    }
-
-    private void omnidirectionalBlock(Block block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top)
-    {
-        getVariantBuilder(block).forAllStates(state -> {
-            final Direction dir = state.getValue(OmnidirectionalBlock.FACING);
-            return ConfiguredModel.builder().modelFile(models().cubeBottomTop(block.getRegistryName().getPath(), side, bottom, top))
-                    .rotationX((int)(dir.getRotation().toXYZDegrees().x() + 360) % 360)
-                    .rotationY((int)(dir.toYRot() + 180) % 360)
-                    .build();
-        });
     }
 }

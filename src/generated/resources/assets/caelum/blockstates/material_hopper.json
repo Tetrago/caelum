@@ -1,32 +1,7 @@
 {
   "variants": {
-    "facing=down": {
-      "model": "caelum:block/material_hopper",
-      "x": 180,
-      "y": 90
-    },
-    "facing=up": {
-      "model": "caelum:block/material_hopper",
-      "y": 90
-    },
-    "facing=north": {
-      "model": "caelum:block/material_hopper",
-      "x": 90
-    },
-    "facing=south": {
-      "model": "caelum:block/material_hopper",
-      "x": 90,
-      "y": 180
-    },
-    "facing=west": {
-      "model": "caelum:block/material_hopper",
-      "x": 90,
-      "y": 270
-    },
-    "facing=east": {
-      "model": "caelum:block/material_hopper",
-      "x": 90,
-      "y": 90
+    "": {
+      "model": "caelum:block/material_hopper"
     }
   }
 }

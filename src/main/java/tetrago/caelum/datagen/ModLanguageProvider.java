@@ -40,7 +40,6 @@ public class ModLanguageProvider extends LanguageProvider
 
         add(ModBlocks.ARC_FURNACE_CONTROLLER.get(), "Arc Furnace Controller");
         add(ModBlocks.MATERIAL_HOPPER.get(), "Material Hopper");
-        add(ModBlocks.MATERIAL_CHUTE.get(), "Material Chute");
         add(ModBlocks.ENERGY_PORT.get(), "Energy Port");
 
         add(ModBlocks.BASIC_SOLAR_PANEL.get(), "Basic Solar Panel");
