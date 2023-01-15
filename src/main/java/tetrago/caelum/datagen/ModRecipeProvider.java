@@ -47,6 +47,14 @@ public class ModRecipeProvider extends RecipeProvider
 
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BRICKS), ModBlocks.REFIRED_BRICKS.get(), 0, 200);
 
+        ShapedRecipeBuilder.shaped(ModBlocks.COPPER_COIL.get())
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .pattern("CCC")
+                .pattern("CIC")
+                .pattern("CCC")
+                .unlockedBy("has_iron_ingot", criterion(Items.IRON_INGOT));
+
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
                 .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
                 .define('H', Blocks.HOPPER)
