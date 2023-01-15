@@ -21,6 +21,7 @@ public class ModLanguageProvider extends LanguageProvider
         add(Caelum.modid("itemGroup.{}"), "Caelum");
 
         add(Caelum.modid("tooltip.{}.block.coil"), "Coil Strength");
+        add(Caelum.modid("tooltip.{}.block.motor"), "Motor Strength");
 
         add(ArcFurnaceControllerScreen.UNLOCALIZED_NAME, "Arc Furnace");
         add(SolarPanelScreen.UNLOCALIZED_NAME, "Solar Panel");
@@ -39,6 +40,7 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.ROLLER.get(), "Roller");
 
         add(ModBlocks.COPPER_COIL.get(), "Copper Coil");
+        add(ModBlocks.BASIC_MOTOR.get(), "Basic Motor");
 
         add(ModBlocks.ARC_FURNACE_CONTROLLER.get(), "Arc Furnace Controller");
         add(ModBlocks.MATERIAL_HOPPER.get(), "Material Hopper");

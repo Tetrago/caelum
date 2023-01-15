@@ -9,13 +9,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import tetrago.caelum.common.Caelum;
-import tetrago.caelum.common.block.CoilBlock;
+import tetrago.caelum.common.block.MotorBlock;
 
 import java.util.List;
 
-public class CoilBlockItem extends BlockItem
+public class MotorBlockItem extends BlockItem
 {
-    public CoilBlockItem(CoilBlock pBlock)
+    public MotorBlockItem(MotorBlock pBlock)
     {
         super(pBlock, ModItems.PROPERTIES);
     }
@@ -25,6 +25,6 @@ public class CoilBlockItem extends BlockItem
     {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 
-        pTooltip.add(new TranslatableComponent(Caelum.modid("tooltip.{}.block.coil")).append(": " + ((CoilBlock)getBlock()).getStrength()).withStyle(ChatFormatting.GRAY));
+        pTooltip.add(new TranslatableComponent(Caelum.modid("tooltip.{}.block.motor")).append(": " + ((MotorBlock)getBlock()).getStrength()).withStyle(ChatFormatting.GRAY));
     }
 }

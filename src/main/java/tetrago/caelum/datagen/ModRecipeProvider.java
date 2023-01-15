@@ -77,6 +77,15 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
                 .save(builder);
 
+        ShapedRecipeBuilder.shaped(ModBlocks.BASIC_MOTOR.get())
+                .define('M', ModBlocks.MACHINE_FRAME.get())
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .pattern("RIR")
+                .pattern(" M ")
+                .unlockedBy("has_machine_frame", criterion(ModBlocks.MACHINE_FRAME.get()))
+                .save(builder);
+
         ShapedRecipeBuilder.shaped(ModBlocks.ARC_FURNACE_CONTROLLER.get())
                 .define('I', Tags.Items.INGOTS_IRON)
                 .define('A', ModItemTagsProvider.INGOTS_ALUMINUM)

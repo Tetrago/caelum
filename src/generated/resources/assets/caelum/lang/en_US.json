@@ -2,6 +2,7 @@
   "block.caelum.advanced_solar_panel": "Advanced Solar Panel",
   "block.caelum.aluminum_block": "Block of Aluminum",
   "block.caelum.arc_furnace_controller": "Arc Furnace Controller",
+  "block.caelum.basic_motor": "Basic Motor",
   "block.caelum.basic_solar_panel": "Basic Solar Panel",
   "block.caelum.bauxite_ore": "Bauxite Ore",
   "block.caelum.copper_coil": "Copper Coil",
@@ -28,5 +29,6 @@
   "itemGroup.caelum": "Caelum",
   "screen.caelum.arc_furnace_controller": "Arc Furnace",
   "screen.caelum.solar_panel": "Solar Panel",
-  "tooltip.caelum.block.coil": "Coil Strength"
+  "tooltip.caelum.block.coil": "Coil Strength",
+  "tooltip.caelum.block.motor": "Motor Strength"
 }

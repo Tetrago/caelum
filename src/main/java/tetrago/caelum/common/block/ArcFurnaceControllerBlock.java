@@ -6,9 +6,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -42,6 +40,18 @@ public class ArcFurnaceControllerBlock extends MultiblockBlock implements Entity
         super.createBlockStateDefinition(pBuilder);
 
         pBuilder.add(HorizontalDirectionalBlock.FACING);
+    }
+
+    @Override
+    public BlockState rotate(BlockState pState, Rotation pRotation)
+    {
+        return pState.setValue(HorizontalDirectionalBlock.FACING, pRotation.rotate(pState.getValue(HorizontalDirectionalBlock.FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState pState, Mirror pMirror)
+    {
+        return pState.setValue(HorizontalDirectionalBlock.FACING, pMirror.mirror(pState.getValue(HorizontalDirectionalBlock.FACING)));
     }
 
     @Override

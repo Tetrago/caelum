@@ -26,6 +26,7 @@ public class ModBlocks
     public static final RegistryObject<Block> ROLLER = BLOCKS.register("roller", RollerBlock::new);
 
     public static final RegistryObject<Block> COPPER_COIL = BLOCKS.register("copper_coil", () -> new CoilBlock(200));
+    public static final RegistryObject<Block> BASIC_MOTOR = BLOCKS.register("basic_motor", () -> new MotorBlock(200));
 
     public static final RegistryObject<Block> ARC_FURNACE_CONTROLLER = BLOCKS.register("arc_furnace_controller", ArcFurnaceControllerBlock::new);
     public static final RegistryObject<Block> MATERIAL_HOPPER = BLOCKS.register("material_hopper", MaterialHopperBlock::new);

@@ -25,6 +25,7 @@ public class ModBlockLoot extends BlockLoot
         dropSelf(ModBlocks.ROLLER.get());
 
         dropSelf(ModBlocks.COPPER_COIL.get());
+        dropSelf(ModBlocks.BASIC_MOTOR.get());
 
         dropSelf(ModBlocks.ARC_FURNACE_CONTROLLER.get());
         dropSelf(ModBlocks.MATERIAL_HOPPER.get());

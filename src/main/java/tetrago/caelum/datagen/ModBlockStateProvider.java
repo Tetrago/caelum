@@ -41,6 +41,7 @@ public class ModBlockStateProvider extends BlockStateProvider
         omnidirectionalBlock(ModBlocks.ROLLER.get(), models().getExistingFile(modLoc("block/roller")));
 
         simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));
+        omnidirectionalBlock(ModBlocks.BASIC_MOTOR.get(), models().cubeTop(ModBlocks.BASIC_MOTOR.getId().getPath(), modLoc("block/basic_motor"), modLoc("block/motor_top")));
 
         horizontalDirectionalBlock(ModBlocks.ARC_FURNACE_CONTROLLER.get(), state ->
                 models().orientable(state.getBlock().getRegistryName().getPath() + (state.getValue(MultiblockBlock.CONSTRUCTED) ? "_constructed" : ""),

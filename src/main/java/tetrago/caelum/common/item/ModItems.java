@@ -9,6 +9,8 @@ import net.minecraftforge.registries.RegistryObject;
 import tetrago.caelum.common.Caelum;
 import tetrago.caelum.common.block.CoilBlock;
 import tetrago.caelum.common.block.ModBlocks;
+import tetrago.caelum.common.block.MotorBlock;
+import tetrago.caelum.common.block.RollerBlock;
 
 public class ModItems
 {
@@ -29,7 +31,8 @@ public class ModItems
     public static final RegistryObject<Item> MACHINE_FRAME = fromBlock(ModBlocks.MACHINE_FRAME);
     public static final RegistryObject<Item> ROLLER = fromBlock(ModBlocks.ROLLER);
 
-    public static final RegistryObject<Item> COPPER_COIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get(), PROPERTIES));
+    public static final RegistryObject<Item> COPPER_COIL = ITEMS.register(ModBlocks.COPPER_COIL.getId().getPath(), () -> new CoilBlockItem((CoilBlock)ModBlocks.COPPER_COIL.get()));
+    public static final RegistryObject<Item> BASIC_MOTOR = ITEMS.register(ModBlocks.BASIC_MOTOR.getId().getPath(), () -> new MotorBlockItem((MotorBlock)ModBlocks.BASIC_MOTOR.get()));
 
     public static final RegistryObject<Item> ARC_FURNACE_CONTROLLER = fromBlock(ModBlocks.ARC_FURNACE_CONTROLLER);
     public static final RegistryObject<Item> MATERIAL_HOPPER = fromBlock(ModBlocks.MATERIAL_HOPPER);
