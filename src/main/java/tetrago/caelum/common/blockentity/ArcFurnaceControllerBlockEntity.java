@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,6 +30,7 @@ import tetrago.caelum.client.screen.ArcFurnaceControllerScreen;
 import tetrago.caelum.common.block.HorizontalDirectionalBlock;
 import tetrago.caelum.common.block.MultiblockBlock;
 import tetrago.caelum.common.capability.ModEnergyStorage;
+import tetrago.caelum.common.capability.ProxyItemHandler;
 import tetrago.caelum.common.container.ArcFurnaceControllerContainer;
 import tetrago.caelum.common.recipe.ArcFurnaceRecipe;
 
@@ -53,8 +55,11 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
         }
     };
 
-    private final LazyOptional<IEnergyStorage> energyStorageCapability = LazyOptional.of(() -> energyStorage);
     private final LazyOptional<IItemHandler> itemHandlerCapability = LazyOptional.of(() -> itemStackHandler);
+    private final LazyOptional<IItemHandler> inputItemHandlerCapability = LazyOptional.of(() -> new ProxyItemHandler(itemStackHandler, 0, false));
+    private final LazyOptional<IItemHandler> outputItemHandlerCapability = LazyOptional.of(() -> new ProxyItemHandler(itemStackHandler, 1, true));
+    private final LazyOptional<IItemHandler> extraItemHandlerCapability = LazyOptional.of(() -> new ProxyItemHandler(itemStackHandler, 2, true));
+    private final LazyOptional<IEnergyStorage> energyStorageCapability = LazyOptional.of(() -> energyStorage);
 
     private final ContainerData data;
     private int progress = 0;
@@ -156,7 +161,8 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side)
     {
-        if(getBlockState().getValue(MultiblockBlock.CONSTRUCTED) && side != getBlockState().getValue(HorizontalDirectionalBlock.FACING))
+        final Direction facing = getBlockState().getValue(HorizontalDirectionalBlock.FACING);
+        if(getBlockState().getValue(MultiblockBlock.CONSTRUCTED) && side != facing)
         {
             if(cap == CapabilityEnergy.ENERGY)
             {
@@ -164,7 +170,10 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
             }
             else if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             {
-                return itemHandlerCapability.cast();
+                if(side == Rotation.CLOCKWISE_90.rotate(facing)) return inputItemHandlerCapability.cast();
+                else if(side == Rotation.COUNTERCLOCKWISE_90.rotate(facing)) return outputItemHandlerCapability.cast();
+                else if(side == Rotation.CLOCKWISE_180.rotate(facing)) return extraItemHandlerCapability.cast();
+                else if(side == null) return itemHandlerCapability.cast();
             }
         }
 
@@ -209,8 +218,11 @@ public class ArcFurnaceControllerBlockEntity extends BlockEntity implements Menu
     {
         super.invalidateCaps();
 
-        energyStorageCapability.invalidate();
         itemHandlerCapability.invalidate();
+        inputItemHandlerCapability.invalidate();
+        outputItemHandlerCapability.invalidate();
+        extraItemHandlerCapability.invalidate();
+        energyStorageCapability.invalidate();
     }
 
     public void drop()
