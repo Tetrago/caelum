@@ -67,13 +67,16 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
                 .save(builder);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
-                .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
-                .define('H', Blocks.HOPPER)
-                .pattern("I I")
-                .pattern("IHI")
-                .pattern("I I")
-                .unlockedBy("has_refired_bricks", criterion(ModBlocks.REFIRED_BRICKS.get()))
+        ShapelessRecipeBuilder.shapeless(ModBlocks.MATERIAL_HOPPER.get())
+                .requires(ModBlocks.MACHINE_FRAME.get())
+                .requires(Blocks.HOPPER)
+                .unlockedBy("has_machine_frame", criterion(ModBlocks.MACHINE_FRAME.get()))
+                .save(builder);
+
+        ShapelessRecipeBuilder.shapeless(ModBlocks.ENERGY_PORT.get())
+                .requires(ModBlocks.MACHINE_FRAME.get())
+                .requires(Tags.Items.DUSTS_REDSTONE)
+                .unlockedBy("has_dusts_redstone", criterion(Tags.Items.DUSTS_REDSTONE))
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModItems.BASIC_PHOTOVOLTAIC_CELL.get())

@@ -5,10 +5,10 @@
       "item": "caelum:machine_frame"
     },
     {
-      "item": "minecraft:hopper"
+      "tag": "forge:dusts/redstone"
     }
   ],
   "result": {
-    "item": "caelum:material_hopper"
+    "item": "caelum:energy_port"
   }
 }

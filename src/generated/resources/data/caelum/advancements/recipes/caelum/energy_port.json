@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "caelum:material_hopper"
+      "caelum:energy_port"
     ]
   },
   "criteria": {
-    "has_machine_frame": {
+    "has_dusts_redstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "caelum:machine_frame"
-            ]
+            "tag": "forge:dusts/redstone"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "caelum:material_hopper"
+        "recipe": "caelum:energy_port"
       }
     }
   },
   "requirements": [
     [
-      "has_machine_frame",
+      "has_dusts_redstone",
       "has_the_recipe"
     ]
   ]
