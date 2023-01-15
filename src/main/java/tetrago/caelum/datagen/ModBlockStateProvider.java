@@ -36,6 +36,8 @@ public class ModBlockStateProvider extends BlockStateProvider
         simpleBlock(ModBlocks.TITANIUM_BLOCK.get());
 
         simpleBlock(ModBlocks.REFIRED_BRICKS.get());
+        simpleBlock(ModBlocks.MACHINE_FRAME.get());
+
         simpleBlock(ModBlocks.COPPER_COIL.get(), models().cubeTop(ModBlocks.COPPER_COIL.getId().getPath(), modLoc("block/copper_coil_side"), modLoc("block/copper_coil_top")));
 
         horizontalDirectionalBlock(ModBlocks.ARC_FURNACE_CONTROLLER.get(), state ->

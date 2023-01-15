@@ -35,6 +35,7 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.TITANIUM_BLOCK.get(), "Block of Titanium");
 
         add(ModBlocks.REFIRED_BRICKS.get(), "Refired Bricks");
+        add(ModBlocks.MACHINE_FRAME.get(), "Machine Frame");
 
         add(ModBlocks.COPPER_COIL.get(), "Copper Coil");
 

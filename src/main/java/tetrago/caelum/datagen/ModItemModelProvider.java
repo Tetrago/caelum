@@ -28,8 +28,9 @@ public class ModItemModelProvider extends ItemModelProvider
         simpleBlockItem(ModItems.TITANIUM_BLOCK);
 
         simpleBlockItem(ModItems.REFIRED_BRICKS);
+        simpleBlockItem(ModItems.MACHINE_FRAME);
 
-        simpleBlockItem(ModItems.COPPER_OIL);
+        simpleBlockItem(ModItems.COPPER_COIL);
 
         simpleBlockItem(ModItems.ARC_FURNACE_CONTROLLER);
         simpleBlockItem(ModItems.MATERIAL_HOPPER);

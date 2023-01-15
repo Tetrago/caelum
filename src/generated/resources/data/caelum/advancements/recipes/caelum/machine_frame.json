@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "caelum:basic_circuit_board"
+      "caelum:machine_frame"
     ]
   },
   "criteria": {
@@ -16,22 +16,12 @@
         ]
       }
     },
-    "has_ingots_copper": {
+    "has_ingots_steel": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/copper"
-          }
-        ]
-      }
-    },
-    "has_dusts_redstone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:dusts/redstone"
+            "tag": "forge:ingots/steel"
           }
         ]
       }
@@ -39,15 +29,14 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "caelum:basic_circuit_board"
+        "recipe": "caelum:machine_frame"
       }
     }
   },
   "requirements": [
     [
       "has_ingots_aluminum",
-      "has_ingots_copper",
-      "has_dusts_redstone",
+      "has_ingots_steel",
       "has_the_recipe"
     ]
   ]

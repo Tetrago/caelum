@@ -5,6 +5,7 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,12 +41,22 @@ public class ModRecipeProvider extends RecipeProvider
                 .pattern("C")
                 .pattern("R")
                 .pattern("A")
-                .unlockedBy("has_aluminum_ingot", criterion(ModItems.ALUMINUM_INGOT.get()))
-                .unlockedBy("has_copper_ingot", criterion(Items.COPPER_INGOT))
-                .unlockedBy("has_redstone", criterion(Items.REDSTONE))
+                .unlockedBy("has_ingots_aluminum", criterion(ModItemTagsProvider.INGOTS_ALUMINUM))
+                .unlockedBy("has_ingots_copper", criterion(Tags.Items.INGOTS_COPPER))
+                .unlockedBy("has_dusts_redstone", criterion(Tags.Items.DUSTS_REDSTONE))
                 .save(builder);
 
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BRICKS), ModBlocks.REFIRED_BRICKS.get(), 0, 200);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.MACHINE_FRAME.get())
+                .define('A', ModItemTagsProvider.INGOTS_ALUMINUM)
+                .define('S', ModItemTagsProvider.INGOTS_STEEL)
+                .pattern("A A")
+                .pattern(" S ")
+                .pattern("A A")
+                .unlockedBy("has_ingots_aluminum", criterion(ModItemTagsProvider.INGOTS_ALUMINUM))
+                .unlockedBy("has_ingots_steel", criterion(ModItemTagsProvider.INGOTS_STEEL))
+                .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.COPPER_COIL.get())
                 .define('I', Tags.Items.INGOTS_IRON)
@@ -53,7 +64,8 @@ public class ModRecipeProvider extends RecipeProvider
                 .pattern("CCC")
                 .pattern("CIC")
                 .pattern("CCC")
-                .unlockedBy("has_iron_ingot", criterion(Items.IRON_INGOT));
+                .unlockedBy("has_ingots_iron", criterion(Tags.Items.INGOTS_IRON))
+                .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MATERIAL_HOPPER.get())
                 .define('I', ModItemTagsProvider.INGOTS_ALUMINUM)
@@ -70,8 +82,8 @@ public class ModRecipeProvider extends RecipeProvider
                 .define('R', Tags.Items.DUSTS_REDSTONE)
                 .pattern("GGG")
                 .pattern("RCR")
-                .unlockedBy("has_copper_ingot", criterion(Items.COPPER_INGOT))
-                .unlockedBy("has_redstone", criterion(Items.REDSTONE))
+                .unlockedBy("has_ingots_copper", criterion(Tags.Items.INGOTS_COPPER))
+                .unlockedBy("has_dusts_redstone", criterion(Tags.Items.DUSTS_REDSTONE))
                 .save(builder);
 
         ShapedRecipeBuilder.shaped(ModBlocks.BASIC_SOLAR_PANEL.get())
@@ -132,5 +144,10 @@ public class ModRecipeProvider extends RecipeProvider
     private static CriterionTriggerInstance criterion(ItemLike item)
     {
         return inventoryTrigger(ItemPredicate.Builder.item().of(item).build());
+    }
+
+    private static CriterionTriggerInstance criterion(TagKey<Item> tag)
+    {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(tag).build());
     }
 }

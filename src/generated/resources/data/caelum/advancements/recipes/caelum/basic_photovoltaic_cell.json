@@ -6,26 +6,22 @@
     ]
   },
   "criteria": {
-    "has_copper_ingot": {
+    "has_ingots_copper": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:copper_ingot"
-            ]
+            "tag": "forge:ingots/copper"
           }
         ]
       }
     },
-    "has_redstone": {
+    "has_dusts_redstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:redstone"
-            ]
+            "tag": "forge:dusts/redstone"
           }
         ]
       }
@@ -39,8 +35,8 @@
   },
   "requirements": [
     [
-      "has_copper_ingot",
-      "has_redstone",
+      "has_ingots_copper",
+      "has_dusts_redstone",
       "has_the_recipe"
     ]
   ]
